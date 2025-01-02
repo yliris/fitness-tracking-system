@@ -28,7 +28,7 @@ public class LoginForm extends javax.swing.JFrame {
         panelBorder1 = new Resources.panel.PanelBorder();
         forgot_pass_btn = new javax.swing.JButton();
         signup_btn = new javax.swing.JButton();
-        user_field = new javax.swing.JTextField();
+        username_field = new javax.swing.JTextField();
         user_login_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         password_field = new javax.swing.JPasswordField();
@@ -106,8 +106,8 @@ public class LoginForm extends javax.swing.JFrame {
         });
         panelBorder1.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, -1, -1));
 
-        user_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(user_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
 
         user_login_btn.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
         user_login_btn.setText("Sign in");
@@ -119,7 +119,7 @@ public class LoginForm extends javax.swing.JFrame {
         panelBorder1.add(user_login_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 300, -1));
 
         jLabel1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel1.setText("Email/Username");
+        jLabel1.setText("Username");
         panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
@@ -233,16 +233,15 @@ public class LoginForm extends javax.swing.JFrame {
         PreparedStatement ps;
         ResultSet rs;
 
-        String userOrEmail = user_field.getText().trim();
+        String username = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
-        String loginQuery = "SELECT * FROM `tb_users` WHERE (`cvsu_email` =? OR `username` =?) AND `password` =?";
+        String loginQuery = "SELECT * FROM `tb_users` WHERE `username` =? AND `password` =?";
 
         try {
             ps = DatabaseConnection.getConnection().prepareStatement(loginQuery);
-            ps.setString(1, userOrEmail);
-            ps.setString(2, userOrEmail);
-            ps.setString(3, password);
+            ps.setString(1, username);
+            ps.setString(2, password);
 
             rs = ps.executeQuery();
             if(rs.next()) {
@@ -250,7 +249,7 @@ public class LoginForm extends javax.swing.JFrame {
                 dispose();
                 new UserHome().setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid Email/Username or Password.");
+                JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,12 +266,12 @@ public class LoginForm extends javax.swing.JFrame {
             @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
         };
-        user_field.getDocument().addDocumentListener(documentListener);
+        username_field.getDocument().addDocumentListener(documentListener);
         password_field.getDocument().addDocumentListener(documentListener);
     }
     
     private void toggleLoginButton() {
-        String username = user_field.getText().trim();
+        String username = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         user_login_btn.setEnabled(!username.isEmpty() && !password.isEmpty());
     }
@@ -346,7 +345,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_forgot_pass_btnMouseReleased
 
     private void admin_login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_login_btnActionPerformed
-        String user = user_field.getText().trim();
+        String user = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
         if ("admin".equalsIgnoreCase(user) && "admin123".equals(password)) {
@@ -408,7 +407,7 @@ public class LoginForm extends javax.swing.JFrame {
     private Resources.panel.PanelBorder panelBorder2;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JButton signup_btn;
-    private javax.swing.JTextField user_field;
     private javax.swing.JButton user_login_btn;
+    private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
 }
