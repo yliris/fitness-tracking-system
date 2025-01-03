@@ -4,11 +4,13 @@ import Connection.DatabaseConnection;
 import Home.AdminHome;
 import Home.UserHome;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
@@ -19,45 +21,88 @@ public class LoginForm extends javax.swing.JFrame {
         setupLoginButtonListener();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(LoginForm.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        element = new javax.swing.JLabel();
+        message = new javax.swing.JLabel();
         panelBorder1 = new Resources.panel.PanelBorder();
-        forgot_pass_btn = new javax.swing.JButton();
-        signup_btn = new javax.swing.JButton();
         username_field = new javax.swing.JTextField();
-        user_login_btn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         password_field = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        exit_btn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        login_message = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
+        password = new javax.swing.JLabel();
+        signup_message = new javax.swing.JLabel();
+        or = new javax.swing.JLabel();
+        admin_message = new javax.swing.JLabel();
+        forgot_pass_btn = new javax.swing.JButton();
+        user_login_btn = new javax.swing.JButton();
+        signup_btn = new javax.swing.JButton();
         admin_login_btn = new javax.swing.JButton();
+        exit_btn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         panelBorder2 = new Resources.panel.PanelBorder();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         mover = new Resources.panel.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        element.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/login-element.png"))); // NOI18N
+        getContentPane().add(element, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, -1));
+
+        message.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        message.setForeground(new java.awt.Color(255, 255, 255));
+        message.setText("Welcome Back!");
+        getContentPane().add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        forgot_pass_btn.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
+
+        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 300, -1));
+
+        login_message.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        login_message.setText("Login to your Account");
+        panelBorder1.add(login_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+
+        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username.setText("Username");
+        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 125, -1, -1));
+
+        password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password.setText("Password");
+        panelBorder1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 185, -1, -1));
+
+        signup_message.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        signup_message.setText("Don't have an account?");
+        panelBorder1.add(signup_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
+
+        or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        or.setForeground(new java.awt.Color(153, 153, 153));
+        or.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        or.setText("Or");
+        panelBorder1.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 386, 20, -1));
+
+        admin_message.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        admin_message.setText("Sign in as");
+        panelBorder1.add(admin_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 435, -1, -1));
+
+        forgot_pass_btn.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         forgot_pass_btn.setText("Forgot Password?");
         forgot_pass_btn.setBorder(null);
         forgot_pass_btn.setBorderPainted(false);
         forgot_pass_btn.setContentAreaFilled(false);
+        forgot_pass_btn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         forgot_pass_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 forgot_pass_btnMouseEntered(evt);
@@ -79,7 +124,18 @@ public class LoginForm extends javax.swing.JFrame {
         });
         panelBorder1.add(forgot_pass_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 100, 20));
 
-        signup_btn.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
+        user_login_btn.setBackground(new java.awt.Color(102, 102, 255));
+        user_login_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        user_login_btn.setForeground(new java.awt.Color(255, 255, 255));
+        user_login_btn.setText("SIGN IN");
+        user_login_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_login_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(user_login_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 300, -1));
+
+        signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         signup_btn.setForeground(new java.awt.Color(10, 177, 52));
         signup_btn.setText("Sign Up");
         signup_btn.setBorder(null);
@@ -106,69 +162,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
         panelBorder1.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, -1, -1));
 
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
-
-        user_login_btn.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        user_login_btn.setText("Sign in");
-        user_login_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_login_btnActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(user_login_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 300, -1));
-
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel1.setText("Username");
-        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
-
-        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 300, -1));
-
-        jLabel2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel2.setText("Password");
-        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Or");
-        panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 386, 20, -1));
-
-        jLabel3.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel3.setText("Don't have an account?");
-        panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
-
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
-        exit_btn.setBorder(null);
-        exit_btn.setBorderPainted(false);
-        exit_btn.setContentAreaFilled(false);
-        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exit_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exit_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exit_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exit_btnMouseReleased(evt);
-            }
-        });
-        exit_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exit_btnActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 5, 30, 30));
-
-        jLabel4.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
-        jLabel4.setText("Login to your Account");
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
-
-        admin_login_btn.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
+        admin_login_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         admin_login_btn.setForeground(new java.awt.Color(91, 91, 255));
         admin_login_btn.setText("Admin");
         admin_login_btn.setBorder(null);
@@ -194,24 +188,38 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(admin_login_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 435, -1, -1));
-        panelBorder1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 140, 10));
 
-        jLabel6.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel6.setText("Sign in as");
-        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 435, -1, -1));
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn.setBorder(null);
+        exit_btn.setBorderPainted(false);
+        exit_btn.setContentAreaFilled(false);
+        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btnMouseReleased(evt);
+            }
+        });
+        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 5, 30, 30));
+        panelBorder1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 140, 10));
         panelBorder1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 140, 10));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 420, 480));
 
-        panelBorder2.setBackground(new java.awt.Color(102, 102, 102));
+        panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
         panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel7.setText("element");
-        panelBorder2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
-
-        jLabel13.setText("logo");
-        panelBorder2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
         getContentPane().add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 480));
         getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
 
@@ -221,7 +229,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void forgot_pass_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgot_pass_btnActionPerformed
         new ForgotPassword1().setVisible(true);
-        dispose();
     }//GEN-LAST:event_forgot_pass_btnActionPerformed
 
     private void signup_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_btnActionPerformed
@@ -250,6 +257,8 @@ public class LoginForm extends javax.swing.JFrame {
                 new UserHome().setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
+                username_field.setText("");
+                password_field.setText("");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -390,24 +399,24 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton admin_login_btn;
+    private javax.swing.JLabel admin_message;
+    private javax.swing.JLabel element;
     private javax.swing.JButton exit_btn;
     private javax.swing.JButton forgot_pass_btn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel login_message;
+    private javax.swing.JLabel message;
     private Resources.panel.PanelMover mover;
+    private javax.swing.JLabel or;
     private Resources.panel.PanelBorder panelBorder1;
     private Resources.panel.PanelBorder panelBorder2;
+    private javax.swing.JLabel password;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JButton signup_btn;
+    private javax.swing.JLabel signup_message;
     private javax.swing.JButton user_login_btn;
+    private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,7 @@
 package Account;
 
 import Connection.DatabaseConnection;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,18 +18,39 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         setupAnswerFieldListener();
         proceed_btn.setEnabled(false);
         loadSecurityQuestion();
+        setBackground(new Color(0, 0, 0, 0));
+        mover.initMoving(ForgotPassword2.this);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelBorder1 = new Resources.panel.PanelBorder();
+        answer1 = new javax.swing.JLabel();
+        answer = new javax.swing.JLabel();
         back_btn = new javax.swing.JButton();
-        question_label = new javax.swing.JLabel();
-        sec_answer_field = new javax.swing.JTextField();
+        secanswer_field = new javax.swing.JTextField();
         proceed_btn = new javax.swing.JButton();
+        exit_btn = new javax.swing.JButton();
+        question = new javax.swing.JLabel();
+        mover = new Resources.panel.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
+        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        answer1.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        answer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        answer1.setText("Note: Your answer must be the same format as the one you created during the signup process.");
+        panelBorder1.add(answer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 580, 20));
+
+        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        answer.setText("Answer:");
+        panelBorder1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 60, 20));
 
         back_btn.setText("back to login");
         back_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -36,77 +58,75 @@ public class ForgotPassword2 extends javax.swing.JFrame {
                 back_btnActionPerformed(evt);
             }
         });
+        panelBorder1.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 271, -1, -1));
 
-        question_label.setText("Validation question:");
+        secanswer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(secanswer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 330, -1));
 
-        proceed_btn.setText("Proceed");
+        proceed_btn.setBackground(new java.awt.Color(102, 102, 255));
+        proceed_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        proceed_btn.setForeground(new java.awt.Color(255, 255, 255));
+        proceed_btn.setText("PROCEED");
         proceed_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 proceed_btnActionPerformed(evt);
             }
         });
+        panelBorder1.add(proceed_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 120, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(sec_answer_field)
-                .addGap(43, 43, 43))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(question_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(back_btn)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(proceed_btn)
-                .addContainerGap(180, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(question_label)
-                .addGap(18, 18, 18)
-                .addComponent(sec_answer_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(proceed_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(back_btn)
-                .addContainerGap())
-        );
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn.setBorder(null);
+        exit_btn.setBorderPainted(false);
+        exit_btn.setContentAreaFilled(false);
+        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btnMouseReleased(evt);
+            }
+        });
+        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 5, 30, 30));
+
+        question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        question.setText("Validation Question:");
+        panelBorder1.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 600, -1));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 20));
+
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 200));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        new LoginForm().setVisible(true);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_back_btnActionPerformed
 
     private void proceed_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceed_btnActionPerformed
-        String answer = sec_answer_field.getText().trim();
-
-        if (answer.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please provide an answer.");
-            return;
-        }
+        String answer = secanswer_field.getText().trim();
         
-        String query = "SELECT * FROM `tb_users` WHERE `username` = ? AND `security_answer` = ?";
-        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query)) {
+        String checkAnswerQuery = "SELECT * FROM `tb_users` WHERE `username` = ? AND `sec_answer` = ?";
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(checkAnswerQuery)) {
             ps.setString(1, username);
             ps.setString(2, answer);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Answer correct! Proceeding...");
                     new ForgotPassword3(username).setVisible(true);
-                    dispose();
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Incorrect answer. Please try again.");
                 }
@@ -116,14 +136,14 @@ public class ForgotPassword2 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "An error occurred while validating the answer.");
         }
     }//GEN-LAST:event_proceed_btnActionPerformed
-    
+
     private void loadSecurityQuestion() {
-        String query = "SELECT `security_question` FROM `tb_users` WHERE `username` = ?";
+        String query = "SELECT `sec_question` FROM `tb_users` WHERE `username` = ?";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query)) {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    question_label.setText("Validation question: " + rs.getString("security_question"));
+                    question.setText("Validation question: " + rs.getString("sec_question"));
                 } else {
                     JOptionPane.showMessageDialog(this, "No security question found for the user.");
                     dispose();
@@ -137,7 +157,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     }
 
     private void setupAnswerFieldListener() {
-        sec_answer_field.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        secanswer_field.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) { toggleProceedButton(); }
             @Override
@@ -148,10 +168,30 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     }
 
     private void toggleProceedButton() {
-        String answer = sec_answer_field.getText().trim();
+        String answer = secanswer_field.getText().trim();
         proceed_btn.setEnabled(!answer.isEmpty());
-    }
+    }    
     
+    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseEntered
+
+    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btnMouseExited
+
+    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btnMousePressed
+
+    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseReleased
+
+    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_exit_btnActionPerformed
+        
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -177,18 +217,24 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         //</editor-fold>
         
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new ForgotPassword2("example_username").setVisible(true);
+                    new ForgotPassword2("user").setVisible(true);
                 });
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel answer;
+    private javax.swing.JLabel answer1;
     private javax.swing.JButton back_btn;
+    private javax.swing.JButton exit_btn;
+    private Resources.panel.PanelMover mover;
+    private Resources.panel.PanelBorder panelBorder1;
     private javax.swing.JButton proceed_btn;
-    private javax.swing.JLabel question_label;
-    private javax.swing.JTextField sec_answer_field;
+    private javax.swing.JLabel question;
+    private javax.swing.JTextField secanswer_field;
     // End of variables declaration//GEN-END:variables
 }

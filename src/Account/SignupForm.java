@@ -2,11 +2,13 @@ package Account;
 
 import Connection.DatabaseConnection;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class SignupForm extends javax.swing.JFrame {
@@ -17,37 +19,45 @@ public class SignupForm extends javax.swing.JFrame {
         setupSignupButtonListener();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(SignupForm.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new Resources.panel.PanelBorder();
-        signup_btn = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        sec_question_field = new javax.swing.JTextField();
-        last_name_field = new javax.swing.JTextField();
-        password_field = new javax.swing.JPasswordField();
-        jLabel5 = new javax.swing.JLabel();
+        element = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        panelBorder1 = new Resources.panel.PanelBorder();
+        username_field = new javax.swing.JTextField();
         first_name_field = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        last_name_field = new javax.swing.JTextField();
+        weight_field = new javax.swing.JTextField();
+        height_field = new javax.swing.JTextField();
+        password_field = new javax.swing.JPasswordField();
+        sec_question_field = new javax.swing.JTextField();
         sec_answer_field = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        create_account = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
+        first_name = new javax.swing.JLabel();
+        last_name = new javax.swing.JLabel();
+        weight = new javax.swing.JLabel();
+        height = new javax.swing.JLabel();
+        password = new javax.swing.JLabel();
+        question = new javax.swing.JLabel();
+        question_guide = new javax.swing.JLabel();
+        answer = new javax.swing.JLabel();
+        answer_guide = new javax.swing.JLabel();
+        validation = new javax.swing.JLabel();
+        signup_btn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        username_field = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
         panelBorder2 = new Resources.panel.PanelBorder();
-        jLabel1 = new javax.swing.JLabel();
         back_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
         mover = new Resources.panel.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,88 +65,122 @@ public class SignupForm extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        element.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/signup-element.png"))); // NOI18N
+        getContentPane().add(element, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Unlock Your Potential!");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 35, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Track Your Progress!");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 75, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Achieve Your Goals!");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 445, -1, -1));
+
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        signup_btn.setText("Sign up");
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, -1));
+
+        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 160, -1));
+
+        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 160, -1));
+
+        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 160, -1));
+
+        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, -1));
+
+        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_field.setEchoChar('\u0000');
+        panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 330, -1));
+
+        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 330, -1));
+
+        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 330, -1));
+
+        create_account.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        create_account.setText("Create Account");
+        panelBorder1.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username.setText("Username");
+        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 65, -1, -1));
+
+        first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        first_name.setText("First Name");
+        panelBorder1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, -1, -1));
+
+        last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        last_name.setText("Last Name");
+        panelBorder1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 115, -1, -1));
+
+        weight.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        weight.setText("Weight (kg)");
+        panelBorder1.add(weight, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 165, -1, -1));
+
+        height.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        height.setText("Height (cm)");
+        panelBorder1.add(height, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 165, -1, -1));
+
+        password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password.setText("Password");
+        panelBorder1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, -1, -1));
+
+        question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question.setText("Your Question");
+        panelBorder1.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 305, -1, -1));
+
+        question_guide.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        question_guide.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        question_guide.setText("(write your own question for password reset)");
+        panelBorder1.add(question_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, 10));
+
+        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        answer.setText("Your Answer");
+        panelBorder1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 355, -1, -1));
+
+        answer_guide.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        answer_guide.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        answer_guide.setText("(make sure to remember your answer)");
+        panelBorder1.add(answer_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 360, -1, 10));
+
+        validation.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        validation.setForeground(new java.awt.Color(153, 153, 153));
+        validation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        validation.setText("Validation for Password Reset");
+        panelBorder1.add(validation, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 279, 150, -1));
+
+        signup_btn.setBackground(new java.awt.Color(102, 102, 255));
+        signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        signup_btn.setForeground(new java.awt.Color(255, 255, 255));
+        signup_btn.setText("SIGN UP");
+        signup_btn.setAlignmentY(0.0F);
         signup_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signup_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 350, -1));
-
-        jLabel7.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel7.setText("Your Answer");
-        panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 345, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Consolas", 0, 9)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel6.setText("(make sure to remember your answer)");
-        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 347, -1, 10));
-
-        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 350, -1));
-
-        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 170, -1));
-
-        password_field.setEchoChar('\u0000');
-        panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 350, -1));
-
-        jLabel5.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel5.setText("Password");
-        panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 205, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel2.setText("First Name");
-        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 155, -1, -1));
-
-        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 170, -1));
-
-        jLabel9.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel9.setText("Last Name");
-        panelBorder1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 155, -1, -1));
-
-        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 350, -1));
-
-        jLabel4.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
-        jLabel4.setText("Create Account");
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel8.setText("Your Question");
-        panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 295, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Consolas", 0, 9)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel10.setText("(write your own question for password reset)");
-        panelBorder1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 297, -1, 10));
-
-        jLabel11.setFont(new java.awt.Font("Consolas", 0, 9)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Validation for password reset");
-        panelBorder1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 268, 150, -1));
-        panelBorder1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 100, 10));
-        panelBorder1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 100, 10));
-
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 350, -1));
-
-        jLabel12.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel12.setText("Username");
-        panelBorder1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 105, -1, -1));
+        panelBorder1.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 330, -1));
+        panelBorder1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 283, 90, 10));
+        panelBorder1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 283, 80, 10));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 480));
 
-        panelBorder2.setBackground(new java.awt.Color(102, 102, 102));
+        panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
         panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("element");
-        panelBorder2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-idle.png"))); // NOI18N
         back_btn.setBorder(null);
@@ -187,9 +231,6 @@ public class SignupForm extends javax.swing.JFrame {
             }
         });
         panelBorder2.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 5, 30, 30));
-
-        jLabel13.setText("logo");
-        panelBorder2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, -1, -1));
 
         getContentPane().add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
         getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
@@ -243,20 +284,27 @@ public class SignupForm extends javax.swing.JFrame {
         String username = username_field.getText().trim();
         String firstname = first_name_field.getText().trim();
         String lastname = last_name_field.getText().trim();
+        String weight = weight_field.getText().trim();
+        String height = height_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
 
-        //CHECK IF ALL FIELDS ARE EMPTY
-        if (firstname.isEmpty() && lastname.isEmpty() && username.isEmpty() &&
-            password.isEmpty() && sec_question.isEmpty() && sec_answer.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "All fields are empty. Please fill in the form.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        //CHECK IF WEIGHT AND HEIGHT ARE NUMBER VALUES
+        if (!isNumeric(weight) || !isNumeric(height)) {
+            JOptionPane.showMessageDialog(null, "Weight and height must be numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //CHECK IF SOME FIELDS ARE EMPTY
-        if (firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() ||
-            password.isEmpty() || sec_question.isEmpty() || sec_answer.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please complete all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        //CHECK IF WEIGHT AND HEIGHT FORMAT ARE CORRECT
+        if (!isValidFormat(weight) || !isValidFormat(height)) {
+            JOptionPane.showMessageDialog(null, 
+                "Height and weight must be in the format ###.## (e.g., 111.11)", 
+                "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF PASSWORD IS STRONG
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -286,21 +334,26 @@ public class SignupForm extends javax.swing.JFrame {
             }
 
             //INSERT NEW USER TO DATABASE
-            String insertQuery = "INSERT INTO `tb_users`(`username`, `first_name`, `last_name`, `password`, `sec_question`, `sec_answer`)"
-            + "VALUES (?,?,?,?,?,?)";
+            String insertQuery = "INSERT INTO `tb_users`"
+                    + "(`username`, `first_name`, `last_name`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, username);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
-            ps.setString(4, password);
-            ps.setString(5, sec_question);
-            ps.setString(6, sec_answer);
+            ps.setString(4, weight);
+            ps.setString(5, height);
+            ps.setString(6, password);
+            ps.setString(7, sec_question);
+            ps.setString(8, sec_answer);
 
             if(ps.executeUpdate() > 0){
                 JOptionPane.showMessageDialog(null, "New user added!");
                 username_field.setText("");
                 first_name_field.setText("");
                 last_name_field.setText("");
+                weight_field.setText("");
+                height_field.setText("");
                 password_field.setText("");
                 sec_question_field.setText("");
                 sec_answer_field.setText("");
@@ -323,6 +376,8 @@ public class SignupForm extends javax.swing.JFrame {
         first_name_field.getDocument().addDocumentListener(documentListener);
         last_name_field.getDocument().addDocumentListener(documentListener);
         password_field.getDocument().addDocumentListener(documentListener);
+        weight_field.getDocument().addDocumentListener(documentListener);
+        height_field.getDocument().addDocumentListener(documentListener);
         sec_question_field.getDocument().addDocumentListener(documentListener);
         sec_answer_field.getDocument().addDocumentListener(documentListener);
     }
@@ -331,13 +386,32 @@ public class SignupForm extends javax.swing.JFrame {
         String username = username_field.getText().trim();
         String firstname = first_name_field.getText().trim();
         String lastname = last_name_field.getText().trim();
+        String weight = weight_field.getText().trim();
+        String height = height_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         String secQuestion = sec_question_field.getText().trim();
         String secAnswer = sec_answer_field.getText().trim();
         signup_btn.setEnabled(
             !username.isEmpty() && !firstname.isEmpty() &&
+            !weight.isEmpty() && !height.isEmpty() &&
             !lastname.isEmpty() && !password.isEmpty() &&
             !secQuestion.isEmpty() && !secAnswer.isEmpty());
+    }
+    
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.valueOf(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    private boolean isValidFormat(String value) {
+        return value.matches("^\\d{1,3}(\\.\\d{1,2})?$");
     }
         
     public static void main(String args[]) {
@@ -371,31 +445,37 @@ public class SignupForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel answer;
+    private javax.swing.JLabel answer_guide;
     private javax.swing.JButton back_btn;
+    private javax.swing.JLabel create_account;
+    private javax.swing.JLabel element;
     private javax.swing.JButton exit_btn;
+    private javax.swing.JLabel first_name;
     private javax.swing.JTextField first_name_field;
+    private javax.swing.JLabel height;
+    private javax.swing.JTextField height_field;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
     private Resources.panel.PanelMover mover;
     private Resources.panel.PanelBorder panelBorder1;
     private Resources.panel.PanelBorder panelBorder2;
+    private javax.swing.JLabel password;
     private javax.swing.JPasswordField password_field;
+    private javax.swing.JLabel question;
+    private javax.swing.JLabel question_guide;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
     private javax.swing.JButton signup_btn;
+    private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
+    private javax.swing.JLabel validation;
+    private javax.swing.JLabel weight;
+    private javax.swing.JTextField weight_field;
     // End of variables declaration//GEN-END:variables
 }

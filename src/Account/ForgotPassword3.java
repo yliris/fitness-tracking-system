@@ -1,6 +1,7 @@
 package Account;
 
 import Connection.DatabaseConnection;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,98 +16,80 @@ public class ForgotPassword3 extends javax.swing.JFrame {
         initComponents();
         reset_btn.setEnabled(false);
         setupPasswordFieldListener();
+        setBackground(new Color(0, 0, 0, 0));
+        mover.initMoving(ForgotPassword3.this);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        back_btn = new javax.swing.JButton();
-        new_password_field = new javax.swing.JPasswordField();
-        re_new_password_field = new javax.swing.JPasswordField();
+        panelBorder1 = new Resources.panel.PanelBorder();
+        newpassword_field = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         reset_btn = new javax.swing.JButton();
+        exit_btn = new javax.swing.JButton();
+        mover = new Resources.panel.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        back_btn.setText("back to login");
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
-            }
-        });
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
+        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("enter new password");
+        newpassword_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(newpassword_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 290, -1));
 
-        jLabel2.setText("retype new password");
+        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        jLabel1.setText("Enter new password");
+        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
-        reset_btn.setText("reset password");
+        reset_btn.setBackground(new java.awt.Color(102, 102, 255));
+        reset_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        reset_btn.setForeground(new java.awt.Color(255, 255, 255));
+        reset_btn.setText("RESET PASSWORD");
         reset_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reset_btnActionPerformed(evt);
             }
         });
+        panelBorder1.add(reset_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 170, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 295, Short.MAX_VALUE)
-                        .addComponent(back_btn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(new_password_field)
-                                .addComponent(re_new_password_field, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(reset_btn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(new_password_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(5, 5, 5)
-                .addComponent(re_new_password_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(reset_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(back_btn)
-                .addContainerGap())
-        );
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn.setBorder(null);
+        exit_btn.setBorderPainted(false);
+        exit_btn.setContentAreaFilled(false);
+        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btnMouseReleased(evt);
+            }
+        });
+        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 5, 30, 30));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 20));
+
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 190));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        new LoginForm().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_back_btnActionPerformed
-
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
-        String newPassword = new String(new_password_field.getPassword());
-        String reNewPassword = new String(re_new_password_field.getPassword());
-        
-        if (!newPassword.equals(reNewPassword)) {
-            JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        String newPassword = new String(newpassword_field.getPassword());
         
         try (Connection conn = DatabaseConnection.getConnection()) {
             String checkPasswordQuery = "SELECT password FROM tb_users WHERE username = ?";
@@ -133,8 +116,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Password successfully reset!\nBack to login", "Success", JOptionPane.INFORMATION_MESSAGE);
-                new LoginForm().setVisible(true);
-                dispose();
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to reset password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -142,7 +124,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_reset_btnActionPerformed
-    
+
     private void setupPasswordFieldListener() {
         javax.swing.event.DocumentListener listener = new javax.swing.event.DocumentListener() {
             @Override
@@ -153,15 +135,34 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleResetButton(); }
         };
 
-        new_password_field.getDocument().addDocumentListener(listener);
-        re_new_password_field.getDocument().addDocumentListener(listener);
+        newpassword_field.getDocument().addDocumentListener(listener);
     }
 
     private void toggleResetButton() {
-        boolean enable = !new_password_field.getText().isEmpty() && !re_new_password_field.getText().isEmpty();
+        boolean enable = !newpassword_field.getText().isEmpty();
         reset_btn.setEnabled(enable);
-    }
+    }    
     
+    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseEntered
+
+    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btnMouseExited
+
+    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btnMousePressed
+
+    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseReleased
+
+    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_exit_btnActionPerformed
+        
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -187,20 +188,21 @@ public class ForgotPassword3 extends javax.swing.JFrame {
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new ForgotPassword3("test_user").setVisible(true);
+                    new ForgotPassword3("user").setVisible(true);
                 });
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back_btn;
+    private javax.swing.JButton exit_btn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField new_password_field;
-    private javax.swing.JPasswordField re_new_password_field;
+    private Resources.panel.PanelMover mover;
+    private javax.swing.JPasswordField newpassword_field;
+    private Resources.panel.PanelBorder panelBorder1;
     private javax.swing.JButton reset_btn;
     // End of variables declaration//GEN-END:variables
 }
