@@ -31,7 +31,8 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        panelBorder1 = new Resources.panel.PanelBorder();
+        panelBorder1 = new Resources.components.PanelBorder();
+        password_check = new javax.swing.JToggleButton();
         username_field = new javax.swing.JTextField();
         first_name_field = new javax.swing.JTextField();
         last_name_field = new javax.swing.JTextField();
@@ -55,10 +56,10 @@ public class SignupForm extends javax.swing.JFrame {
         signup_btn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        panelBorder2 = new Resources.panel.PanelBorder();
+        panelBorder2 = new Resources.components.PanelBorder();
         back_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
-        mover = new Resources.panel.PanelMover();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -86,6 +87,20 @@ public class SignupForm extends javax.swing.JFrame {
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
+        password_check.setAlignmentY(0.0F);
+        password_check.setBorder(null);
+        password_check.setBorderPainted(false);
+        password_check.setContentAreaFilled(false);
+        password_check.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        password_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_checkActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 234, 20, 20));
+
         username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, -1));
 
@@ -102,7 +117,6 @@ public class SignupForm extends javax.swing.JFrame {
         panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        password_field.setEchoChar('\u0000');
         panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 330, -1));
 
         sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
@@ -298,7 +312,7 @@ public class SignupForm extends javax.swing.JFrame {
         //CHECK IF WEIGHT AND HEIGHT FORMAT ARE CORRECT
         if (!isValidFormat(weight) || !isValidFormat(height)) {
             JOptionPane.showMessageDialog(null, 
-                "Height and weight must be in the format ###.## (e.g., 111.11)", 
+                "Weight and height must be in proper format (e.g., ##.##/###.##)", 
                 "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -362,6 +376,16 @@ public class SignupForm extends javax.swing.JFrame {
             Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_signup_btnActionPerformed
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if(password_check.isSelected()){
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            password_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            password_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
 
     private void setupSignupButtonListener() {
         javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
@@ -462,10 +486,11 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
-    private Resources.panel.PanelMover mover;
-    private Resources.panel.PanelBorder panelBorder1;
-    private Resources.panel.PanelBorder panelBorder2;
+    private Resources.components.PanelMover mover;
+    private Resources.components.PanelBorder panelBorder1;
+    private Resources.components.PanelBorder panelBorder2;
     private javax.swing.JLabel password;
+    private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JLabel question;
     private javax.swing.JLabel question_guide;

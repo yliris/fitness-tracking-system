@@ -100,10 +100,10 @@ public class UserHome extends javax.swing.JFrame {
            JOptionPane.YES_NO_OPTION,
            JOptionPane.WARNING_MESSAGE);
 
-       if (confirmLogout == JOptionPane.YES_OPTION) {
+        if (confirmLogout == JOptionPane.YES_OPTION) {
            dispose();
            new LoginForm().setVisible(true);
-       }
+        }
     }//GEN-LAST:event_logout_btnActionPerformed
 
     private void deleteAccount(String username) {

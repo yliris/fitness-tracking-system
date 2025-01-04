@@ -2,10 +2,12 @@ package Account;
 
 import Connection.DatabaseConnection;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class ForgotPassword3 extends javax.swing.JFrame {
@@ -18,18 +20,20 @@ public class ForgotPassword3 extends javax.swing.JFrame {
         setupPasswordFieldListener();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(ForgotPassword3.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new Resources.panel.PanelBorder();
+        panelBorder1 = new Resources.components.PanelBorder();
         newpassword_field = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         reset_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
-        mover = new Resources.panel.PanelMover();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -97,6 +101,11 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             checkPs.setString(1, username);
             ResultSet rs = checkPs.executeQuery();
             
+            if (newPassword.length() < 8) {
+                JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             if (rs.next()) {
             String currentPassword = rs.getString("password");
                 if (newPassword.equals(currentPassword)) {
@@ -115,7 +124,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "Password successfully reset!\nBack to login", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Password successfully reset!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to reset password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -200,9 +209,9 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exit_btn;
     private javax.swing.JLabel jLabel1;
-    private Resources.panel.PanelMover mover;
+    private Resources.components.PanelMover mover;
     private javax.swing.JPasswordField newpassword_field;
-    private Resources.panel.PanelBorder panelBorder1;
+    private Resources.components.PanelBorder panelBorder1;
     private javax.swing.JButton reset_btn;
     // End of variables declaration//GEN-END:variables
 }

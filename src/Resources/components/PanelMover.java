@@ -1,4 +1,4 @@
-package Resources.panel;
+package Resources.components;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

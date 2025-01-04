@@ -30,8 +30,11 @@ public class LoginForm extends javax.swing.JFrame {
     private void initComponents() {
 
         element = new javax.swing.JLabel();
-        message = new javax.swing.JLabel();
-        panelBorder1 = new Resources.panel.PanelBorder();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        panelBorder1 = new Resources.components.PanelBorder();
+        password_check = new javax.swing.JToggleButton();
         username_field = new javax.swing.JTextField();
         password_field = new javax.swing.JPasswordField();
         login_message = new javax.swing.JLabel();
@@ -47,8 +50,8 @@ public class LoginForm extends javax.swing.JFrame {
         exit_btn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        panelBorder2 = new Resources.panel.PanelBorder();
-        mover = new Resources.panel.PanelMover();
+        panelBorder2 = new Resources.components.PanelBorder();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -57,13 +60,37 @@ public class LoginForm extends javax.swing.JFrame {
         element.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/login-element.png"))); // NOI18N
         getContentPane().add(element, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, -1));
 
-        message.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        message.setForeground(new java.awt.Color(255, 255, 255));
-        message.setText("Welcome Back!");
-        getContentPane().add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Track.");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Achieve.");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Transform.");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
+        password_check.setAlignmentY(0.0F);
+        password_check.setBorder(null);
+        password_check.setBorderPainted(false);
+        password_check.setContentAreaFilled(false);
+        password_check.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        password_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_checkActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 204, 20, 20));
 
         username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
@@ -257,8 +284,6 @@ public class LoginForm extends javax.swing.JFrame {
                 new UserHome().setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
-                username_field.setText("");
-                password_field.setText("");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -357,14 +382,26 @@ public class LoginForm extends javax.swing.JFrame {
         String user = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
-        if ("admin".equalsIgnoreCase(user) && "admin123".equals(password)) {
+        if ("admin".equals(user) && "admin123".equals(password)) {
             JOptionPane.showMessageDialog(null, "Admin Login Success!");
             dispose();
             new AdminHome().setVisible(true);
+        } else if(user.isEmpty() && password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in the fields.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Invalid admin credentials.");
+            JOptionPane.showMessageDialog(null, "Invalid credentials.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_admin_login_btnActionPerformed
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if(password_check.isSelected()){
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            password_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            password_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
     
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -403,15 +440,18 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel element;
     private javax.swing.JButton exit_btn;
     private javax.swing.JButton forgot_pass_btn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel login_message;
-    private javax.swing.JLabel message;
-    private Resources.panel.PanelMover mover;
+    private Resources.components.PanelMover mover;
     private javax.swing.JLabel or;
-    private Resources.panel.PanelBorder panelBorder1;
-    private Resources.panel.PanelBorder panelBorder2;
+    private Resources.components.PanelBorder panelBorder1;
+    private Resources.components.PanelBorder panelBorder2;
     private javax.swing.JLabel password;
+    private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JButton signup_btn;
     private javax.swing.JLabel signup_message;

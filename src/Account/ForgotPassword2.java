@@ -2,11 +2,13 @@ package Account;
 
 import Connection.DatabaseConnection;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class ForgotPassword2 extends javax.swing.JFrame {
@@ -20,21 +22,23 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         loadSecurityQuestion();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(ForgotPassword2.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new Resources.panel.PanelBorder();
-        answer1 = new javax.swing.JLabel();
-        answer = new javax.swing.JLabel();
+        panelBorder1 = new Resources.components.PanelBorder();
+        question1 = new javax.swing.JLabel();
+        instruction = new javax.swing.JLabel();
         back_btn = new javax.swing.JButton();
         secanswer_field = new javax.swing.JTextField();
         proceed_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
         question = new javax.swing.JLabel();
-        mover = new Resources.panel.PanelMover();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -43,14 +47,14 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        answer1.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
-        answer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        answer1.setText("Note: Your answer must be the same format as the one you created during the signup process.");
-        panelBorder1.add(answer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 580, 20));
+        question1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question1.setText("Answer:");
+        panelBorder1.add(question1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 82, 60, -1));
 
-        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        answer.setText("Answer:");
-        panelBorder1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 60, 20));
+        instruction.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        instruction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        instruction.setText("Note: Your answer must be the same format as the one you created during the signup process.");
+        panelBorder1.add(instruction, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 580, 20));
 
         back_btn.setText("back to login");
         back_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -227,14 +231,14 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel answer;
-    private javax.swing.JLabel answer1;
     private javax.swing.JButton back_btn;
     private javax.swing.JButton exit_btn;
-    private Resources.panel.PanelMover mover;
-    private Resources.panel.PanelBorder panelBorder1;
+    private javax.swing.JLabel instruction;
+    private Resources.components.PanelMover mover;
+    private Resources.components.PanelBorder panelBorder1;
     private javax.swing.JButton proceed_btn;
     private javax.swing.JLabel question;
+    private javax.swing.JLabel question1;
     private javax.swing.JTextField secanswer_field;
     // End of variables declaration//GEN-END:variables
 }
