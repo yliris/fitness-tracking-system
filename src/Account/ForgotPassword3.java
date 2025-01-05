@@ -29,6 +29,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBorder1 = new Resources.components.PanelBorder();
+        password_check = new javax.swing.JToggleButton();
         newpassword_field = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         reset_btn = new javax.swing.JButton();
@@ -41,6 +42,20 @@ public class ForgotPassword3 extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
+        password_check.setAlignmentY(0.0F);
+        password_check.setBorder(null);
+        password_check.setBorderPainted(false);
+        password_check.setContentAreaFilled(false);
+        password_check.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        password_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_checkActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 84, 20, 20));
 
         newpassword_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(newpassword_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 290, -1));
@@ -169,8 +184,26 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        this.dispose();
+        int confirmExit = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to exit?",
+                "Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmExit == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_exit_btnActionPerformed
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if(password_check.isSelected()){
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            newpassword_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            newpassword_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
         
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -212,6 +245,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     private Resources.components.PanelMover mover;
     private javax.swing.JPasswordField newpassword_field;
     private Resources.components.PanelBorder panelBorder1;
+    private javax.swing.JToggleButton password_check;
     private javax.swing.JButton reset_btn;
     // End of variables declaration//GEN-END:variables
 }

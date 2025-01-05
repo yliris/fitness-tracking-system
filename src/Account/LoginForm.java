@@ -327,7 +327,15 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_signup_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        dispose();
+        int confirmExit = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmExit == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
@@ -382,7 +390,8 @@ public class LoginForm extends javax.swing.JFrame {
         String user = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
-        if ("admin".equals(user) && "admin123".equals(password)) {
+        if ("admin1".equals(user) || "admin2".equals(user) || "admin3".equals(user) || "admin4".equals(user) || "admin5".equals(user)
+            && "admin123".equals(password)) {
             JOptionPane.showMessageDialog(null, "Admin Login Success!");
             dispose();
             new AdminHome().setVisible(true);

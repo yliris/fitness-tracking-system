@@ -2,13 +2,23 @@ package Home;
 
 import Account.LoginForm;
 import Connection.DatabaseConnection;
-import java.awt.Color;
+import Resources.components.TableActionCellEditor;
+import Resources.components.TableActionCellRender;
+import Resources.components.TableActionEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 public class AdminHome extends javax.swing.JFrame {
 
@@ -16,8 +26,119 @@ public class AdminHome extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(AdminHome.this);
-        loadUserDataToTable();
-        loadTotalUsers();
+        loadDataToTable();
+        updateTotalUsers();
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Edit row: " + row);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                deleteUser(row);
+            }
+        };
+        user_table.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender());
+        user_table.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
+    }
+
+    private void loadDataToTable() {
+        DefaultTableModel model = (DefaultTableModel) user_table.getModel();
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String query = "SELECT user_id, first_name, last_name, username, weight, height FROM tb_users";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String username = rs.getString("username");
+
+                float getWeight = rs.getFloat("weight");
+                float getHeight = rs.getFloat("height");
+
+                String weight = getWeight + " kg";
+                String height = getHeight + " cm";
+
+                float meterHeight = getHeight / 100;
+                int calculateBMI = (int) (getWeight / (meterHeight * meterHeight));
+                String BMI = calculateBMI + " kg/m²";
+
+                model.addRow(new Object[]{userId, firstName, lastName, username, weight, height, BMI});
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateTotalUsers() {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String totalUserQuery = "SELECT COUNT(*) FROM tb_users";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(totalUserQuery);
+
+            if (rs.next()) {
+                int totalUsers = rs.getInt(1);
+                total_users.setText("Total Users = " + totalUsers);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading total users: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void deleteUser(int row) {
+        DefaultTableModel model = (DefaultTableModel) user_table.getModel();
+        int userID = (int) model.getValueAt(row, 0);
+
+        int confirmDelete = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this user?",
+                "Delete User",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmDelete == JOptionPane.YES_OPTION) {
+            try {
+                Connection conn = DatabaseConnection.getConnection();
+
+                String deleteUserQuery = "DELETE FROM tb_users WHERE user_id = ?";
+                PreparedStatement stmt = conn.prepareCall(deleteUserQuery);
+                stmt.setInt(1, userID);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    model.removeRow(row);
+                    JOptionPane.showMessageDialog(this, "User deleted successfully!",
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                    updateTotalUsers();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete user",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error deleting user: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -127,12 +248,12 @@ public class AdminHome extends javax.swing.JFrame {
             }
         });
         user_table.setRowHeight(40);
-        user_table.setSelectionBackground(new java.awt.Color(45, 153, 69));
+        user_table.setSelectionBackground(new java.awt.Color(54, 185, 83));
         user_table.setShowHorizontalLines(true);
         user_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(user_table);
 
-        panelBorder2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 90, 940, 360));
+        panelBorder2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 940, 360));
 
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,61 +268,6 @@ public class AdminHome extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    public void loadUserDataToTable() {
-        DefaultTableModel model = (DefaultTableModel) user_table.getModel();
-        model.setRowCount(0);
-
-        String userDataQuery = "SELECT user_id, first_name, last_name, username, weight, height FROM tb_users";
-
-        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM tb_users")) {
-
-            while (rs.next()) {
-                int userId = rs.getInt("user_id");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                String username = rs.getString("username");
-
-                float getWeight = rs.getFloat("weight");
-                float getHeight = rs.getFloat("height");
-                String weight = getWeight + " kg";
-                String height = getHeight + " cm";
-
-                float meterheight = getHeight / 100;
-                int calculateBMI = (int) (getWeight / (meterheight * meterheight));
-                String BMI = calculateBMI + " kg/m²";
-
-                model.addRow(new Object[]{userId, firstName, lastName, username, weight, height, BMI, "Actions"});
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage());
-        }
-    }
-
-    public class NonEditableTableModel extends DefaultTableModel {
-
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    }
-    
-    private void loadTotalUsers() {
-        String countUserQuery = "SELECT COUNT(*) AS total FROM tb_users";
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(countUserQuery)) {
-            if(rs.next()) {
-                int total = rs.getInt("total");
-                total_users.setText("Total Users = " + total);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error retrieving total users: " + e.getMessage());
-        }
-    }
 
     private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));

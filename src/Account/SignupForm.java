@@ -275,7 +275,15 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_back_btnMouseEntered
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        dispose();
+        int confirmExit = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmExit == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
@@ -304,6 +312,31 @@ public class SignupForm extends javax.swing.JFrame {
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
 
+        //CHECK IF USERNAME CONTAINS SPACE
+        if (username.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Usernames cannot contain spaces.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF USERNAME IS 16 AND BELOW
+        if (username.length() > 16 || username.length() < 1) {
+            JOptionPane.showMessageDialog(null, "Usernames must be 1-16 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF USERNAME HAS INVALID CHARACTERS
+        if(!username.matches("^[a-zA-Z0-9._-]+$")) {
+            JOptionPane.showMessageDialog(null, "Only periods, underscores, and dashes are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF FIRST NAME HAS INVALID CHARACTERS
+        if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
+            JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF LAST NAME HAS INVALID CHARACTERS
+        if (!lastname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
+            JOptionPane.showMessageDialog(null, "Last name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //CHECK IF WEIGHT AND HEIGHT ARE NUMBER VALUES
         if (!isNumeric(weight) || !isNumeric(height)) {
             JOptionPane.showMessageDialog(null, "Weight and height must be numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -311,14 +344,19 @@ public class SignupForm extends javax.swing.JFrame {
         }
         //CHECK IF WEIGHT AND HEIGHT FORMAT ARE CORRECT
         if (!isValidFormat(weight) || !isValidFormat(height)) {
-            JOptionPane.showMessageDialog(null, 
-                "Weight and height must be in proper format (e.g., ##.##/###.##)", 
-                "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Weight and height must be in proper format (e.g., ##.## or ###.##)",
+                    "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //CHECK IF PASSWORD IS STRONG
         if (password.length() < 8) {
             JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //NO SQL INJECTION OR HTML TAGS
+        if (username.matches(".*<.*>.*") || firstname.matches(".*<.*>.*") || lastname.matches(".*<.*>.*")) {
+            JOptionPane.showMessageDialog(null, "Fields cannot contain HTML tags.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -361,7 +399,7 @@ public class SignupForm extends javax.swing.JFrame {
             ps.setString(7, sec_question);
             ps.setString(8, sec_answer);
 
-            if(ps.executeUpdate() > 0){
+            if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "New user added!");
                 username_field.setText("");
                 first_name_field.setText("");
@@ -381,7 +419,7 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_signup_btnActionPerformed
 
     private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
-        if(password_check.isSelected()){
+        if (password_check.isSelected()) {
             password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
             password_field.setEchoChar((char) 0);
         } else {
@@ -393,11 +431,19 @@ public class SignupForm extends javax.swing.JFrame {
     private void setupSignupButtonListener() {
         javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
         };
         username_field.getDocument().addDocumentListener(documentListener);
         first_name_field.getDocument().addDocumentListener(documentListener);
@@ -408,7 +454,7 @@ public class SignupForm extends javax.swing.JFrame {
         sec_question_field.getDocument().addDocumentListener(documentListener);
         sec_answer_field.getDocument().addDocumentListener(documentListener);
     }
-    
+
     private void toggleLoginButton() {
         String username = username_field.getText().trim();
         String firstname = first_name_field.getText().trim();
@@ -419,12 +465,12 @@ public class SignupForm extends javax.swing.JFrame {
         String secQuestion = sec_question_field.getText().trim();
         String secAnswer = sec_answer_field.getText().trim();
         signup_btn.setEnabled(
-            !username.isEmpty() && !firstname.isEmpty() &&
-            !weight.isEmpty() && !height.isEmpty() &&
-            !lastname.isEmpty() && !password.isEmpty() &&
-            !secQuestion.isEmpty() && !secAnswer.isEmpty());
+                !username.isEmpty() && !firstname.isEmpty()
+                && !weight.isEmpty() && !height.isEmpty()
+                && !lastname.isEmpty() && !password.isEmpty()
+                && !secQuestion.isEmpty() && !secAnswer.isEmpty());
     }
-    
+
     private boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
             return false;
@@ -436,11 +482,11 @@ public class SignupForm extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     private boolean isValidFormat(String value) {
         return value.matches("^\\d{1,3}(\\.\\d{1,2})?$");
     }
-        
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
