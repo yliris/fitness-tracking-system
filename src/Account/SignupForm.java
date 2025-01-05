@@ -371,6 +371,9 @@ public class SignupForm extends javax.swing.JFrame {
                 password_field.setText("");
                 sec_question_field.setText("");
                 sec_answer_field.setText("");
+                password_check.setSelected(false);
+                password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+                password_field.setEchoChar('*');
             }
         } catch (SQLException ex) {
             Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
