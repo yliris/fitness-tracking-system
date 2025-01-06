@@ -2,12 +2,12 @@ package Account;
 
 import java.awt.Color;
 
-public class UpdateForm extends javax.swing.JFrame {
+public class EditForm extends javax.swing.JFrame {
 
-    public UpdateForm() {
+    public EditForm() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        mover.initMoving(UpdateForm.this);
+        mover.initMoving(EditForm.this);
     }
 
     @SuppressWarnings("unchecked")
@@ -73,7 +73,7 @@ public class UpdateForm extends javax.swing.JFrame {
         update_btn.setText("Update");
         panelBorder1.add(update_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, -1, -1));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 480));
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 300));
 
         pack();
         setLocationRelativeTo(null);
@@ -112,19 +112,20 @@ public class UpdateForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateForm().setVisible(true);
+                new EditForm().setVisible(true);
             }
         });
     }
@@ -141,4 +142,5 @@ public class UpdateForm extends javax.swing.JFrame {
     private javax.swing.JButton update_btn;
     private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
+
 }

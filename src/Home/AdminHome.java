@@ -1,6 +1,7 @@
 package Home;
 
 import Account.LoginForm;
+import Account.EditForm;
 import Connection.DatabaseConnection;
 import Resources.components.TableActionCellEditor;
 import Resources.components.TableActionCellRender;
@@ -165,6 +166,10 @@ public class AdminHome extends javax.swing.JFrame {
             }
         }
     }
+    
+    private void editUser(int row) {
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -174,11 +179,19 @@ public class AdminHome extends javax.swing.JFrame {
         greetings = new javax.swing.JLabel();
         exit_btn = new javax.swing.JButton();
         logout_btn = new javax.swing.JButton();
-        panelBorder2 = new Resources.components.PanelBorder();
+        admin_header = new Resources.components.PanelBorder();
+        usertable_btn = new javax.swing.JButton();
+        adduser_btn = new javax.swing.JButton();
+        admin_panels = new javax.swing.JTabbedPane();
+        user_table_panel = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         user_table = new javax.swing.JTable();
         total_users = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        adduser_panel = new Resources.components.PanelBorder();
+        background = new Resources.components.PanelBorder();
         mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -217,7 +230,7 @@ public class AdminHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 5, -1, -1));
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 20, -1, -1));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -242,15 +255,36 @@ public class AdminHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 5, -1, -1));
+        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1195, 20, -1, -1));
 
-        panelBorder2.setBackground(new java.awt.Color(153, 153, 153));
-        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        admin_header.setBackground(new java.awt.Color(153, 153, 153));
+        admin_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        usertable_btn.setText("User Table");
+        usertable_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usertable_btnActionPerformed(evt);
+            }
+        });
+        admin_header.add(usertable_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        adduser_btn.setText("Add User");
+        adduser_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adduser_btnActionPerformed(evt);
+            }
+        });
+        admin_header.add(adduser_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 90, -1));
+
+        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1260, 40));
+
+        user_table_panel.setBackground(new java.awt.Color(153, 153, 153));
+        user_table_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("User Information Table");
-        panelBorder2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 60, 180, 30));
+        user_table_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 60, 180, 30));
 
         user_table.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         user_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -278,14 +312,40 @@ public class AdminHome extends javax.swing.JFrame {
         user_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(user_table);
 
-        panelBorder2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 1240, 540));
+        user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 1240, 510));
 
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
         total_users.setText("Total Users =");
-        panelBorder2.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 940, 50));
+        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1240, 50));
+        user_table_panel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 60, 280, 30));
 
-        panelBorder1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1260, 640));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/search-icon.png"))); // NOI18N
+        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 30, 30));
+
+        admin_panels.addTab("tab1", user_table_panel);
+
+        adduser_panel.setBackground(new java.awt.Color(153, 153, 153));
+        adduser_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        admin_panels.addTab("tab2", adduser_panel);
+
+        panelBorder1.add(admin_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1260, 640));
+
+        background.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1260, Short.MAX_VALUE)
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 640, Short.MAX_VALUE)
+        );
+
+        panelBorder1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1260, 640));
         panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 20));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
@@ -351,6 +411,14 @@ public class AdminHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logout_btnActionPerformed
 
+    private void usertable_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usertable_btnActionPerformed
+        admin_panels.setSelectedIndex(0);
+    }//GEN-LAST:event_usertable_btnActionPerformed
+
+    private void adduser_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adduser_btnActionPerformed
+        admin_panels.setSelectedIndex(1);
+    }//GEN-LAST:event_adduser_btnActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -383,15 +451,23 @@ public class AdminHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adduser_btn;
+    private Resources.components.PanelBorder adduser_panel;
+    private Resources.components.PanelBorder admin_header;
+    private javax.swing.JTabbedPane admin_panels;
+    private Resources.components.PanelBorder background;
     private javax.swing.JButton exit_btn;
     private javax.swing.JLabel greetings;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logout_btn;
     private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
-    private Resources.components.PanelBorder panelBorder2;
     private javax.swing.JLabel total_users;
     private javax.swing.JTable user_table;
+    private Resources.components.PanelBorder user_table_panel;
+    private javax.swing.JButton usertable_btn;
     // End of variables declaration//GEN-END:variables
 }
