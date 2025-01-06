@@ -35,7 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panelBorder1 = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
-        username_field = new javax.swing.JTextField();
+        user_field = new javax.swing.JTextField();
         password_field = new javax.swing.JPasswordField();
         login_message = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
@@ -92,8 +92,8 @@ public class LoginForm extends javax.swing.JFrame {
         });
         panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 204, 20, 20));
 
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
+        user_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(user_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 300, -1));
@@ -103,7 +103,7 @@ public class LoginForm extends javax.swing.JFrame {
         panelBorder1.add(login_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username.setText("Username");
+        username.setText("Email/Username");
         panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 125, -1, -1));
 
         password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
@@ -267,15 +267,17 @@ public class LoginForm extends javax.swing.JFrame {
         PreparedStatement ps;
         ResultSet rs;
 
-        String username = username_field.getText().trim();
+        String username = user_field.getText().trim();
+        String email = user_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
-        String loginQuery = "SELECT * FROM `tb_users` WHERE `username` =? AND `password` =?";
+        String loginQuery = "SELECT * FROM `tb_users` WHERE (`email` =? AND `username` =?) AND `password` =?";
 
         try {
             ps = DatabaseConnection.getConnection().prepareStatement(loginQuery);
-            ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(1, email);
+            ps.setString(2, username);
+            ps.setString(3, password);
 
             rs = ps.executeQuery();
             if(rs.next()) {
@@ -300,12 +302,12 @@ public class LoginForm extends javax.swing.JFrame {
             @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
         };
-        username_field.getDocument().addDocumentListener(documentListener);
+        user_field.getDocument().addDocumentListener(documentListener);
         password_field.getDocument().addDocumentListener(documentListener);
     }
     
     private void toggleLoginButton() {
-        String username = username_field.getText().trim();
+        String username = user_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         user_login_btn.setEnabled(!username.isEmpty() && !password.isEmpty());
     }
@@ -387,7 +389,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_forgot_pass_btnMouseReleased
 
     private void admin_login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_login_btnActionPerformed
-        String user = username_field.getText().trim();
+        String user = user_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
 
         if ("admin1".equals(user) || "admin2".equals(user) || "admin3".equals(user) || "admin4".equals(user) || "admin5".equals(user)
@@ -464,8 +466,8 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField password_field;
     private javax.swing.JButton signup_btn;
     private javax.swing.JLabel signup_message;
+    private javax.swing.JTextField user_field;
     private javax.swing.JButton user_login_btn;
     private javax.swing.JLabel username;
-    private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
 }

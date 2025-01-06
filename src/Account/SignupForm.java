@@ -33,20 +33,18 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panelBorder1 = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
-        username_field = new javax.swing.JTextField();
         first_name_field = new javax.swing.JTextField();
         last_name_field = new javax.swing.JTextField();
-        weight_field = new javax.swing.JTextField();
-        height_field = new javax.swing.JTextField();
+        email_field = new javax.swing.JTextField();
+        username_field = new javax.swing.JTextField();
         password_field = new javax.swing.JPasswordField();
         sec_question_field = new javax.swing.JTextField();
         sec_answer_field = new javax.swing.JTextField();
         create_account = new javax.swing.JLabel();
-        username = new javax.swing.JLabel();
         first_name = new javax.swing.JLabel();
         last_name = new javax.swing.JLabel();
-        weight = new javax.swing.JLabel();
-        height = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
         password = new javax.swing.JLabel();
         question = new javax.swing.JLabel();
         question_guide = new javax.swing.JLabel();
@@ -101,20 +99,17 @@ public class SignupForm extends javax.swing.JFrame {
         });
         panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 234, 20, 20));
 
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, -1));
-
         first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 160, -1));
+        panelBorder1.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 160, -1));
 
         last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 160, -1));
+        panelBorder1.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 160, -1));
 
-        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 160, -1));
+        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 330, -1));
 
-        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 160, -1));
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 330, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 330, -1));
@@ -129,25 +124,21 @@ public class SignupForm extends javax.swing.JFrame {
         create_account.setText("Create Account");
         panelBorder1.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username.setText("Username");
-        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 65, -1, -1));
-
         first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         first_name.setText("First Name");
-        panelBorder1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, -1, -1));
+        panelBorder1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 65, -1, -1));
 
         last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         last_name.setText("Last Name");
-        panelBorder1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 115, -1, -1));
+        panelBorder1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 65, -1, -1));
 
-        weight.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        weight.setText("Weight (kg)");
-        panelBorder1.add(weight, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 165, -1, -1));
+        email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        email.setText("Email");
+        panelBorder1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, -1, -1));
 
-        height.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        height.setText("Height (cm)");
-        panelBorder1.add(height, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 165, -1, -1));
+        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username.setText("Username");
+        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 165, -1, -1));
 
         password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         password.setText("Password");
@@ -303,15 +294,28 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseEntered
 
     private void signup_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_btnActionPerformed
-        String username = username_field.getText().trim();
         String firstname = first_name_field.getText().trim();
         String lastname = last_name_field.getText().trim();
-        String weight = weight_field.getText().trim();
-        String height = height_field.getText().trim();
+        String email = email_field.getText().trim();
+        String username = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
 
+        //CHECK IF FIRST NAME HAS INVALID CHARACTERS
+        if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
+            JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF LAST NAME HAS INVALID CHARACTERS
+        if (!lastname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
+            JOptionPane.showMessageDialog(null, "Last name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF EMAIL IS VALID
+        if (!email.endsWith("@gmail.com")) {
+            JOptionPane.showMessageDialog(null, "Email is invalid.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
         //CHECK IF USERNAME CONTAINS SPACE
         if (username.contains(" ")) {
             JOptionPane.showMessageDialog(null, "Usernames cannot contain spaces.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -323,30 +327,14 @@ public class SignupForm extends javax.swing.JFrame {
             return;
         }
         //CHECK IF USERNAME HAS INVALID CHARACTERS
-        if(!username.matches("^[a-zA-Z0-9._-]+$")) {
+        if (!username.matches("^[a-zA-Z0-9._-]+$")) {
             JOptionPane.showMessageDialog(null, "Only periods, underscores, and dashes are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //CHECK IF FIRST NAME HAS INVALID CHARACTERS
-        if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
-            JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //CHECK IF LAST NAME HAS INVALID CHARACTERS
-        if (!lastname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
-            JOptionPane.showMessageDialog(null, "Last name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //CHECK IF WEIGHT AND HEIGHT ARE NUMBER VALUES
-        if (!isNumeric(weight) || !isNumeric(height)) {
-            JOptionPane.showMessageDialog(null, "Weight and height must be numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //CHECK IF WEIGHT AND HEIGHT FORMAT ARE CORRECT
-        if (!isValidFormat(weight) || !isValidFormat(height)) {
-            JOptionPane.showMessageDialog(null,
-                    "Weight and height must be in proper format (e.g., ##.## or ###.##)",
-                    "Input Error", JOptionPane.ERROR_MESSAGE);
+        //CHECK IF USERNAME HAS ADMIN CREDENTIALS
+        if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3") ||
+            username.equals("admin4") || username.equals("admin5")) {
+            JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //CHECK IF PASSWORD IS STRONG
@@ -363,18 +351,11 @@ public class SignupForm extends javax.swing.JFrame {
         PreparedStatement ps;
         ResultSet rs;
 
-        String checkUsernameQuery = "SELECT * FROM `tb_users` WHERE `username` = ?";
         String checkNameQuery = "SELECT * FROM `tb_users` WHERE `first_name` = ? AND `last_name` = ?";
+        String checkEmailQuery = "SELECT * FROM `tb_users` WHERE `email` = ?";
+        String checkUsernameQuery = "SELECT * FROM `tb_users` WHERE `username` = ?";
 
         try {
-            //CHECK FOR EXISTING USERNAME
-            ps = DatabaseConnection.getConnection().prepareStatement(checkUsernameQuery);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             //CHECK FOR EXISTING FIRST AND LAST NAME
             ps = DatabaseConnection.getConnection().prepareStatement(checkNameQuery);
             ps.setString(1, firstname);
@@ -384,28 +365,42 @@ public class SignupForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "First and last name already exists.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            //CHECK FOR EXISTING EMAIL
+            ps = DatabaseConnection.getConnection().prepareStatement(checkEmailQuery);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Email already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //CHECK FOR EXISTING USERNAME
+            ps = DatabaseConnection.getConnection().prepareStatement(checkUsernameQuery);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-                    + "(`username`, `first_name`, `last_name`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
-                    + "VALUES (?,?,?,?,?,?,?,?)";
+                    + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
+                    + "VALUES (?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
-            ps.setString(1, username);
-            ps.setString(2, firstname);
-            ps.setString(3, lastname);
-            ps.setString(4, weight);
-            ps.setString(5, height);
-            ps.setString(6, password);
-            ps.setString(7, sec_question);
-            ps.setString(8, sec_answer);
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+            ps.setString(3, email);
+            ps.setString(4, username);
+            ps.setString(5, password);
+            ps.setString(6, sec_question);
+            ps.setString(7, sec_answer);
 
             if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "New user added!");
-                username_field.setText("");
                 first_name_field.setText("");
                 last_name_field.setText("");
-                weight_field.setText("");
-                height_field.setText("");
+                email_field.setText("");
+                username_field.setText("");
                 password_field.setText("");
                 sec_question_field.setText("");
                 sec_answer_field.setText("");
@@ -445,46 +440,28 @@ public class SignupForm extends javax.swing.JFrame {
                 toggleLoginButton();
             }
         };
-        username_field.getDocument().addDocumentListener(documentListener);
         first_name_field.getDocument().addDocumentListener(documentListener);
         last_name_field.getDocument().addDocumentListener(documentListener);
+        email_field.getDocument().addDocumentListener(documentListener);
+        username_field.getDocument().addDocumentListener(documentListener);
         password_field.getDocument().addDocumentListener(documentListener);
-        weight_field.getDocument().addDocumentListener(documentListener);
-        height_field.getDocument().addDocumentListener(documentListener);
         sec_question_field.getDocument().addDocumentListener(documentListener);
         sec_answer_field.getDocument().addDocumentListener(documentListener);
     }
 
     private void toggleLoginButton() {
-        String username = username_field.getText().trim();
         String firstname = first_name_field.getText().trim();
         String lastname = last_name_field.getText().trim();
-        String weight = weight_field.getText().trim();
-        String height = height_field.getText().trim();
+        String email = email_field.getText().trim();
+        String username = username_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         String secQuestion = sec_question_field.getText().trim();
         String secAnswer = sec_answer_field.getText().trim();
         signup_btn.setEnabled(
-                !username.isEmpty() && !firstname.isEmpty()
-                && !weight.isEmpty() && !height.isEmpty()
-                && !lastname.isEmpty() && !password.isEmpty()
-                && !secQuestion.isEmpty() && !secAnswer.isEmpty());
-    }
-
-    private boolean isNumeric(String str) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        }
-        try {
-            Double.valueOf(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isValidFormat(String value) {
-        return value.matches("^\\d{1,3}(\\.\\d{1,2})?$");
+                !firstname.isEmpty() && !lastname.isEmpty() &&
+                !email.isEmpty() && !username.isEmpty() &&
+                !password.isEmpty() && !secQuestion.isEmpty() &&
+                !secAnswer.isEmpty());
     }
 
     public static void main(String args[]) {
@@ -523,11 +500,11 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JButton back_btn;
     private javax.swing.JLabel create_account;
     private javax.swing.JLabel element;
+    private javax.swing.JLabel email;
+    private javax.swing.JTextField email_field;
     private javax.swing.JButton exit_btn;
     private javax.swing.JLabel first_name;
     private javax.swing.JTextField first_name_field;
-    private javax.swing.JLabel height;
-    private javax.swing.JTextField height_field;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -549,7 +526,5 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
     private javax.swing.JLabel validation;
-    private javax.swing.JLabel weight;
-    private javax.swing.JTextField weight_field;
     // End of variables declaration//GEN-END:variables
 }
