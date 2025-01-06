@@ -61,7 +61,7 @@ public class UserHome extends javax.swing.JFrame {
                         .addComponent(delete_acc_btn)
                         .addGap(30, 30, 30)
                         .addComponent(logout_btn)))
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(1089, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +70,7 @@ public class UserHome extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(79, 79, 79)
                 .addComponent(home_username)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(delete_acc_btn)
                     .addComponent(logout_btn))

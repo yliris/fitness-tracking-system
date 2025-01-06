@@ -103,8 +103,27 @@ public class AdminHome extends javax.swing.JFrame {
     }
 
     private void deleteUser(int row) {
+        int selectedRow = user_table.getSelectedRow();
+
+        if (user_table.isEditing()) {
+            user_table.getCellEditor().stopCellEditing();
+        }
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "No row selected!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) user_table.getModel();
-        int userID = (int) model.getValueAt(row, 0);
+
+        if (selectedRow >= model.getRowCount()) {
+            JOptionPane.showMessageDialog(this, "Invalid row selected!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int userID = (int) model.getValueAt(selectedRow, 0);
 
         int confirmDelete = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete this user?",
@@ -117,18 +136,24 @@ public class AdminHome extends javax.swing.JFrame {
                 Connection conn = DatabaseConnection.getConnection();
 
                 String deleteUserQuery = "DELETE FROM tb_users WHERE user_id = ?";
-                PreparedStatement stmt = conn.prepareCall(deleteUserQuery);
+                PreparedStatement stmt = conn.prepareStatement(deleteUserQuery);
                 stmt.setInt(1, userID);
 
                 int rowsAffected = stmt.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    model.removeRow(row);
+                    model.removeRow(selectedRow);
+
                     JOptionPane.showMessageDialog(this, "User deleted successfully!",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    user_table.clearSelection();
+                    user_table.revalidate();
+                    user_table.repaint();
+
                     updateTotalUsers();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Failed to delete user",
+                    JOptionPane.showMessageDialog(this, "Failed to delete user.",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -192,7 +217,7 @@ public class AdminHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 5, -1, -1));
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 5, -1, -1));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -217,9 +242,9 @@ public class AdminHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 5, -1, -1));
+        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 5, -1, -1));
 
-        panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
+        panelBorder2.setBackground(new java.awt.Color(153, 153, 153));
         panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
@@ -248,22 +273,22 @@ public class AdminHome extends javax.swing.JFrame {
             }
         });
         user_table.setRowHeight(40);
-        user_table.setSelectionBackground(new java.awt.Color(54, 185, 83));
+        user_table.setSelectionBackground(new java.awt.Color(153, 153, 255));
         user_table.setShowHorizontalLines(true);
         user_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(user_table);
 
-        panelBorder2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 940, 360));
+        panelBorder2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 1240, 540));
 
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
         total_users.setText("Total Users =");
         panelBorder2.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 940, 50));
 
-        panelBorder1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 460));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 20));
+        panelBorder1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1260, 640));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 20));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 540));
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         pack();
         setLocationRelativeTo(null);
