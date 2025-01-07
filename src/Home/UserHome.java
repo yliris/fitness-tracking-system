@@ -27,8 +27,11 @@ public class UserHome extends javax.swing.JFrame {
         logout_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("user home");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 42, -1, -1));
+        getContentPane().add(home_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 137, -1, -1));
 
         delete_acc_btn.setText("delete acc");
         delete_acc_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -36,6 +39,7 @@ public class UserHome extends javax.swing.JFrame {
                 delete_acc_btnActionPerformed(evt);
             }
         });
+        getContentPane().add(delete_acc_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
 
         logout_btn.setText("logout");
         logout_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -43,39 +47,7 @@ public class UserHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(home_username))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(delete_acc_btn)
-                        .addGap(30, 30, 30)
-                        .addComponent(logout_btn)))
-                .addContainerGap(1089, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel1)
-                .addGap(79, 79, 79)
-                .addComponent(home_username)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(delete_acc_btn)
-                    .addComponent(logout_btn))
-                .addContainerGap())
-        );
+        getContentPane().add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
 
         pack();
         setLocationRelativeTo(null);

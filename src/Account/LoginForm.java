@@ -264,68 +264,76 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_signup_btnActionPerformed
 
     private void user_login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_login_btnActionPerformed
+        String user = user_field.getText().trim();
+        String password = String.valueOf(password_field.getPassword()).trim();
+
         PreparedStatement ps;
         ResultSet rs;
 
-        String username = user_field.getText().trim();
-        String email = user_field.getText().trim();
-        String password = String.valueOf(password_field.getPassword()).trim();
-
-        String loginQuery = "SELECT * FROM `tb_users` WHERE (`email` =? AND `username` =?) AND `password` =?";
+        String checkLoginQuery = "SELECT * FROM `tb_users` WHERE (`email` = ? OR `username` = ?) AND `password` = ?";
 
         try {
-            ps = DatabaseConnection.getConnection().prepareStatement(loginQuery);
-            ps.setString(1, email);
-            ps.setString(2, username);
+            ps = DatabaseConnection.getConnection().prepareStatement(checkLoginQuery);
+            ps.setString(1, user);
+            ps.setString(2, user);
             ps.setString(3, password);
-
             rs = ps.executeQuery();
-            if(rs.next()) {
+            
+            if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Login Success!");
                 dispose();
                 new UserHome().setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_user_login_btnActionPerformed
-    
+
     //IF FIELDS ARE EMPTY, THEN LOGIN BUTTON IS DISABLED AND VICE VERSA
     private void setupLoginButtonListener() {
         javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleLoginButton(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
         };
         user_field.getDocument().addDocumentListener(documentListener);
         password_field.getDocument().addDocumentListener(documentListener);
     }
-    
+
     private void toggleLoginButton() {
         String username = user_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         user_login_btn.setEnabled(!username.isEmpty() && !password.isEmpty());
     }
-    
+
     private void signup_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMouseEntered
-        signup_btn.setForeground(new Color(6,115,33));
+        signup_btn.setForeground(new Color(6, 115, 33));
     }//GEN-LAST:event_signup_btnMouseEntered
 
     private void signup_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMouseExited
-        signup_btn.setForeground(new Color(10,177,52));
+        signup_btn.setForeground(new Color(10, 177, 52));
     }//GEN-LAST:event_signup_btnMouseExited
 
     private void signup_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMousePressed
-        signup_btn.setForeground(new Color(5,96,28));
+        signup_btn.setForeground(new Color(5, 96, 28));
     }//GEN-LAST:event_signup_btnMousePressed
 
     private void signup_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMouseReleased
-        signup_btn.setForeground(new Color(6,115,33));
+        signup_btn.setForeground(new Color(6, 115, 33));
     }//GEN-LAST:event_signup_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
@@ -357,11 +365,11 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseEntered
 
     private void admin_login_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admin_login_btnMouseEntered
-        admin_login_btn.setForeground(new Color(45,45,255));
+        admin_login_btn.setForeground(new Color(45, 45, 255));
     }//GEN-LAST:event_admin_login_btnMouseEntered
 
     private void admin_login_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admin_login_btnMouseExited
-        admin_login_btn.setForeground(new Color(91,91,255));
+        admin_login_btn.setForeground(new Color(91, 91, 255));
     }//GEN-LAST:event_admin_login_btnMouseExited
 
     private void admin_login_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admin_login_btnMousePressed
@@ -369,23 +377,23 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_admin_login_btnMousePressed
 
     private void admin_login_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admin_login_btnMouseReleased
-        admin_login_btn.setForeground(new Color(45,45,255));
+        admin_login_btn.setForeground(new Color(45, 45, 255));
     }//GEN-LAST:event_admin_login_btnMouseReleased
 
     private void forgot_pass_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgot_pass_btnMouseEntered
-        forgot_pass_btn.setForeground(new Color(102,102,102));
+        forgot_pass_btn.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_forgot_pass_btnMouseEntered
 
     private void forgot_pass_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgot_pass_btnMouseExited
-        forgot_pass_btn.setForeground(new Color(0,0,0));
+        forgot_pass_btn.setForeground(new Color(0, 0, 0));
     }//GEN-LAST:event_forgot_pass_btnMouseExited
 
     private void forgot_pass_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgot_pass_btnMousePressed
-        forgot_pass_btn.setForeground(new Color(51,51,51));
+        forgot_pass_btn.setForeground(new Color(51, 51, 51));
     }//GEN-LAST:event_forgot_pass_btnMousePressed
 
     private void forgot_pass_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgot_pass_btnMouseReleased
-        forgot_pass_btn.setForeground(new Color(102,102,102));
+        forgot_pass_btn.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_forgot_pass_btnMouseReleased
 
     private void admin_login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_login_btnActionPerformed
@@ -393,11 +401,11 @@ public class LoginForm extends javax.swing.JFrame {
         String password = String.valueOf(password_field.getPassword()).trim();
 
         if ("admin1".equals(user) || "admin2".equals(user) || "admin3".equals(user) || "admin4".equals(user) || "admin5".equals(user)
-            && "admin123".equals(password)) {
+                && "admin123".equals(password)) {
             JOptionPane.showMessageDialog(null, "Admin Login Success!");
             dispose();
             new AdminHome().setVisible(true);
-        } else if(user.isEmpty() && password.isEmpty()) {
+        } else if (user.isEmpty() && password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in the fields.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Invalid credentials.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -405,7 +413,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_admin_login_btnActionPerformed
 
     private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
-        if(password_check.isSelected()){
+        if (password_check.isSelected()) {
             password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
             password_field.setEchoChar((char) 0);
         } else {
@@ -413,7 +421,7 @@ public class LoginForm extends javax.swing.JFrame {
             password_field.setEchoChar('*');
         }
     }//GEN-LAST:event_password_checkActionPerformed
-    
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

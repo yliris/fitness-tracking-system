@@ -302,12 +302,11 @@ public class SignupForm extends javax.swing.JFrame {
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
 
-        //CHECK IF FIRST NAME HAS INVALID CHARACTERS
+        //CHECK IF FIRST AND LAST NAME HAS INVALID CHARACTERS
         if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
             JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //CHECK IF LAST NAME HAS INVALID CHARACTERS
         if (!lastname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
             JOptionPane.showMessageDialog(null, "Last name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -370,7 +369,7 @@ public class SignupForm extends javax.swing.JFrame {
             ps.setString(1, email);
             rs = ps.executeQuery();
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Email already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Email is already in use.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             //CHECK FOR EXISTING USERNAME
