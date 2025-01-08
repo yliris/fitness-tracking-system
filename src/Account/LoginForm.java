@@ -3,8 +3,10 @@ package Account;
 import Connection.DatabaseConnection;
 import Home.AdminHome;
 import Home.UserHome;
+import Home.UserHomeTest;
 import java.awt.Color;
 import java.awt.Image;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +17,8 @@ import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
 
+    private int userID;
+
     public LoginForm() {
         initComponents();
         user_login_btn.setEnabled(false);
@@ -23,6 +27,30 @@ public class LoginForm extends javax.swing.JFrame {
         mover.initMoving(LoginForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
+    }
+
+    public int getUserIDFromDatabase(String user, String password) {
+        String query = "SELECT user_id FROM tb_users WHERE (`email` = ? OR `username` = ?) AND password = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(query)) {
+
+            pst.setString(1, user);
+            pst.setString(2, user);
+            pst.setString(3, password);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    userID = rs.getInt("user_id");
+                    return userID;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid login credentials.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -278,11 +306,13 @@ public class LoginForm extends javax.swing.JFrame {
             ps.setString(2, user);
             ps.setString(3, password);
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
+                int userID = rs.getInt("user_id");
                 JOptionPane.showMessageDialog(null, "Login Success!");
                 dispose();
-                new UserHome().setVisible(true);
+                UserHomeTest userHome = new UserHomeTest(userID);
+                userHome.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
             }
