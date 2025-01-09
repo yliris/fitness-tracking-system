@@ -310,6 +310,7 @@ public class LoginForm extends javax.swing.JFrame {
             if (rs.next()) {
                 int userId = rs.getInt("user_id");
                 JOptionPane.showMessageDialog(null, "Login Success!");
+                new UserHome().setVisible(true);
                 new UserHomeTest(userId).setVisible(true);
                 this.dispose();
             } else {

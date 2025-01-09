@@ -3,11 +3,13 @@ package Account;
 import Connection.DatabaseConnection;
 import Home.AdminHome;
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 
 public class EditForm extends javax.swing.JFrame {
 
@@ -23,6 +25,8 @@ public class EditForm extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(EditForm.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
 
         originalFirstName = firstName;
         originalLastName = lastName;

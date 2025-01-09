@@ -15,11 +15,13 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -35,6 +37,8 @@ public class AdminHome extends javax.swing.JFrame {
         TransparentField2(user_searchbar);
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(AdminHome.this);
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
         loadDataToTable();
         updateTotalUsers();
 
@@ -63,7 +67,7 @@ public class AdminHome extends javax.swing.JFrame {
         user_table.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditor(event));
     }
 
-    private void loadDataToTable() {
+    public void loadDataToTable() {
         DefaultTableModel model = (DefaultTableModel) user_table.getModel();
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -111,7 +115,7 @@ public class AdminHome extends javax.swing.JFrame {
         loadDataToTable();
     }
 
-    private void updateTotalUsers() {
+    public void updateTotalUsers() {
         try {
             Connection conn = DatabaseConnection.getConnection();
             String totalUserQuery = "SELECT COUNT(*) FROM tb_users";
@@ -250,15 +254,23 @@ public class AdminHome extends javax.swing.JFrame {
         user_searchbar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         adduser_panel = new Resources.components.PanelBorder();
+        panelBorder2 = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
+        add_btn = new javax.swing.JButton();
+        first_name = new javax.swing.JLabel();
+        last_name = new javax.swing.JLabel();
         first_name_field = new javax.swing.JTextField();
         last_name_field = new javax.swing.JTextField();
+        email = new javax.swing.JLabel();
         email_field = new javax.swing.JTextField();
+        username = new javax.swing.JLabel();
         username_field = new javax.swing.JTextField();
+        password = new javax.swing.JLabel();
         password_field = new javax.swing.JPasswordField();
+        question = new javax.swing.JLabel();
         sec_question_field = new javax.swing.JTextField();
+        answer = new javax.swing.JLabel();
         sec_answer_field = new javax.swing.JTextField();
-        add_btn = new javax.swing.JButton();
         background = new Resources.components.PanelBorder();
         mover = new Resources.components.PanelMover();
 
@@ -300,7 +312,7 @@ public class AdminHome extends javax.swing.JFrame {
         });
         panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, -1, -1));
 
-        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-idle.png"))); // NOI18N
+        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
         logout_btn.setBorderPainted(false);
         logout_btn.setContentAreaFilled(false);
@@ -328,23 +340,33 @@ public class AdminHome extends javax.swing.JFrame {
         admin_header.setBackground(new java.awt.Color(142, 142, 255));
         admin_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        usertable_btn.setBackground(new java.awt.Color(142, 142, 255));
+        usertable_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        usertable_btn.setForeground(new java.awt.Color(255, 255, 255));
+        usertable_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-table-icon.png"))); // NOI18N
         usertable_btn.setText("User Table");
+        usertable_btn.setIconTextGap(15);
         usertable_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usertable_btnActionPerformed(evt);
             }
         });
-        admin_header.add(usertable_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        admin_header.add(usertable_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 9, 150, 50));
 
+        adduser_btn.setBackground(new java.awt.Color(142, 142, 255));
+        adduser_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        adduser_btn.setForeground(new java.awt.Color(255, 255, 255));
+        adduser_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-add-icon.png"))); // NOI18N
         adduser_btn.setText("Add User");
+        adduser_btn.setIconTextGap(15);
         adduser_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adduser_btnActionPerformed(evt);
             }
         });
-        admin_header.add(adduser_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 90, -1));
+        admin_header.add(adduser_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 150, 50));
 
-        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 40));
+        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 70));
 
         admin_panels.setBackground(new java.awt.Color(142, 142, 255));
 
@@ -354,12 +376,31 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("User Information Table");
-        user_table_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 60, 180, 30));
+        user_table_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 70, 180, 30));
 
         user_table.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         user_table.setForeground(new java.awt.Color(51, 51, 51));
         user_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -404,13 +445,14 @@ public class AdminHome extends javax.swing.JFrame {
             user_table.getColumnModel().getColumn(8).setPreferredWidth(10);
         }
 
-        user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 940, 330));
+        user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 940, 320));
 
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
         total_users.setText("Total Users =");
-        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 940, 50));
+        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 40));
 
+        user_searchbar.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         user_searchbar.setText("Search User");
         user_searchbar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -425,16 +467,19 @@ public class AdminHome extends javax.swing.JFrame {
                 user_searchbarKeyReleased(evt);
             }
         });
-        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, 280, 30));
+        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 280, 30));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/search-icon.png"))); // NOI18N
-        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 30, 30));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-search-icon.png"))); // NOI18N
+        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 30, 30));
 
         admin_panels.addTab("tab1", user_table_panel);
 
         adduser_panel.setBackground(new java.awt.Color(142, 142, 255));
         adduser_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
@@ -448,40 +493,70 @@ public class AdminHome extends javax.swing.JFrame {
                 password_checkActionPerformed(evt);
             }
         });
-        adduser_panel.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 234, 20, 20));
-
-        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 160, -1));
-
-        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 160, -1));
-
-        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 330, -1));
-
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 330, -1));
-
-        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 330, -1));
-
-        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 330, -1));
-
-        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        adduser_panel.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 330, -1));
+        panelBorder2.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 185, 20, 20));
 
         add_btn.setBackground(new java.awt.Color(102, 102, 255));
         add_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         add_btn.setForeground(new java.awt.Color(255, 255, 255));
-        add_btn.setText("SIGN UP");
+        add_btn.setText("Add User");
         add_btn.setAlignmentY(0.0F);
         add_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 add_btnActionPerformed(evt);
             }
         });
-        adduser_panel.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 330, 110));
+        panelBorder2.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 330, 30));
+
+        first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        first_name.setText("First Name");
+        panelBorder2.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        last_name.setText("Last Name");
+        panelBorder2.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+
+        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, -1));
+
+        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 160, -1));
+
+        email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        email.setText("Email");
+        panelBorder2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 330, -1));
+
+        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username.setText("Username");
+        panelBorder2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 330, -1));
+
+        password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password.setText("Password");
+        panelBorder2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+
+        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 330, -1));
+
+        question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question.setText("Validation Question");
+        panelBorder2.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 330, -1));
+
+        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        answer.setText("Validation Answer");
+        panelBorder2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 330, -1));
+
+        adduser_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 350, 380));
 
         admin_panels.addTab("tab2", adduser_panel);
 
@@ -538,19 +613,19 @@ public class AdminHome extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void logout_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_btnMouseEntered
-        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-hover.png")));
+        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-hover.png")));
     }//GEN-LAST:event_logout_btnMouseEntered
 
     private void logout_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_btnMouseExited
-        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-idle.png")));
+        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-idle.png")));
     }//GEN-LAST:event_logout_btnMouseExited
 
     private void logout_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_btnMousePressed
-        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-idle.png")));
+        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-idle.png")));
     }//GEN-LAST:event_logout_btnMousePressed
 
     private void logout_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_btnMouseReleased
-        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-hover.png")));
+        logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-hover.png")));
     }//GEN-LAST:event_logout_btnMouseReleased
 
     private void logout_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btnActionPerformed
@@ -589,6 +664,16 @@ public class AdminHome extends javax.swing.JFrame {
     private void user_searchbarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_user_searchbarFocusLost
         DefaultText2(user_searchbar, "Search User", DefaultFocus.LOST);
     }//GEN-LAST:event_user_searchbarFocusLost
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if (password_check.isSelected()) {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            password_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            password_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
 
     private void add_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btnActionPerformed
         String firstname = first_name_field.getText().trim();
@@ -629,7 +714,7 @@ public class AdminHome extends javax.swing.JFrame {
         }
         //CHECK IF USERNAME HAS ADMIN CREDENTIALS
         if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3")
-                || username.equals("admin4") || username.equals("admin5")) {
+            || username.equals("admin4") || username.equals("admin5")) {
             JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -680,8 +765,8 @@ public class AdminHome extends javax.swing.JFrame {
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-                    + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
-                    + "VALUES (?,?,?,?,?,?,?)";
+            + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
+            + "VALUES (?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
@@ -710,48 +795,6 @@ public class AdminHome extends javax.swing.JFrame {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_add_btnActionPerformed
-
-    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
-        if (password_check.isSelected()) {
-            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
-            password_field.setEchoChar((char) 0);
-        } else {
-            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
-            password_field.setEchoChar('*');
-        }
-    }//GEN-LAST:event_password_checkActionPerformed
-
-//    public void refreshUserTable() {
-//        DefaultTableModel model = (DefaultTableModel) user_table.getModel();
-//        model.setRowCount(0);
-//
-//        try {
-//            Connection conn = DatabaseConnection.getConnection();
-//            String query = "SELECT * FROM tb_users";
-//            PreparedStatement stmt = conn.prepareStatement(query);
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                // Retrieve the data from the database and add it to the table
-//                int userId = rs.getInt("user_id");
-//                String firstName = rs.getString("first_name");
-//                String lastName = rs.getString("last_name");
-//                String email = rs.getString("email");
-//                String username = rs.getString("username");
-//                String password = rs.getString("password");
-//                String secQuestion = rs.getString("sec_question");
-//                String secAnswer = rs.getString("sec_answer");
-//
-//                model.addRow(new Object[]{userId, firstName, lastName, email, username, password, secQuestion, secAnswer});
-//            }
-//
-//            rs.close();
-//            stmt.close();
-//            conn.close();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -790,26 +833,34 @@ public class AdminHome extends javax.swing.JFrame {
     private Resources.components.PanelBorder adduser_panel;
     private Resources.components.PanelBorder admin_header;
     private javax.swing.JTabbedPane admin_panels;
+    private javax.swing.JLabel answer;
     private Resources.components.PanelBorder background;
+    private javax.swing.JLabel email;
     private javax.swing.JTextField email_field;
     private javax.swing.JButton exit_btn;
+    private javax.swing.JLabel first_name;
     private javax.swing.JTextField first_name_field;
     private javax.swing.JLabel greetings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
     private javax.swing.JButton logout_btn;
     private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
+    private Resources.components.PanelBorder panelBorder2;
+    private javax.swing.JLabel password;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
+    private javax.swing.JLabel question;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
     private javax.swing.JLabel total_users;
     private javax.swing.JTextField user_searchbar;
     private javax.swing.JTable user_table;
     private Resources.components.PanelBorder user_table_panel;
+    private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
     private javax.swing.JButton usertable_btn;
     // End of variables declaration//GEN-END:variables
