@@ -60,9 +60,11 @@ public class UserHome extends javax.swing.JFrame {
         guide_btn = new Resources.components.PanelBorder();
         guide = new javax.swing.JLabel();
         logout_btn = new javax.swing.JButton();
-        exit_btn = new javax.swing.JButton();
+        exit_btn1 = new javax.swing.JButton();
         body_panel = new javax.swing.JTabbedPane();
         profile_panel = new Resources.components.PanelBorder();
+        profile_header = new Resources.components.PanelBorder();
+        profile = new javax.swing.JLabel();
         profile_buttons = new Resources.components.PanelBorder();
         profile_edit_btn = new javax.swing.JButton();
         profile_security_btn = new javax.swing.JButton();
@@ -71,19 +73,28 @@ public class UserHome extends javax.swing.JFrame {
         view_profile = new Resources.components.PanelBorder();
         edit_profile_info = new Resources.components.PanelBorder();
         edit_profile_form = new Resources.components.PanelBorder();
-        save_btn = new javax.swing.JButton();
-        first_name = new javax.swing.JLabel();
-        last_name = new javax.swing.JLabel();
-        first_name_field = new javax.swing.JTextField();
-        last_name_field = new javax.swing.JTextField();
-        email = new javax.swing.JLabel();
-        email_field = new javax.swing.JTextField();
-        username = new javax.swing.JLabel();
-        username_field = new javax.swing.JTextField();
+        label1 = new javax.swing.JLabel();
+        exit_btn2 = new javax.swing.JButton();
+        profile_first_name = new javax.swing.JLabel();
+        profile_first_name_field = new javax.swing.JTextField();
+        profile_last_name = new javax.swing.JLabel();
+        profile_last_name_field = new javax.swing.JTextField();
+        profile_email = new javax.swing.JLabel();
+        profile_email_field = new javax.swing.JTextField();
+        profile_username = new javax.swing.JLabel();
+        profile_username_field = new javax.swing.JTextField();
+        profile_save_btn = new javax.swing.JButton();
         edit_profile_security = new Resources.components.PanelBorder();
-        security_form = new Resources.components.PanelBorder();
-        profile_header = new Resources.components.PanelBorder();
-        profile = new javax.swing.JLabel();
+        edit_security_form = new Resources.components.PanelBorder();
+        exit_btn3 = new javax.swing.JButton();
+        label2 = new javax.swing.JLabel();
+        profile_password = new javax.swing.JLabel();
+        profile_password_field = new javax.swing.JTextField();
+        profile_sec_question = new javax.swing.JLabel();
+        profile_question_field = new javax.swing.JTextField();
+        profile_sec_answer = new javax.swing.JLabel();
+        profile_answer_field = new javax.swing.JTextField();
+        security_save_btn = new javax.swing.JButton();
         home_panel = new Resources.components.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         dashboard_panel = new Resources.components.PanelBorder();
@@ -293,27 +304,27 @@ public class UserHome extends javax.swing.JFrame {
             }
         });
 
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
-        exit_btn.setBorder(null);
-        exit_btn.setBorderPainted(false);
-        exit_btn.setContentAreaFilled(false);
-        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+        exit_btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn1.setBorder(null);
+        exit_btn1.setBorderPainted(false);
+        exit_btn1.setContentAreaFilled(false);
+        exit_btn1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exit_btnMouseEntered(evt);
+                exit_btn1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                exit_btnMouseExited(evt);
+                exit_btn1MouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                exit_btnMousePressed(evt);
+                exit_btn1MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exit_btnMouseReleased(evt);
+                exit_btn1MouseReleased(evt);
             }
         });
-        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+        exit_btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exit_btnActionPerformed(evt);
+                exit_btn1ActionPerformed(evt);
             }
         });
 
@@ -336,7 +347,7 @@ public class UserHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(logout_btn)
                 .addGap(8, 8, 8)
-                .addComponent(exit_btn))
+                .addComponent(exit_btn1))
         );
         header_panelLayout.setVerticalGroup(
             header_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +356,7 @@ public class UserHome extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(header_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(logout_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exit_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(exit_btn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(home_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dashboard_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(exercise_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -357,6 +368,20 @@ public class UserHome extends javax.swing.JFrame {
 
         profile_panel.setBackground(new java.awt.Color(255, 255, 255));
         profile_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        profile_header.setBackground(new java.awt.Color(243, 243, 243));
+        profile_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        profile.setBackground(new java.awt.Color(112, 112, 112));
+        profile.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        profile.setForeground(new java.awt.Color(84, 84, 84));
+        profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/profile-icon.png"))); // NOI18N
+        profile.setText("PROFILE");
+        profile.setIconTextGap(15);
+        profile_header.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 40));
+
+        profile_panel.add(profile_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 960, 40));
 
         profile_buttons.setBackground(new java.awt.Color(243, 243, 243));
         profile_buttons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -445,85 +470,168 @@ public class UserHome extends javax.swing.JFrame {
         edit_profile_info.setBackground(new java.awt.Color(255, 255, 255));
         edit_profile_info.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        edit_profile_form.setBackground(new java.awt.Color(153, 153, 255));
         edit_profile_form.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        save_btn.setBackground(new java.awt.Color(102, 102, 255));
-        save_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        save_btn.setForeground(new java.awt.Color(255, 255, 255));
-        save_btn.setText("Save Changes");
-        save_btn.setAlignmentY(0.0F);
-        save_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                save_btnActionPerformed(evt);
+        label1.setBackground(new java.awt.Color(112, 112, 112));
+        label1.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        label1.setForeground(new java.awt.Color(255, 255, 255));
+        label1.setText("Edit Personal Details");
+        label1.setIconTextGap(15);
+        edit_profile_form.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 250, 50));
+
+        exit_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn2.setBorder(null);
+        exit_btn2.setBorderPainted(false);
+        exit_btn2.setContentAreaFilled(false);
+        exit_btn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btn2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btn2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btn2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btn2MouseReleased(evt);
             }
         });
-        edit_profile_form.add(save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 330, 30));
+        exit_btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btn2ActionPerformed(evt);
+            }
+        });
+        edit_profile_form.add(exit_btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 5, -1, -1));
 
-        first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        first_name.setText("First Name");
-        edit_profile_form.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        profile_first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_first_name.setForeground(new java.awt.Color(255, 255, 255));
+        profile_first_name.setText("First Name");
+        edit_profile_form.add(profile_first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 20));
 
-        last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        last_name.setText("Last Name");
-        edit_profile_form.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+        profile_first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_profile_form.add(profile_first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 170, -1));
 
-        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_profile_form.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, -1));
+        profile_last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_last_name.setForeground(new java.awt.Color(255, 255, 255));
+        profile_last_name.setText("Last Name");
+        edit_profile_form.add(profile_last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 170, 20));
 
-        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_profile_form.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 160, -1));
+        profile_last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_profile_form.add(profile_last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 170, -1));
 
-        email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        email.setText("Email");
-        edit_profile_form.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        profile_email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_email.setForeground(new java.awt.Color(255, 255, 255));
+        profile_email.setText("Email");
+        edit_profile_form.add(profile_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 350, 20));
 
-        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_profile_form.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 330, -1));
+        profile_email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_profile_form.add(profile_email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 350, -1));
 
-        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username.setText("Username");
-        edit_profile_form.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        profile_username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_username.setForeground(new java.awt.Color(255, 255, 255));
+        profile_username.setText("Username");
+        edit_profile_form.add(profile_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, 20));
 
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_profile_form.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 330, -1));
+        profile_username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_profile_form.add(profile_username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
 
-        edit_profile_info.add(edit_profile_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 400, 270));
+        profile_save_btn.setBackground(new java.awt.Color(102, 102, 255));
+        profile_save_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        profile_save_btn.setForeground(new java.awt.Color(255, 255, 255));
+        profile_save_btn.setText("Save Changes");
+        profile_save_btn.setAlignmentY(0.0F);
+        profile_save_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_save_btnActionPerformed(evt);
+            }
+        });
+        edit_profile_form.add(profile_save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 350, 30));
+
+        edit_profile_info.add(edit_profile_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 400, 290));
 
         profile_tabs.addTab("tab2", edit_profile_info);
 
         edit_profile_security.setBackground(new java.awt.Color(255, 255, 255));
         edit_profile_security.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout security_formLayout = new javax.swing.GroupLayout(security_form);
-        security_form.setLayout(security_formLayout);
-        security_formLayout.setHorizontalGroup(
-            security_formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-        );
-        security_formLayout.setVerticalGroup(
-            security_formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
-        );
+        edit_security_form.setBackground(new java.awt.Color(131, 215, 169));
+        edit_security_form.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        edit_profile_security.add(security_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 350, 370));
+        exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn3.setBorder(null);
+        exit_btn3.setBorderPainted(false);
+        exit_btn3.setContentAreaFilled(false);
+        exit_btn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btn3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btn3MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btn3MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btn3MouseReleased(evt);
+            }
+        });
+        exit_btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btn3ActionPerformed(evt);
+            }
+        });
+        edit_security_form.add(exit_btn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 5, -1, -1));
+
+        label2.setBackground(new java.awt.Color(112, 112, 112));
+        label2.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        label2.setForeground(new java.awt.Color(255, 255, 255));
+        label2.setText("Edit Security Details");
+        label2.setIconTextGap(15);
+        edit_security_form.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 250, 50));
+
+        profile_password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_password.setForeground(new java.awt.Color(255, 255, 255));
+        profile_password.setText("Password");
+        edit_security_form.add(profile_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 350, 20));
+
+        profile_password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_security_form.add(profile_password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 350, -1));
+
+        profile_sec_question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_sec_question.setForeground(new java.awt.Color(255, 255, 255));
+        profile_sec_question.setText("Validation Question");
+        edit_security_form.add(profile_sec_question, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 350, 20));
+
+        profile_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_security_form.add(profile_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 350, -1));
+
+        profile_sec_answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        profile_sec_answer.setForeground(new java.awt.Color(255, 255, 255));
+        profile_sec_answer.setText("Validation Answer");
+        edit_security_form.add(profile_sec_answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, 20));
+
+        profile_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_security_form.add(profile_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
+
+        security_save_btn.setBackground(new java.awt.Color(51, 198, 117));
+        security_save_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        security_save_btn.setForeground(new java.awt.Color(255, 255, 255));
+        security_save_btn.setText("Save Changes");
+        security_save_btn.setAlignmentY(0.0F);
+        security_save_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                security_save_btnActionPerformed(evt);
+            }
+        });
+        edit_security_form.add(security_save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 350, 30));
+
+        edit_profile_security.add(edit_security_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 400, 290));
 
         profile_tabs.addTab("tab3", edit_profile_security);
 
         profile_panel.add(profile_tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 960, 460));
-
-        profile_header.setBackground(new java.awt.Color(243, 243, 243));
-        profile_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        profile.setBackground(new java.awt.Color(112, 112, 112));
-        profile.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
-        profile.setForeground(new java.awt.Color(84, 84, 84));
-        profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/profile-icon.png"))); // NOI18N
-        profile.setText("PROFILE");
-        profile.setIconTextGap(15);
-        profile_header.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 40));
-
-        profile_panel.add(profile_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 960, 40));
 
         body_panel.addTab("tab1", profile_panel);
 
@@ -725,7 +833,7 @@ public class UserHome extends javax.swing.JFrame {
         body_panel.setSelectedIndex(5);
     }//GEN-LAST:event_guide_btnMouseClicked
 
-    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+    private void exit_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btn1ActionPerformed
         int confirmExit = JOptionPane.showConfirmDialog(null,
             "Are you sure you want to quit?",
             "Quit",
@@ -735,23 +843,23 @@ public class UserHome extends javax.swing.JFrame {
         if (confirmExit == JOptionPane.YES_OPTION) {
             dispose();
         }
-    }//GEN-LAST:event_exit_btnActionPerformed
+    }//GEN-LAST:event_exit_btn1ActionPerformed
 
-    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseReleased
+    private void exit_btn1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn1MouseReleased
+        exit_btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn1MouseReleased
 
-    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
-    }//GEN-LAST:event_exit_btnMousePressed
+    private void exit_btn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn1MousePressed
+        exit_btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btn1MousePressed
 
-    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
-    }//GEN-LAST:event_exit_btnMouseExited
+    private void exit_btn1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn1MouseExited
+        exit_btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btn1MouseExited
 
-    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseEntered
+    private void exit_btn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn1MouseEntered
+        exit_btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn1MouseEntered
 
     private void profile_edit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_edit_btnMouseEntered
         profile_edit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-edit-hover-icon.png")));
@@ -802,26 +910,26 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_profile_delete_btnActionPerformed
 
     private void profile_security_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseEntered
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-delete-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
     }//GEN-LAST:event_profile_security_btnMouseEntered
 
     private void profile_security_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseExited
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-delete-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
     }//GEN-LAST:event_profile_security_btnMouseExited
 
     private void profile_security_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMousePressed
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-delete-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
     }//GEN-LAST:event_profile_security_btnMousePressed
 
     private void profile_security_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseReleased
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-delete-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
     }//GEN-LAST:event_profile_security_btnMouseReleased
 
     private void profile_security_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_security_btnActionPerformed
         profile_tabs.setSelectedIndex(2);
     }//GEN-LAST:event_profile_security_btnActionPerformed
 
-    private void save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btnActionPerformed
+    private void profile_save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_save_btnActionPerformed
 //        String firstname = first_name_field.getText().trim();
 //        String lastname = last_name_field.getText().trim();
 //        String email = email_field.getText().trim();
@@ -940,7 +1048,51 @@ public class UserHome extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-    }//GEN-LAST:event_save_btnActionPerformed
+    }//GEN-LAST:event_profile_save_btnActionPerformed
+
+    private void exit_btn2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn2MouseEntered
+        exit_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn2MouseEntered
+
+    private void exit_btn2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn2MouseExited
+        exit_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btn2MouseExited
+
+    private void exit_btn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn2MousePressed
+        exit_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btn2MousePressed
+
+    private void exit_btn2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn2MouseReleased
+        exit_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn2MouseReleased
+
+    private void exit_btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btn2ActionPerformed
+        profile_tabs.setSelectedIndex(0);
+    }//GEN-LAST:event_exit_btn2ActionPerformed
+
+    private void exit_btn3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn3MouseEntered
+        exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn3MouseEntered
+
+    private void exit_btn3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn3MouseExited
+        exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btn3MouseExited
+
+    private void exit_btn3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn3MousePressed
+        exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btn3MousePressed
+
+    private void exit_btn3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn3MouseReleased
+        exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btn3MouseReleased
+
+    private void exit_btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btn3ActionPerformed
+        profile_tabs.setSelectedIndex(0);
+    }//GEN-LAST:event_exit_btn3ActionPerformed
+
+    private void security_save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_security_save_btnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_security_save_btnActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -981,19 +1133,16 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel diet;
     private Resources.components.PanelBorder diet_btn;
     private Resources.components.PanelBorder diet_panel;
-    private javax.swing.JButton edit_btn;
-    private javax.swing.JButton edit_btn1;
     private Resources.components.PanelBorder edit_profile_form;
     private Resources.components.PanelBorder edit_profile_info;
     private Resources.components.PanelBorder edit_profile_security;
-    private javax.swing.JLabel email;
-    private javax.swing.JTextField email_field;
+    private Resources.components.PanelBorder edit_security_form;
     private javax.swing.JLabel exercise;
     private Resources.components.PanelBorder exercise_btn;
     private Resources.components.PanelBorder exercise_panel;
-    private javax.swing.JButton exit_btn;
-    private javax.swing.JLabel first_name;
-    private javax.swing.JTextField first_name_field;
+    private javax.swing.JButton exit_btn1;
+    private javax.swing.JButton exit_btn2;
+    private javax.swing.JButton exit_btn3;
     private javax.swing.JLabel greetings;
     private javax.swing.JLabel guide;
     private Resources.components.PanelBorder guide_btn;
@@ -1009,23 +1158,35 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel last_name;
-    private javax.swing.JTextField last_name_field;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
     private javax.swing.JButton logout_btn;
     private Resources.components.PanelMover mover;
     private javax.swing.JLabel profile;
+    private javax.swing.JTextField profile_answer_field;
     private Resources.components.PanelBorder profile_btn;
     private Resources.components.PanelBorder profile_buttons;
     private javax.swing.JButton profile_delete_btn;
     private javax.swing.JButton profile_edit_btn;
+    private javax.swing.JLabel profile_email;
+    private javax.swing.JTextField profile_email_field;
+    private javax.swing.JLabel profile_first_name;
+    private javax.swing.JTextField profile_first_name_field;
     private Resources.components.PanelBorder profile_header;
+    private javax.swing.JLabel profile_last_name;
+    private javax.swing.JTextField profile_last_name_field;
     private Resources.components.PanelBorder profile_panel;
+    private javax.swing.JLabel profile_password;
+    private javax.swing.JTextField profile_password_field;
+    private javax.swing.JTextField profile_question_field;
+    private javax.swing.JButton profile_save_btn;
+    private javax.swing.JLabel profile_sec_answer;
+    private javax.swing.JLabel profile_sec_question;
     private javax.swing.JButton profile_security_btn;
     private javax.swing.JTabbedPane profile_tabs;
-    private javax.swing.JButton save_btn;
-    private Resources.components.PanelBorder security_form;
-    private javax.swing.JLabel username;
-    private javax.swing.JTextField username_field;
+    private javax.swing.JLabel profile_username;
+    private javax.swing.JTextField profile_username_field;
+    private javax.swing.JButton security_save_btn;
     private Resources.components.PanelBorder view_profile;
     // End of variables declaration//GEN-END:variables
 }
