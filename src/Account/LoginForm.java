@@ -308,11 +308,10 @@ public class LoginForm extends javax.swing.JFrame {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                int userID = rs.getInt("user_id");
+                int userId = rs.getInt("user_id");
                 JOptionPane.showMessageDialog(null, "Login Success!");
-                dispose();
-                UserHomeTest userHome = new UserHomeTest(userID);
-                userHome.setVisible(true);
+                new UserHomeTest(userId).setVisible(true);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
             }
@@ -365,34 +364,6 @@ public class LoginForm extends javax.swing.JFrame {
     private void signup_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMouseReleased
         signup_btn.setForeground(new Color(6, 115, 33));
     }//GEN-LAST:event_signup_btnMouseReleased
-
-    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        int confirmExit = JOptionPane.showConfirmDialog(null,
-                "Are you sure you want to quit?",
-                "Quit",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-
-        if (confirmExit == JOptionPane.YES_OPTION) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_exit_btnActionPerformed
-
-    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseReleased
-
-    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
-    }//GEN-LAST:event_exit_btnMousePressed
-
-    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
-    }//GEN-LAST:event_exit_btnMouseExited
-
-    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseEntered
 
     private void admin_login_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admin_login_btnMouseEntered
         admin_login_btn.setForeground(new Color(45, 45, 255));
@@ -451,6 +422,34 @@ public class LoginForm extends javax.swing.JFrame {
             password_field.setEchoChar('*');
         }
     }//GEN-LAST:event_password_checkActionPerformed
+
+    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+        int confirmExit = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmExit == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_exit_btnActionPerformed
+
+    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseReleased
+
+    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+    }//GEN-LAST:event_exit_btnMousePressed
+
+    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+    }//GEN-LAST:event_exit_btnMouseExited
+
+    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
+    }//GEN-LAST:event_exit_btnMouseEntered
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
