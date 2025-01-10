@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 
-public class EditForm extends javax.swing.JFrame {
+public class EditInfoForm extends javax.swing.JFrame {
 
     private String originalFirstName;
     private String originalLastName;
@@ -20,11 +20,11 @@ public class EditForm extends javax.swing.JFrame {
 
     private AdminHome adminHome;
 
-    public EditForm(AdminHome adminHome, int userId, String firstName, String lastName, String email, String username) {
+    public EditInfoForm(AdminHome adminHome, int userId, String firstName, String lastName, String email, String username) {
         this.adminHome = adminHome;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        mover.initMoving(EditForm.this);
+        mover.initMoving(EditInfoForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
 
@@ -291,14 +291,16 @@ public class EditForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -311,7 +313,7 @@ public class EditForm extends javax.swing.JFrame {
                 String lastName = "Doe";
                 String email = "johndoe@example.com";
                 String username = "johndoe123";
-                new EditForm(adminHome, userId, firstName, lastName, email, username).setVisible(true);
+                new EditInfoForm(adminHome, userId, firstName, lastName, email, username).setVisible(true);
             }
         });
     }

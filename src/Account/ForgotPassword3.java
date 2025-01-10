@@ -11,10 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class ForgotPassword3 extends javax.swing.JFrame {
-    private String username;
+    private String user;
 
-    public ForgotPassword3(String username) {
-        this.username = username;
+    public ForgotPassword3(String user) {
+        this.user = user;
         initComponents();
         reset_btn.setEnabled(false);
         setupPasswordFieldListener();
@@ -111,9 +111,10 @@ public class ForgotPassword3 extends javax.swing.JFrame {
         String newPassword = new String(newpassword_field.getPassword());
         
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String checkPasswordQuery = "SELECT password FROM tb_users WHERE username = ?";
+            String checkPasswordQuery = "SELECT password FROM tb_users WHERE username = ? OR email = ?";
             PreparedStatement checkPs = conn.prepareStatement(checkPasswordQuery);
-            checkPs.setString(1, username);
+            checkPs.setString(1, user);
+            checkPs.setString(2, user);
             ResultSet rs = checkPs.executeQuery();
             
             if (newPassword.length() < 8) {
@@ -132,10 +133,11 @@ public class ForgotPassword3 extends javax.swing.JFrame {
                 return;
             }
             
-            String updateQuery = "UPDATE tb_users SET password = ? WHERE username = ?";
+            String updateQuery = "UPDATE tb_users SET password = ? WHERE username = ? OR email = ?";
             PreparedStatement ps = conn.prepareStatement(updateQuery);
             ps.setString(1, newPassword);
-            ps.setString(2, username);
+            ps.setString(2, user);
+            ps.setString(3, user);
             
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {

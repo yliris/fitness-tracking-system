@@ -6,37 +6,64 @@ import java.awt.Color;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class UserHome extends javax.swing.JFrame {
 
-    public UserHome() {
+    private int userId;
+
+    public UserHome(int userId) {
+        this.userId = userId;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(UserHome.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
+        body_panel.setSelectedIndex(1);
+
+        loadUserData();
     }
 
-    private void deleteAccount(String username) {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "DELETE FROM tb_users WHERE username = ?";
+    private void loadUserData() {
+        String query = "SELECT first_name, last_name, email, username, age, weight, height FROM tb_users WHERE user_id = ?";
 
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, username);
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, this.userId);
+            ResultSet rs = stmt.executeQuery();
 
-            int result = ps.executeUpdate();
-            if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Account deleted successfully.");
-                new LoginForm().setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Error: Could not delete the account.");
+            if (rs.next()) {
+                first_name_profile.setText(rs.getString("first_name"));
+                last_name_profile.setText(rs.getString("last_name"));
+                email_profile.setText(rs.getString("email"));
+                username_profile.setText(rs.getString("username"));
+
+                int age = rs.getInt("age");
+                float weight = rs.getFloat("weight");
+                float height = rs.getFloat("height");
+
+                if (age > 0) {
+                    this.age_profile.setText(age + " year's old");
+                }
+                if (weight > 0) {
+                    this.weight_profile.setText(weight + " kg");
+                }
+                if (height > 0) {
+                    this.height_profile.setText(height + " cm");
+
+                    float heightInMeters = height / 100;
+                    float bmiValue = weight / (heightInMeters * heightInMeters);
+                    this.bmi_profile.setText(String.format("%.2f", bmiValue));
+                }
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading user data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -71,6 +98,23 @@ public class UserHome extends javax.swing.JFrame {
         profile_delete_btn = new javax.swing.JButton();
         profile_tabs = new javax.swing.JTabbedPane();
         view_profile = new Resources.components.PanelBorder();
+        view_profile_background = new javax.swing.JPanel();
+        first_name_label = new javax.swing.JLabel();
+        first_name_profile = new javax.swing.JLabel();
+        last_name_label = new javax.swing.JLabel();
+        last_name_profile = new javax.swing.JLabel();
+        email_label = new javax.swing.JLabel();
+        email_profile = new javax.swing.JLabel();
+        username_label = new javax.swing.JLabel();
+        username_profile = new javax.swing.JLabel();
+        age_label = new javax.swing.JLabel();
+        age_profile = new javax.swing.JLabel();
+        weight_label = new javax.swing.JLabel();
+        weight_profile = new javax.swing.JLabel();
+        height_label = new javax.swing.JLabel();
+        height_profile = new javax.swing.JLabel();
+        bmi_label = new javax.swing.JLabel();
+        bmi_profile = new javax.swing.JLabel();
         edit_profile_info = new Resources.components.PanelBorder();
         edit_profile_form = new Resources.components.PanelBorder();
         label1 = new javax.swing.JLabel();
@@ -86,17 +130,21 @@ public class UserHome extends javax.swing.JFrame {
         profile_save_btn = new javax.swing.JButton();
         edit_profile_security = new Resources.components.PanelBorder();
         edit_security_form = new Resources.components.PanelBorder();
+        password_check = new javax.swing.JToggleButton();
         exit_btn3 = new javax.swing.JButton();
         label2 = new javax.swing.JLabel();
         profile_password = new javax.swing.JLabel();
-        profile_password_field = new javax.swing.JTextField();
         profile_sec_question = new javax.swing.JLabel();
         profile_question_field = new javax.swing.JTextField();
         profile_sec_answer = new javax.swing.JLabel();
         profile_answer_field = new javax.swing.JTextField();
         security_save_btn = new javax.swing.JButton();
+        profile_password_field = new javax.swing.JPasswordField();
         home_panel = new Resources.components.PanelBorder();
-        jLabel2 = new javax.swing.JLabel();
+        age_field = new javax.swing.JTextField();
+        weight_field = new javax.swing.JTextField();
+        height_field = new javax.swing.JTextField();
+        confirm_btn = new javax.swing.JButton();
         dashboard_panel = new Resources.components.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         exercise_panel = new Resources.components.PanelBorder();
@@ -465,6 +513,77 @@ public class UserHome extends javax.swing.JFrame {
 
         view_profile.setBackground(new java.awt.Color(255, 255, 255));
         view_profile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        view_profile_background.setBackground(new java.awt.Color(255, 255, 255));
+        view_profile_background.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 255), 1, true));
+        view_profile_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        first_name_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        first_name_label.setText("First Name:");
+        view_profile_background.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 30));
+
+        first_name_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        first_name_profile.setText("(first name)");
+        view_profile_background.add(first_name_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 150, 30));
+
+        last_name_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        last_name_label.setText("Last Name:");
+        view_profile_background.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, 30));
+
+        last_name_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        last_name_profile.setText("(last name)");
+        view_profile_background.add(last_name_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 150, 30));
+
+        email_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        email_label.setText("Email:");
+        view_profile_background.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 30));
+
+        email_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        email_profile.setText("(email)");
+        view_profile_background.add(email_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 350, 30));
+
+        username_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        username_label.setText("Username:");
+        view_profile_background.add(username_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 30));
+
+        username_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username_profile.setText("(username)");
+        view_profile_background.add(username_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 330, 30));
+
+        age_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        age_label.setText("Age:");
+        view_profile_background.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
+
+        age_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        age_profile.setText("N/A");
+        view_profile_background.add(age_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 340, 30));
+
+        weight_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        weight_label.setText("Weight:");
+        view_profile_background.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, 30));
+
+        weight_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        weight_profile.setText("N/A");
+        view_profile_background.add(weight_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 350, 30));
+
+        height_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        height_label.setText("Height:");
+        view_profile_background.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 30));
+
+        height_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        height_profile.setText("N/A");
+        view_profile_background.add(height_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 350, 30));
+
+        bmi_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        bmi_label.setText("BMI:");
+        view_profile_background.add(bmi_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+
+        bmi_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        bmi_profile.setText("N/A");
+        view_profile_background.add(bmi_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 390, 30));
+
+        view_profile.add(view_profile_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 430));
+
         profile_tabs.addTab("tab1", view_profile);
 
         edit_profile_info.setBackground(new java.awt.Color(255, 255, 255));
@@ -559,6 +678,20 @@ public class UserHome extends javax.swing.JFrame {
         edit_security_form.setBackground(new java.awt.Color(131, 215, 169));
         edit_security_form.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
+        password_check.setAlignmentY(0.0F);
+        password_check.setBorder(null);
+        password_check.setBorderPainted(false);
+        password_check.setContentAreaFilled(false);
+        password_check.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        password_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_checkActionPerformed(evt);
+            }
+        });
+        edit_security_form.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 95, 20, 20));
+
         exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn3.setBorder(null);
         exit_btn3.setBorderPainted(false);
@@ -596,9 +729,6 @@ public class UserHome extends javax.swing.JFrame {
         profile_password.setText("Password");
         edit_security_form.add(profile_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 350, 20));
 
-        profile_password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_security_form.add(profile_password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 350, -1));
-
         profile_sec_question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         profile_sec_question.setForeground(new java.awt.Color(255, 255, 255));
         profile_sec_question.setText("Validation Question");
@@ -615,7 +745,7 @@ public class UserHome extends javax.swing.JFrame {
         profile_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         edit_security_form.add(profile_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
 
-        security_save_btn.setBackground(new java.awt.Color(51, 198, 117));
+        security_save_btn.setBackground(new java.awt.Color(39, 154, 91));
         security_save_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         security_save_btn.setForeground(new java.awt.Color(255, 255, 255));
         security_save_btn.setText("Save Changes");
@@ -627,6 +757,9 @@ public class UserHome extends javax.swing.JFrame {
         });
         edit_security_form.add(security_save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 350, 30));
 
+        profile_password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        edit_security_form.add(profile_password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 350, -1));
+
         edit_profile_security.add(edit_security_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 400, 290));
 
         profile_tabs.addTab("tab3", edit_profile_security);
@@ -637,9 +770,17 @@ public class UserHome extends javax.swing.JFrame {
 
         home_panel.setBackground(new java.awt.Color(153, 153, 153));
         home_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        home_panel.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 130, -1));
+        home_panel.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 130, -1));
+        home_panel.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 130, -1));
 
-        jLabel2.setText("home");
-        home_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+        confirm_btn.setText("Confirm Button");
+        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_btnActionPerformed(evt);
+            }
+        });
+        home_panel.add(confirm_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 130, -1));
 
         body_panel.addTab("tab2", home_panel);
 
@@ -835,10 +976,10 @@ public class UserHome extends javax.swing.JFrame {
 
     private void exit_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btn1ActionPerformed
         int confirmExit = JOptionPane.showConfirmDialog(null,
-            "Are you sure you want to quit?",
-            "Quit",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
         if (confirmExit == JOptionPane.YES_OPTION) {
             dispose();
@@ -899,18 +1040,38 @@ public class UserHome extends javax.swing.JFrame {
 
     private void profile_delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_delete_btnActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null,
-            "Are you sure you want to delete your account?",
-            "Account Deletion",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
+                "Are you sure you want to delete your account?",
+                "Account Deletion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            
+            try (Connection conn = DatabaseConnection.getConnection()) {
+                String query = "DELETE FROM tb_users WHERE user_id = ?";
+
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, this.userId);
+
+                    int rowsDeleted = stmt.executeUpdate();
+
+                    if (rowsDeleted > 0) {
+                        JOptionPane.showMessageDialog(this, "Account deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        new LoginForm().setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error deleting account. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error deleting account: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error connecting to the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_profile_delete_btnActionPerformed
 
     private void profile_security_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseEntered
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-hover-icon.png")));
     }//GEN-LAST:event_profile_security_btnMouseEntered
 
     private void profile_security_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseExited
@@ -922,132 +1083,80 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_profile_security_btnMousePressed
 
     private void profile_security_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_security_btnMouseReleased
-        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-idle-icon.png")));
+        profile_security_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-hover-icon.png")));
     }//GEN-LAST:event_profile_security_btnMouseReleased
 
     private void profile_security_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_security_btnActionPerformed
-        profile_tabs.setSelectedIndex(2);
+        String enteredPassword = JOptionPane.showInputDialog(this, "Please enter your password to access security settings:");
+
+        if (enteredPassword != null && !enteredPassword.trim().isEmpty()) {
+            try (Connection conn = DatabaseConnection.getConnection()) {
+                String query = "SELECT password FROM tb_users WHERE user_id = ?";
+
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, this.userId);
+
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            String storedPassword = rs.getString("password");
+
+                            if (enteredPassword.equals(storedPassword)) {
+                                profile_tabs.setSelectedIndex(2);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Incorrect password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "User not found. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error checking password: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error connecting to the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Password cannot be empty. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_profile_security_btnActionPerformed
 
     private void profile_save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_save_btnActionPerformed
-//        String firstname = first_name_field.getText().trim();
-//        String lastname = last_name_field.getText().trim();
-//        String email = email_field.getText().trim();
-//        String username = username_field.getText().trim();
-//        String password = String.valueOf(password_field.getPassword()).trim();
-//        String sec_question = sec_question_field.getText().trim();
-//        String sec_answer = sec_answer_field.getText().trim();
-//
-//        //CHECK IF FIRST AND LAST NAME HAS INVALID CHARACTERS
-//        if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
-//            JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        if (!lastname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
-//            JOptionPane.showMessageDialog(null, "Last name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //CHECK IF EMAIL IS VALID
-//        if (!email.endsWith("@gmail.com")) {
-//            JOptionPane.showMessageDialog(null, "Email is invalid.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//        //CHECK IF USERNAME CONTAINS SPACE
-//        if (username.contains(" ")) {
-//            JOptionPane.showMessageDialog(null, "Usernames cannot contain spaces.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //CHECK IF USERNAME IS 16 AND BELOW
-//        if (username.length() > 16 || username.length() < 1) {
-//            JOptionPane.showMessageDialog(null, "Usernames must be 1-16 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //CHECK IF USERNAME HAS INVALID CHARACTERS
-//        if (!username.matches("^[a-zA-Z0-9._-]+$")) {
-//            JOptionPane.showMessageDialog(null, "Only periods, underscores, and dashes are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //CHECK IF USERNAME HAS ADMIN CREDENTIALS
-//        if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3")
-//            || username.equals("admin4") || username.equals("admin5")) {
-//            JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //CHECK IF PASSWORD IS STRONG
-//        if (password.length() < 8) {
-//            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        //NO SQL INJECTION OR HTML TAGS
-//        if (username.matches(".*<.*>.*") || firstname.matches(".*<.*>.*") || lastname.matches(".*<.*>.*")) {
-//            JOptionPane.showMessageDialog(null, "Fields cannot contain HTML tags.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//
-//        PreparedStatement ps;
-//        ResultSet rs;
-//
-//        String checkNameQuery = "SELECT * FROM `tb_users` WHERE `first_name` = ? AND `last_name` = ?";
-//        String checkEmailQuery = "SELECT * FROM `tb_users` WHERE `email` = ?";
-//        String checkUsernameQuery = "SELECT * FROM `tb_users` WHERE `username` = ?";
-//
-//        try {
-//            //CHECK FOR EXISTING FIRST AND LAST NAME
-//            ps = DatabaseConnection.getConnection().prepareStatement(checkNameQuery);
-//            ps.setString(1, firstname);
-//            ps.setString(2, lastname);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                JOptionPane.showMessageDialog(this, "First and last name already exists.", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//            //CHECK FOR EXISTING EMAIL
-//            ps = DatabaseConnection.getConnection().prepareStatement(checkEmailQuery);
-//            ps.setString(1, email);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                JOptionPane.showMessageDialog(this, "Email is already in use.", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//            //CHECK FOR EXISTING USERNAME
-//            ps = DatabaseConnection.getConnection().prepareStatement(checkUsernameQuery);
-//            ps.setString(1, username);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//
-//            //INSERT NEW USER TO DATABASE
-//            String insertQuery = "INSERT INTO `tb_users`"
-//            + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
-//            + "VALUES (?,?,?,?,?,?,?)";
-//            ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
-//            ps.setString(1, firstname);
-//            ps.setString(2, lastname);
-//            ps.setString(3, email);
-//            ps.setString(4, username);
-//            ps.setString(5, password);
-//            ps.setString(6, sec_question);
-//            ps.setString(7, sec_answer);
-//
-//            if (ps.executeUpdate() > 0) {
-//                JOptionPane.showMessageDialog(null, "New user added!");
-//                first_name_field.setText("");
-//                last_name_field.setText("");
-//                email_field.setText("");
-//                username_field.setText("");
-//                password_field.setText("");
-//                sec_question_field.setText("");
-//                sec_answer_field.setText("");
-//                password_check.setSelected(false);
-//                password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
-//                password_field.setEchoChar('*');
-//                loadDataToTable();
-//                updateTotalUsers();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String firstName = profile_first_name_field.getText().trim();
+        String lastName = profile_last_name_field.getText().trim();
+        String email = profile_email_field.getText().trim();
+        String username = profile_username_field.getText().trim();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ? WHERE user_id = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, firstName);
+                stmt.setString(2, lastName);
+                stmt.setString(3, email);
+                stmt.setString(4, username);
+                stmt.setInt(5, this.userId);
+
+                int rowsUpdated = stmt.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Profile updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    first_name_profile.setText("" + firstName);
+                    last_name_profile.setText("" + lastName);
+                    email_profile.setText("" + email);
+                    username_profile.setText("" + username);
+                    profile_first_name_field.setText("");
+                    profile_last_name_field.setText("");
+                    profile_email_field.setText("");
+                    profile_username_field.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No changes made or user not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error updating profile: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error connecting to the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_profile_save_btnActionPerformed
 
     private void exit_btn2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btn2MouseEntered
@@ -1091,8 +1200,129 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btn3ActionPerformed
 
     private void security_save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_security_save_btnActionPerformed
-        // TODO add your handling code here:
+        String newPassword = new String(profile_password_field.getPassword());
+        String securityQuestion = profile_question_field.getText();
+        String securityAnswer = profile_answer_field.getText();
+
+        if (newPassword.isEmpty() || securityQuestion.isEmpty() || securityAnswer.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String currentPassword = JOptionPane.showInputDialog(this, "Please enter your current password:");
+
+        if (currentPassword != null && !currentPassword.trim().isEmpty()) {
+            try (Connection conn = DatabaseConnection.getConnection()) {
+                String query = "SELECT password, sec_question, sec_answer FROM tb_users WHERE user_id = ?";
+
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, this.userId);
+
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            String storedPassword = rs.getString("password");
+                            String storedQuestion = rs.getString("sec_question");
+                            String storedAnswer = rs.getString("sec_answer");
+
+                            if (currentPassword.equals(storedPassword)) {
+                                String updateQuery = "UPDATE tb_users SET password = ?, sec_question = ?, sec_answer = ? WHERE user_id = ?";
+
+                                try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                                    updateStmt.setString(1, newPassword);
+                                    updateStmt.setString(2, securityQuestion);
+                                    updateStmt.setString(3, securityAnswer);
+                                    updateStmt.setInt(4, this.userId);
+
+                                    int rowsAffected = updateStmt.executeUpdate();
+
+                                    if (rowsAffected > 0) {
+                                        JOptionPane.showMessageDialog(this, "Your password and security settings have been updated successfully.");
+                                        // Optionally, reset fields
+                                        profile_password_field.setText("");
+                                        profile_question_field.setText("");
+                                        profile_answer_field.setText("");
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "Error updating your password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Incorrect current password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "User not found. Please log in again.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error checking current password: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error connecting to the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Current password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_security_save_btnActionPerformed
+
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        String ageText = age_field.getText();
+        String weightText = weight_field.getText();
+        String heightText = height_field.getText();
+
+        if (ageText.isEmpty() || weightText.isEmpty() || heightText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int age = Integer.parseInt(ageText);
+            float weight = Float.parseFloat(weightText);
+            float height = Float.parseFloat(heightText);
+
+            if (age <= 0 || weight <= 0 || height <= 0) {
+                JOptionPane.showMessageDialog(this, "Age, weight, and height must be positive values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            float heightInMeters = height / 100;
+            float bmiValue = weight / (heightInMeters * heightInMeters);
+
+            Connection conn = DatabaseConnection.getConnection();
+            String updateQuery = "UPDATE tb_users SET age = ?, weight = ?, height = ? WHERE user_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateQuery);
+            stmt.setInt(1, age);
+            stmt.setFloat(2, weight);
+            stmt.setFloat(3, height);
+            stmt.setInt(4, userId);
+
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(this, "Profile updated successfully!");
+                age_profile.setText(age + " year's old");
+                weight_profile.setText(weight + " kg");
+                height_profile.setText(height + " cm");
+                this.bmi_profile.setText(String.format("%.2f", bmiValue));
+            } else {
+                JOptionPane.showMessageDialog(this, "Profile update failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            stmt.close();
+            conn.close();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for age, weight, and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_confirm_btnActionPerformed
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if (password_check.isSelected()) {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            profile_password_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            profile_password_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1118,15 +1348,22 @@ public class UserHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        int userId = 1;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserHome().setVisible(true);
+                new UserHome(userId).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField age_field;
+    private javax.swing.JLabel age_label;
+    private javax.swing.JLabel age_profile;
+    private javax.swing.JLabel bmi_label;
+    private javax.swing.JLabel bmi_profile;
     private javax.swing.JTabbedPane body_panel;
+    private javax.swing.JButton confirm_btn;
     private javax.swing.JLabel dashboard;
     private Resources.components.PanelBorder dashboard_btn;
     private Resources.components.PanelBorder dashboard_panel;
@@ -1137,22 +1374,28 @@ public class UserHome extends javax.swing.JFrame {
     private Resources.components.PanelBorder edit_profile_info;
     private Resources.components.PanelBorder edit_profile_security;
     private Resources.components.PanelBorder edit_security_form;
+    private javax.swing.JLabel email_label;
+    private javax.swing.JLabel email_profile;
     private javax.swing.JLabel exercise;
     private Resources.components.PanelBorder exercise_btn;
     private Resources.components.PanelBorder exercise_panel;
     private javax.swing.JButton exit_btn1;
     private javax.swing.JButton exit_btn2;
     private javax.swing.JButton exit_btn3;
+    private javax.swing.JLabel first_name_label;
+    private javax.swing.JLabel first_name_profile;
     private javax.swing.JLabel greetings;
     private javax.swing.JLabel guide;
     private Resources.components.PanelBorder guide_btn;
     private Resources.components.PanelBorder guide_panel;
     private Resources.components.PanelBorder header_panel;
+    private javax.swing.JTextField height_field;
+    private javax.swing.JLabel height_label;
+    private javax.swing.JLabel height_profile;
     private javax.swing.JLabel home;
     private Resources.components.PanelBorder home_background;
     private Resources.components.PanelBorder home_btn;
     private Resources.components.PanelBorder home_panel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1160,8 +1403,11 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
+    private javax.swing.JLabel last_name_label;
+    private javax.swing.JLabel last_name_profile;
     private javax.swing.JButton logout_btn;
     private Resources.components.PanelMover mover;
+    private javax.swing.JToggleButton password_check;
     private javax.swing.JLabel profile;
     private javax.swing.JTextField profile_answer_field;
     private Resources.components.PanelBorder profile_btn;
@@ -1177,7 +1423,7 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JTextField profile_last_name_field;
     private Resources.components.PanelBorder profile_panel;
     private javax.swing.JLabel profile_password;
-    private javax.swing.JTextField profile_password_field;
+    private javax.swing.JPasswordField profile_password_field;
     private javax.swing.JTextField profile_question_field;
     private javax.swing.JButton profile_save_btn;
     private javax.swing.JLabel profile_sec_answer;
@@ -1187,6 +1433,12 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel profile_username;
     private javax.swing.JTextField profile_username_field;
     private javax.swing.JButton security_save_btn;
+    private javax.swing.JLabel username_label;
+    private javax.swing.JLabel username_profile;
     private Resources.components.PanelBorder view_profile;
+    private javax.swing.JPanel view_profile_background;
+    private javax.swing.JTextField weight_field;
+    private javax.swing.JLabel weight_label;
+    private javax.swing.JLabel weight_profile;
     // End of variables declaration//GEN-END:variables
 }

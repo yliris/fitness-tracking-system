@@ -2,6 +2,7 @@ package Account;
 
 import Connection.DatabaseConnection;
 import Home.AdminHome;
+import Home.NewJFrame;
 import Home.UserHome;
 import Home.UserHomeTest;
 import java.awt.Color;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
 
-    private int userID;
+    public static int userID;
 
     public LoginForm() {
         initComponents();
@@ -308,10 +309,10 @@ public class LoginForm extends javax.swing.JFrame {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                int userId = rs.getInt("user_id");
                 JOptionPane.showMessageDialog(null, "Login Success!");
-                new UserHome().setVisible(true);
-                new UserHomeTest(userId).setVisible(true);
+                int userId = rs.getInt("user_id");
+                UserHome userHome = new UserHome(userId);
+                userHome.setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");

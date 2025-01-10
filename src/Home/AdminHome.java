@@ -1,7 +1,7 @@
 package Home;
 
 import Account.LoginForm;
-import Account.EditForm;
+import Account.EditInfoForm;
 import Connection.DatabaseConnection;
 import Resources.components.TableActionCellEditor;
 import Resources.components.TableActionCellRender;
@@ -221,7 +221,7 @@ public class AdminHome extends javax.swing.JFrame {
         String weight = (String) model.getValueAt(row, 5);
         String height = (String) model.getValueAt(row, 6);
 
-        EditForm editForm = new EditForm(this, userId, firstName, lastName, email, username);
+        EditInfoForm editForm = new EditInfoForm(this, userId, firstName, lastName, email, username);
         editForm.setVisible(true);
     }
 

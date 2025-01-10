@@ -29,7 +29,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
 
         panelBorder1 = new Resources.components.PanelBorder();
         instruction = new javax.swing.JLabel();
-        username_field = new javax.swing.JTextField();
+        user_field = new javax.swing.JTextField();
         continue_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
         mover = new Resources.components.PanelMover();
@@ -43,11 +43,11 @@ public class ForgotPassword1 extends javax.swing.JFrame {
 
         instruction.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         instruction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        instruction.setText("Enter your username then click continue");
+        instruction.setText("Enter your email/username then click continue");
         panelBorder1.add(instruction, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, -1));
 
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 240, -1));
+        user_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(user_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 240, -1));
 
         continue_btn.setBackground(new java.awt.Color(102, 102, 255));
         continue_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -93,18 +93,19 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void continue_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continue_btnActionPerformed
-        String username = username_field.getText().trim();
+        String user = user_field.getText().trim();
         
-        String checkUsernameQuery = "SELECT * FROM `tb_users` WHERE `username` = ?";
-        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(checkUsernameQuery)) {
-            ps.setString(1, username);
+        String checkUserQuery = "SELECT * FROM `tb_users` WHERE `username` = ? OR `email` = ?";
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(checkUserQuery)) {
+            ps.setString(1, user);
+            ps.setString(2, user);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    JOptionPane.showMessageDialog(this, "Username found. Proceeding...");
-                    new ForgotPassword2(username).setVisible(true);
+                    JOptionPane.showMessageDialog(this, "User found. Proceeding...");
+                    new ForgotPassword2(user).setVisible(true);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Username does not exist.");
+                    JOptionPane.showMessageDialog(this, "User does not exist.");
                 }
             }
         } catch (SQLException ex) {
@@ -114,7 +115,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     }//GEN-LAST:event_continue_btnActionPerformed
 
     private void setupUsernameFieldListener() {
-        username_field.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        user_field.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) { toggleContinueButton(); }
             @Override
@@ -125,7 +126,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     }
 
     private void toggleContinueButton() {
-        String username = username_field.getText().trim();
+        String username = user_field.getText().trim();
         continue_btn.setEnabled(!username.isEmpty());
     }    
     
@@ -195,6 +196,6 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     private javax.swing.JLabel instruction;
     private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
-    private javax.swing.JTextField username_field;
+    private javax.swing.JTextField user_field;
     // End of variables declaration//GEN-END:variables
 }

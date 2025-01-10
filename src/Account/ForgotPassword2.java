@@ -12,10 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class ForgotPassword2 extends javax.swing.JFrame {
-    private String username;
+    private String user;
 
-    public ForgotPassword2(String username) {
-        this.username = username;
+    public ForgotPassword2(String user) {
+        this.user = user;
         initComponents();
         setupAnswerFieldListener();
         proceed_btn.setEnabled(false);
@@ -122,14 +122,15 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     private void proceed_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceed_btnActionPerformed
         String answer = secanswer_field.getText().trim();
         
-        String checkAnswerQuery = "SELECT * FROM `tb_users` WHERE `username` = ? AND `sec_answer` = ?";
+        String checkAnswerQuery = "SELECT * FROM `tb_users` WHERE (`username` = ? OR `email` = ?) AND `sec_answer` = ?";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(checkAnswerQuery)) {
-            ps.setString(1, username);
-            ps.setString(2, answer);
+            ps.setString(1, user);
+            ps.setString(2, user);
+            ps.setString(3, answer);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Answer correct! Proceeding...");
-                    new ForgotPassword3(username).setVisible(true);
+                    new ForgotPassword3(user).setVisible(true);
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Incorrect answer. Please try again.");
@@ -142,9 +143,10 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     }//GEN-LAST:event_proceed_btnActionPerformed
 
     private void loadSecurityQuestion() {
-        String query = "SELECT `sec_question` FROM `tb_users` WHERE `username` = ?";
+        String query = "SELECT `sec_question` FROM `tb_users` WHERE `username` = ? OR `email` = ?";
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query)) {
-            ps.setString(1, username);
+            ps.setString(1, user);
+            ps.setString(2, user);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     question.setText("Validation question: " + rs.getString("sec_question"));
