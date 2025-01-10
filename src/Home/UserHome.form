@@ -585,7 +585,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Cascadia Mono" size="12" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="(first name)"/>
+                                <Property name="text" type="java.lang.String" value="N/A"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -611,7 +611,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Cascadia Mono" size="12" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="(last name)"/>
+                                <Property name="text" type="java.lang.String" value="N/A"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -637,7 +637,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Cascadia Mono" size="12" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="(email)"/>
+                                <Property name="text" type="java.lang.String" value="N/A"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -663,7 +663,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Cascadia Mono" size="12" style="0"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="(username)"/>
+                                <Property name="text" type="java.lang.String" value="N/A"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

@@ -523,7 +523,7 @@ public class UserHome extends javax.swing.JFrame {
         view_profile_background.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 30));
 
         first_name_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        first_name_profile.setText("(first name)");
+        first_name_profile.setText("N/A");
         view_profile_background.add(first_name_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 150, 30));
 
         last_name_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -531,7 +531,7 @@ public class UserHome extends javax.swing.JFrame {
         view_profile_background.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, 30));
 
         last_name_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        last_name_profile.setText("(last name)");
+        last_name_profile.setText("N/A");
         view_profile_background.add(last_name_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 150, 30));
 
         email_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -539,7 +539,7 @@ public class UserHome extends javax.swing.JFrame {
         view_profile_background.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 30));
 
         email_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        email_profile.setText("(email)");
+        email_profile.setText("N/A");
         view_profile_background.add(email_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 350, 30));
 
         username_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -547,7 +547,7 @@ public class UserHome extends javax.swing.JFrame {
         view_profile_background.add(username_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 30));
 
         username_profile.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username_profile.setText("(username)");
+        username_profile.setText("N/A");
         view_profile_background.add(username_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 330, 30));
 
         age_label.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -1283,8 +1283,8 @@ public class UserHome extends javax.swing.JFrame {
                 return;
             }
 
-            float heightInMeters = height / 100;
-            float bmiValue = weight / (heightInMeters * heightInMeters);
+            int heightInMeters = (int) height / 100;
+            int bmiValue = (int) weight / (heightInMeters * heightInMeters);
 
             Connection conn = DatabaseConnection.getConnection();
             String updateQuery = "UPDATE tb_users SET age = ?, weight = ?, height = ? WHERE user_id = ?";
@@ -1300,7 +1300,7 @@ public class UserHome extends javax.swing.JFrame {
                 age_profile.setText(age + " year's old");
                 weight_profile.setText(weight + " kg");
                 height_profile.setText(height + " cm");
-                this.bmi_profile.setText(String.format("%.2f", bmiValue));
+                this.bmi_profile.setText(String.format(bmiValue + " kg/m²"));
             } else {
                 JOptionPane.showMessageDialog(this, "Profile update failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
