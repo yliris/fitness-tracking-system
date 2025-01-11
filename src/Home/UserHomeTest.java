@@ -1,7 +1,7 @@
 package Home;
 
 import Account.LoginForm;
-import Connection.DatabaseConnection;
+import Resources.components.DatabaseConnection;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

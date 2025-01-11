@@ -1,38 +1,15 @@
 package Home;
 
 import Account.LoginForm;
-import Account.EditInfoForm;
-import Connection.DatabaseConnection;
-import Resources.components.ScrollBarWin11UI;
-import Resources.components.TableActionCellEditor;
-import Resources.components.TableActionCellRender;
-import Resources.components.TableActionEvent;
+import Resources.components.*;
+import java.sql.*;
+import java.awt.*;
+import java.util.logging.*;
+import javax.swing.*;
+import javax.swing.table.*;
 import Resources.components.UtilityMethods.DefaultFocus;
 import static Resources.components.UtilityMethods.DefaultText2;
 import static Resources.components.UtilityMethods.TransparentField2;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableRowSorter;
 
 public class AdminHome extends javax.swing.JFrame {
 
@@ -68,15 +45,15 @@ public class AdminHome extends javax.swing.JFrame {
                 deleteUser(row);
             }
         };
-        user_table.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRender());
-        user_table.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditor(event));
+        user_table.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
+        user_table.getColumnModel().getColumn(10).setCellEditor(new TableActionCellEditor(event));
     }
 
     public void loadDataToTable() {
         DefaultTableModel model = (DefaultTableModel) user_table.getModel();
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String query = "SELECT user_id, first_name, last_name, email, username, weight, height FROM tb_users";
+            String query = "SELECT user_id, first_name, last_name, email, username, age, sex, weight, height FROM tb_users";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
@@ -88,13 +65,13 @@ public class AdminHome extends javax.swing.JFrame {
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
                 String username = rs.getString("username");
-
+                Integer getAge = rs.getObject("age", Integer.class);
+                String age = String.valueOf(getAge);
+                String sex = rs.getString("sex");
                 Float getWeight = rs.getObject("weight", Float.class);
                 Float getHeight = rs.getObject("height", Float.class);
-
-                String weight = (getWeight != null) ? getWeight + " kg" : "N/A";
-                String height = (getHeight != null) ? getHeight + " cm" : "N/A";
-
+                String weight = getWeight + " kg";
+                String height = getHeight + " cm";
                 String BMI = "N/A";
                 if (getWeight != null && getHeight != null) {
                     float meterHeight = getHeight / 100;
@@ -102,7 +79,7 @@ public class AdminHome extends javax.swing.JFrame {
                     BMI = calculateBMI + " kg/m²";
                 }
 
-                model.addRow(new Object[]{userId, firstName, lastName, email, username, weight, height, BMI});
+                model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI});
             }
 
             user_table.setBackground(new Color(255, 255, 255));
@@ -223,10 +200,12 @@ public class AdminHome extends javax.swing.JFrame {
         String lastName = (String) model.getValueAt(row, 2);
         String email = (String) model.getValueAt(row, 3);
         String username = (String) model.getValueAt(row, 4);
-        String weight = (String) model.getValueAt(row, 5);
-        String height = (String) model.getValueAt(row, 6);
+        int age = (int) model.getValueAt(row, 5);
+        String sex = (String) model.getValueAt(row, 6);
+        float weight = (float) model.getValueAt(row, 7);
+        float height = (float) model.getValueAt(row, 8);
 
-        EditInfoForm editForm = new EditInfoForm(this, userId, firstName, lastName, email, username);
+        EditInfoForm editForm = new EditInfoForm(this, userId, firstName, lastName, email, username, age, sex, weight, height);
         editForm.setVisible(true);
     }
 
@@ -252,10 +231,10 @@ public class AdminHome extends javax.swing.JFrame {
         adduser_btn = new javax.swing.JButton();
         admin_panels = new javax.swing.JTabbedPane();
         user_table_panel = new Resources.components.PanelBorder();
-        jLabel1 = new javax.swing.JLabel();
+        user_table_label = new javax.swing.JLabel();
         total_users = new javax.swing.JLabel();
         user_searchbar = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        search_user_icon = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         user_table = new javax.swing.JTable();
         adduser_panel = new Resources.components.PanelBorder();
@@ -315,7 +294,7 @@ public class AdminHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, -1, -1));
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, -1, -1));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -340,7 +319,7 @@ public class AdminHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(905, 20, -1, -1));
+        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 20, -1, -1));
 
         admin_header.setBackground(new java.awt.Color(142, 142, 255));
         admin_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -371,22 +350,22 @@ public class AdminHome extends javax.swing.JFrame {
         });
         admin_header.add(adduser_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 150, 50));
 
-        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 70));
+        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 70));
 
         admin_panels.setBackground(new java.awt.Color(142, 142, 255));
 
         user_table_panel.setBackground(new java.awt.Color(142, 142, 255));
         user_table_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("User Information Table");
-        user_table_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 70, 180, 30));
+        user_table_label.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
+        user_table_label.setForeground(new java.awt.Color(255, 255, 255));
+        user_table_label.setText("User Information Table");
+        user_table_panel.add(user_table_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 70, 180, 30));
 
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
         total_users.setText("Total Users =");
-        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 40));
+        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1210, 40));
 
         user_searchbar.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         user_searchbar.setText("Search User");
@@ -403,46 +382,74 @@ public class AdminHome extends javax.swing.JFrame {
                 user_searchbarKeyReleased(evt);
             }
         });
-        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 280, 30));
+        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 70, 280, 30));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-search-icon.png"))); // NOI18N
-        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 30, 30));
+        search_user_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        search_user_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-search-icon.png"))); // NOI18N
+        user_table_panel.add(search_user_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, 30, 30));
 
-        user_table.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        user_table.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         user_table.setForeground(new java.awt.Color(51, 51, 51));
         user_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Email", "Username", "Weight", "Height", "BMI", "Actions"
+                "ID", "First Name", "Last Name", "Email", "Username", "Age", "Sex", "Weight", "Height", "BMI", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -458,7 +465,7 @@ public class AdminHome extends javax.swing.JFrame {
         jScrollPane1.setViewportView(user_table);
         if (user_table.getColumnModel().getColumnCount() > 0) {
             user_table.getColumnModel().getColumn(0).setMinWidth(1);
-            user_table.getColumnModel().getColumn(0).setPreferredWidth(3);
+            user_table.getColumnModel().getColumn(0).setPreferredWidth(1);
             user_table.getColumnModel().getColumn(1).setMinWidth(1);
             user_table.getColumnModel().getColumn(1).setPreferredWidth(60);
             user_table.getColumnModel().getColumn(2).setMinWidth(1);
@@ -467,16 +474,20 @@ public class AdminHome extends javax.swing.JFrame {
             user_table.getColumnModel().getColumn(4).setMinWidth(1);
             user_table.getColumnModel().getColumn(4).setPreferredWidth(40);
             user_table.getColumnModel().getColumn(5).setMinWidth(1);
-            user_table.getColumnModel().getColumn(5).setPreferredWidth(15);
+            user_table.getColumnModel().getColumn(5).setPreferredWidth(1);
             user_table.getColumnModel().getColumn(6).setMinWidth(1);
-            user_table.getColumnModel().getColumn(6).setPreferredWidth(15);
+            user_table.getColumnModel().getColumn(6).setPreferredWidth(5);
             user_table.getColumnModel().getColumn(7).setMinWidth(1);
-            user_table.getColumnModel().getColumn(7).setPreferredWidth(15);
-            user_table.getColumnModel().getColumn(8).setMinWidth(10);
+            user_table.getColumnModel().getColumn(7).setPreferredWidth(10);
+            user_table.getColumnModel().getColumn(8).setMinWidth(1);
             user_table.getColumnModel().getColumn(8).setPreferredWidth(10);
+            user_table.getColumnModel().getColumn(9).setMinWidth(1);
+            user_table.getColumnModel().getColumn(9).setPreferredWidth(15);
+            user_table.getColumnModel().getColumn(10).setMinWidth(5);
+            user_table.getColumnModel().getColumn(10).setPreferredWidth(5);
         }
 
-        user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 940, 320));
+        user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1210, 420));
 
         admin_panels.addTab("tab1", user_table_panel);
 
@@ -561,11 +572,11 @@ public class AdminHome extends javax.swing.JFrame {
         sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 330, -1));
 
-        adduser_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 350, 380));
+        adduser_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 350, 380));
 
         admin_panels.addTab("tab2", adduser_panel);
 
-        panelBorder1.add(admin_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 460));
+        panelBorder1.add(admin_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
 
         background.setBackground(new java.awt.Color(142, 142, 255));
 
@@ -573,17 +584,17 @@ public class AdminHome extends javax.swing.JFrame {
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addGap(0, 1230, Short.MAX_VALUE)
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 560, Short.MAX_VALUE)
         );
 
-        panelBorder1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 460));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 20));
+        panelBorder1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 20));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 540));
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 640));
 
         pack();
         setLocationRelativeTo(null);
@@ -849,8 +860,6 @@ public class AdminHome extends javax.swing.JFrame {
     private javax.swing.JLabel first_name;
     private javax.swing.JTextField first_name_field;
     private javax.swing.JLabel greetings;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
@@ -862,11 +871,13 @@ public class AdminHome extends javax.swing.JFrame {
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JLabel question;
+    private javax.swing.JLabel search_user_icon;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
     private javax.swing.JLabel total_users;
     private javax.swing.JTextField user_searchbar;
     private javax.swing.JTable user_table;
+    private javax.swing.JLabel user_table_label;
     private Resources.components.PanelBorder user_table_panel;
     private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;

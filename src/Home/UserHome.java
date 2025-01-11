@@ -1,18 +1,11 @@
 package Home;
 
 import Account.LoginForm;
-import Connection.DatabaseConnection;
-import Resources.components.ScrollBarWin11UI;
-import java.awt.Color;
-import java.awt.Image;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
+import Resources.components.DatabaseConnection;
+import Resources.components.*;
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
 
 public class UserHome extends javax.swing.JFrame {
 

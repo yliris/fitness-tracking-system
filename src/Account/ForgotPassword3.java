@@ -1,14 +1,9 @@
 package Account;
 
-import Connection.DatabaseConnection;
-import java.awt.Color;
-import java.awt.Image;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import Resources.components.DatabaseConnection;
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
 
 public class ForgotPassword3 extends javax.swing.JFrame {
     private String user;

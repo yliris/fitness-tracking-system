@@ -1,15 +1,9 @@
-package Account;
+package Resources.components;
 
-import Connection.DatabaseConnection;
 import Home.AdminHome;
-import java.awt.Color;
-import java.awt.Image;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.ImageIcon;
+import java.awt.*;
+import javax.swing.*;
+import java.sql.*;
 
 public class EditInfoForm extends javax.swing.JFrame {
 
@@ -17,26 +11,45 @@ public class EditInfoForm extends javax.swing.JFrame {
     private String originalLastName;
     private String originalEmail;
     private String originalUsername;
+    private int originalAge;
+    private String originalSex;
+    private float originalWeight;
+    private float originalHeight;
 
     private AdminHome adminHome;
 
-    public EditInfoForm(AdminHome adminHome, int userId, String firstName, String lastName, String email, String username) {
+    public EditInfoForm(AdminHome adminHome, int userId, String firstName, String lastName, String email, String username, int age, String sex, float weight, float height) {
         this.adminHome = adminHome;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(EditInfoForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
+        ButtonGroup sexRdb = new ButtonGroup();
+        sexRdb.add(male_rdb);
+        sexRdb.add(female_rdb);
 
         originalFirstName = firstName;
         originalLastName = lastName;
         originalEmail = email;
         originalUsername = username;
+        originalAge = age;
+        originalSex = sex;
+        originalWeight = weight;
+        originalHeight = height;
 
         firstname_field.setText(firstName);
         lastname_field.setText(lastName);
         email_field.setText(email);
         username_field.setText(username);
+        age_field.setText(String.valueOf(age));
+        weight_field.setText(String.valueOf(weight));
+        height_field.setText(String.valueOf(height));
+        if ("Male".equalsIgnoreCase(sex)) {
+            male_rdb.setSelected(true);
+        } else if ("Female".equalsIgnoreCase(sex)) {
+            female_rdb.setSelected(true);
+        }
 
         update_btn.addActionListener(evt -> updateUserDetails(userId));
     }
@@ -46,12 +59,19 @@ public class EditInfoForm extends javax.swing.JFrame {
         String updatedLastName = lastname_field.getText();
         String updatedEmail = email_field.getText();
         String updatedUsername = username_field.getText();
+        String updatedAge = age_field.getText();
+        String updatedSex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
+        String updatedWeight = weight_field.getText();
+        String updatedHeight = height_field.getText();
 
         //CHECK IF NOTHINGS CHANGES
         if (updatedFirstName.equals(originalFirstName)
                 && updatedLastName.equals(originalLastName)
                 && updatedEmail.equals(originalEmail)
-                && updatedUsername.equals(originalUsername)) {
+                && updatedUsername.equals(originalUsername)
+                && updatedSex.equals(originalSex)
+                && updatedWeight.equals(String.valueOf(originalWeight))
+                && updatedHeight.equals(String.valueOf(originalHeight))) {
             int confirmExit = JOptionPane.showConfirmDialog(null,
                     "No changes were made. Exit the form?",
                     "Exit",
@@ -65,6 +85,7 @@ public class EditInfoForm extends javax.swing.JFrame {
                 return;
             }
         }
+
         //CHECK IF FIRST AND LAST NAME HAS INVALID CHARACTERS
         if (!updatedFirstName.matches("^[a-zA-Z-]+$")) {
             JOptionPane.showMessageDialog(this, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -110,6 +131,27 @@ public class EditInfoForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //CHECK IF WEIGHT AND HEIGHT ARE VALID
+        try {
+            float weight = Float.parseFloat(updatedWeight);
+            if (weight <= 0 || weight > 300) {
+                JOptionPane.showMessageDialog(this, "Weight must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Weight must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            float height = Float.parseFloat(updatedHeight);
+            if (height <= 0 || height > 250) {
+                JOptionPane.showMessageDialog(this, "Height must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Height must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //NO SQL INJECTION OR HTML TAGS
         if (updatedFirstName.contains("'") || updatedLastName.contains("'") || updatedEmail.contains("'") || updatedUsername.contains("'")) {
             JOptionPane.showMessageDialog(this, "Fields cannot contain HTML tags.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -118,14 +160,18 @@ public class EditInfoForm extends javax.swing.JFrame {
 
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ? WHERE user_id = ?";
+            String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ?"
+                    + ", sex = ?, weight = ?, height = ?  WHERE user_id = ?";
             PreparedStatement stmt = conn.prepareStatement(updateQuery);
 
             stmt.setString(1, updatedFirstName);
             stmt.setString(2, updatedLastName);
             stmt.setString(3, updatedEmail);
             stmt.setString(4, updatedUsername);
-            stmt.setInt(5, userId);
+            stmt.setString(5, updatedSex);
+            stmt.setFloat(6, Float.parseFloat(updatedWeight));
+            stmt.setFloat(7, Float.parseFloat(updatedHeight));
+            stmt.setInt(8, userId);
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -189,16 +235,25 @@ public class EditInfoForm extends javax.swing.JFrame {
 
         panelBorder1 = new Resources.components.PanelBorder();
         exit_btn = new javax.swing.JButton();
-        mover = new Resources.components.PanelMover();
-        email_field = new javax.swing.JTextField();
-        username_field = new javax.swing.JTextField();
-        lastname_field = new javax.swing.JTextField();
+        first_name = new javax.swing.JLabel();
         firstname_field = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        last_name = new javax.swing.JLabel();
+        lastname_field = new javax.swing.JTextField();
+        email = new javax.swing.JLabel();
+        email_field = new javax.swing.JTextField();
+        username = new javax.swing.JLabel();
+        username_field = new javax.swing.JTextField();
+        age = new javax.swing.JLabel();
+        age_field = new javax.swing.JTextField();
+        sex = new javax.swing.JLabel();
+        female_rdb = new javax.swing.JRadioButton();
+        male_rdb = new javax.swing.JRadioButton();
+        weight = new javax.swing.JLabel();
+        weight_field = new javax.swing.JTextField();
+        age2 = new javax.swing.JLabel();
+        height_field = new javax.swing.JTextField();
         update_btn = new javax.swing.JButton();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -231,30 +286,55 @@ public class EditInfoForm extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 30, 30));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 20));
-        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 290, -1));
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 290, -1));
-        panelBorder1.add(lastname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
-        panelBorder1.add(firstname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 140, -1));
 
-        jLabel4.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        jLabel4.setText("Email:");
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        first_name.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        first_name.setText("First Name:");
+        panelBorder1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, -1));
+        panelBorder1.add(firstname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
 
-        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        jLabel1.setText("Last Name:");
-        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, -1));
+        last_name.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        last_name.setText("Last Name:");
+        panelBorder1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 140, -1));
+        panelBorder1.add(lastname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 140, -1));
 
-        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        jLabel2.setText("Username:");
-        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+        email.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        email.setText("Email:");
+        panelBorder1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 290, -1));
 
-        jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        jLabel3.setText("First Name:");
-        panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 140, -1));
+        username.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        username.setText("Username:");
+        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 290, -1));
+
+        age.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        age.setText("Age:");
+        panelBorder1.add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        panelBorder1.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 140, -1));
+
+        sex.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        sex.setText("Sex:");
+        panelBorder1.add(sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 120, -1));
+
+        female_rdb.setText("Female");
+        panelBorder1.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
+
+        male_rdb.setText("Male");
+        panelBorder1.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
+
+        weight.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        weight.setText("Weight:");
+        panelBorder1.add(weight, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+        panelBorder1.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 140, -1));
+
+        age2.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        age2.setText("Height:");
+        panelBorder1.add(age2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
+        panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 140, -1));
 
         update_btn.setText("Update");
-        panelBorder1.add(update_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, -1, -1));
+        panelBorder1.add(update_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, -1, -1));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 20));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 430));
 
@@ -317,24 +397,37 @@ public class EditInfoForm extends javax.swing.JFrame {
                 String lastName = "Doe";
                 String email = "johndoe@example.com";
                 String username = "johndoe123";
-                new EditInfoForm(adminHome, userId, firstName, lastName, email, username).setVisible(true);
+                int age = 20;
+                String sex = "Male";
+                float weight = (float) 56.7;
+                float height = (float) 177.4;
+                new EditInfoForm(adminHome, userId, firstName, lastName, email, username, age, sex, weight, height).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel age;
+    private javax.swing.JLabel age2;
+    private javax.swing.JTextField age_field;
+    private javax.swing.JLabel email;
     private javax.swing.JTextField email_field;
     private javax.swing.JButton exit_btn;
+    private javax.swing.JRadioButton female_rdb;
+    private javax.swing.JLabel first_name;
     private javax.swing.JTextField firstname_field;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField height_field;
+    private javax.swing.JLabel last_name;
     private javax.swing.JTextField lastname_field;
+    private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
+    private javax.swing.JLabel sex;
     private javax.swing.JButton update_btn;
+    private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
+    private javax.swing.JLabel weight;
+    private javax.swing.JTextField weight_field;
     // End of variables declaration//GEN-END:variables
 
 }

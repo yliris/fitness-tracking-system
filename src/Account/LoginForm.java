@@ -1,19 +1,12 @@
 package Account;
 
-import Connection.DatabaseConnection;
+import Resources.components.DatabaseConnection;
 import Home.AdminHome;
 import Home.UserHome;
-import Home.UserHomeTest;
-import java.awt.Color;
-import java.awt.Image;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.sql.*;
+import java.util.logging.*;
+import javax.swing.*;
 
 public class LoginForm extends javax.swing.JFrame {
 

@@ -1,26 +1,169 @@
 package Account;
 
-import Connection.DatabaseConnection;
-import java.awt.Color;
-import java.awt.Image;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import Resources.components.DatabaseConnection;
+import java.awt.*;
+import java.sql.*;
+import java.util.logging.*;
+import javax.swing.*;
 
 public class SignupForm extends javax.swing.JFrame {
 
     public SignupForm() {
         initComponents();
+        next_btn.setEnabled(false);
         signup_btn.setEnabled(false);
+        setupNextButtonListener();
         setupSignupButtonListener();
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(SignupForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
+        ButtonGroup sexRdb = new ButtonGroup();
+        sexRdb.add(male_rdb);
+        sexRdb.add(female_rdb);
+    }
+
+    private void setupNextButtonListener() {
+        javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleNextButton();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleNextButton();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleNextButton();
+            }
+        };
+        first_name_field.getDocument().addDocumentListener(documentListener);
+        last_name_field.getDocument().addDocumentListener(documentListener);
+        email_field.getDocument().addDocumentListener(documentListener);
+        username_field.getDocument().addDocumentListener(documentListener);
+        password_field.getDocument().addDocumentListener(documentListener);
+        sec_question_field.getDocument().addDocumentListener(documentListener);
+        sec_answer_field.getDocument().addDocumentListener(documentListener);
+    }
+
+    private void toggleNextButton() {
+        String firstname = first_name_field.getText().trim();
+        String lastname = last_name_field.getText().trim();
+        String email = email_field.getText().trim();
+        String username = username_field.getText().trim();
+        String password = String.valueOf(password_field.getPassword()).trim();
+        String secQuestion = sec_question_field.getText().trim();
+        String secAnswer = sec_answer_field.getText().trim();
+        next_btn.setEnabled(
+                !firstname.isEmpty() && !lastname.isEmpty()
+                && !email.isEmpty() && !username.isEmpty()
+                && !password.isEmpty() && !secQuestion.isEmpty()
+                && !secAnswer.isEmpty());
+    }
+
+    private void setupSignupButtonListener() {
+        age_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                toggleSignupButton();
+            }
+        });
+        weight_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                toggleSignupButton();
+            }
+        });
+        height_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                toggleSignupButton();
+            }
+        });
+        male_rdb.addActionListener(e -> toggleSignupButton());
+        female_rdb.addActionListener(e -> toggleSignupButton());
+
+        signup_btn.addActionListener(e -> updateBmiAndEnableSignup());
+    }
+
+    private void toggleSignupButton() {
+        boolean isValid = !age_field.getText().isEmpty()
+                && !weight_field.getText().isEmpty()
+                && !height_field.getText().isEmpty()
+                && (male_rdb.isSelected() || female_rdb.isSelected());
+        signup_btn.setEnabled(isValid);
+    }
+
+    private void updateBmiAndEnableSignup() {
+        try {
+            int age = Integer.parseInt(age_field.getText());
+            String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
+            float weight = Float.parseFloat(weight_field.getText());
+            float height = Float.parseFloat(height_field.getText()) / 100;
+
+            if (weight > 0 && height > 0) {
+                int bmiValue = (int) (weight / (height * height));
+                bmi_label.setText(String.format("BMI: " + bmiValue + " kg/m²"));
+
+                String classification;
+                String ageGroupClassification = "";
+
+                if ("Male".equals(sex)) {
+                    if (bmiValue < 18.5) {
+                        classification = "Underweight";
+                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+                        classification = "Normal weight";
+                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
+                        classification = "Overweight";
+                    } else {
+                        classification = "Obese";
+                    }
+                } else if ("Female".equals(sex)) {
+                    if (bmiValue < 18.5) {
+                        classification = "Underweight";
+                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+                        classification = "Normal weight";
+                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
+                        classification = "Overweight";
+                    } else {
+                        classification = "Obese";
+                    }
+                } else {
+                    classification = "N/A";
+                }
+
+                if (age < 18) {
+                    ageGroupClassification = "Note: BMI classification for children is different.";
+                } else if (age >= 65) {
+                    ageGroupClassification = "Note: BMI recommendations for elderly may vary.";
+                }
+
+                classification_label.setText("Classification: " + classification + " " + ageGroupClassification);
+                bmi_range_label.setText("Healthy BMI Range: 18.5 - 24.9");
+
+                float minNormalWeight = 18.5f * (height * height);
+                float maxNormalWeight = 24.9f * (height * height);
+                float weightToLose = weight - maxNormalWeight;
+                float weightToGain = minNormalWeight - weight;
+
+                if (bmiValue < 18.5) {
+                    normal_range_label.setText(String.format("Gain %.2f kg to reach normal range.", weightToGain));
+                } else if (bmiValue > 24.9) {
+                    normal_range_label.setText(String.format("Lose %.2f kg to reach normal range.", weightToLose));
+                } else {
+                    normal_range_label.setText("You are within the normal weight range.");
+                }
+
+                signup_btn.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid weight or height values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for weight and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -31,31 +174,53 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        panelBorder1 = new Resources.components.PanelBorder();
-        password_check = new javax.swing.JToggleButton();
-        first_name_field = new javax.swing.JTextField();
-        last_name_field = new javax.swing.JTextField();
-        email_field = new javax.swing.JTextField();
-        username_field = new javax.swing.JTextField();
-        password_field = new javax.swing.JPasswordField();
-        sec_question_field = new javax.swing.JTextField();
-        sec_answer_field = new javax.swing.JTextField();
+        header = new Resources.components.PanelBorder();
         create_account = new javax.swing.JLabel();
-        first_name = new javax.swing.JLabel();
-        last_name = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
-        username = new javax.swing.JLabel();
-        password = new javax.swing.JLabel();
-        question = new javax.swing.JLabel();
-        question_guide = new javax.swing.JLabel();
-        answer = new javax.swing.JLabel();
-        answer_guide = new javax.swing.JLabel();
-        validation = new javax.swing.JLabel();
-        signup_btn = new javax.swing.JButton();
+        create_panel = new javax.swing.JTabbedPane();
+        step1_panel = new Resources.components.PanelBorder();
+        password_check = new javax.swing.JToggleButton();
+        first_name_label = new javax.swing.JLabel();
+        first_name_field = new javax.swing.JTextField();
+        last_name_label = new javax.swing.JLabel();
+        last_name_field = new javax.swing.JTextField();
+        email_label = new javax.swing.JLabel();
+        email_field = new javax.swing.JTextField();
+        username_label = new javax.swing.JLabel();
+        username_field = new javax.swing.JTextField();
+        password_label = new javax.swing.JLabel();
+        password_field = new javax.swing.JPasswordField();
+        validation_label = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        question_label = new javax.swing.JLabel();
+        question_guide = new javax.swing.JLabel();
+        sec_question_field = new javax.swing.JTextField();
+        answer_label = new javax.swing.JLabel();
+        answer_guide = new javax.swing.JLabel();
+        sec_answer_field = new javax.swing.JTextField();
+        next_btn = new javax.swing.JButton();
+        step2_panel = new Resources.components.PanelBorder();
+        result_label = new javax.swing.JLabel();
+        bmi_label = new javax.swing.JLabel();
+        classification_label = new javax.swing.JLabel();
+        bmi_range_label = new javax.swing.JLabel();
+        normal_range_label = new javax.swing.JLabel();
         panelBorder2 = new Resources.components.PanelBorder();
-        back_btn = new javax.swing.JButton();
+        age_label = new javax.swing.JLabel();
+        age_field = new javax.swing.JTextField();
+        sex_label = new javax.swing.JLabel();
+        male_rdb = new javax.swing.JRadioButton();
+        female_rdb = new javax.swing.JRadioButton();
+        weight_label = new javax.swing.JLabel();
+        height_field = new javax.swing.JTextField();
+        weight_field = new javax.swing.JTextField();
+        height_label = new javax.swing.JLabel();
+        confirm_btn = new javax.swing.JButton();
+        signup_btn = new javax.swing.JButton();
+        footer = new Resources.components.PanelBorder();
+        signup_message = new javax.swing.JLabel();
+        signin_btn = new javax.swing.JButton();
+        background = new Resources.components.PanelBorder();
         exit_btn = new javax.swing.JButton();
         mover = new Resources.components.PanelMover();
 
@@ -82,8 +247,17 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel3.setText("Achieve Your Goals!");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 445, -1, -1));
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        header.setBackground(new java.awt.Color(255, 255, 255));
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        create_account.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        create_account.setText("Create Account");
+        header.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 50));
+
+        step1_panel.setBackground(new java.awt.Color(255, 255, 255));
+        step1_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         password_check.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png"))); // NOI18N
@@ -97,76 +271,153 @@ public class SignupForm extends javax.swing.JFrame {
                 password_checkActionPerformed(evt);
             }
         });
-        panelBorder1.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 234, 20, 20));
+        step1_panel.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 205, 20, 20));
+
+        first_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        first_name_label.setText("First Name");
+        step1_panel.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, -1, -1));
 
         first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 160, -1));
+        step1_panel.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 160, -1));
+
+        last_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        last_name_label.setText("Last Name");
+        step1_panel.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 35, -1, -1));
 
         last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 160, -1));
+        step1_panel.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 160, -1));
+
+        email_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        email_label.setText("Email");
+        step1_panel.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 85, -1, -1));
 
         email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 330, -1));
+        step1_panel.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 330, -1));
+
+        username_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username_label.setText("Username");
+        step1_panel.add(username_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 135, -1, -1));
 
         username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 330, -1));
+        step1_panel.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 330, -1));
+
+        password_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_label.setText("Password");
+        step1_panel.add(password_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 185, -1, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 330, -1));
+        step1_panel.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 330, -1));
 
-        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 330, -1));
+        validation_label.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        validation_label.setForeground(new java.awt.Color(153, 153, 153));
+        validation_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        validation_label.setText("Validation for Password Reset");
+        step1_panel.add(validation_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 249, 150, -1));
+        step1_panel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 253, 90, 10));
+        step1_panel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 253, 80, 10));
 
-        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder1.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 330, -1));
-
-        create_account.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
-        create_account.setText("Create Account");
-        panelBorder1.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        first_name.setText("First Name");
-        panelBorder1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 65, -1, -1));
-
-        last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        last_name.setText("Last Name");
-        panelBorder1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 65, -1, -1));
-
-        email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        email.setText("Email");
-        panelBorder1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, -1, -1));
-
-        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username.setText("Username");
-        panelBorder1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 165, -1, -1));
-
-        password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        password.setText("Password");
-        panelBorder1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, -1, -1));
-
-        question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        question.setText("Your Question");
-        panelBorder1.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 305, -1, -1));
+        question_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question_label.setText("Your Question");
+        step1_panel.add(question_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 275, -1, -1));
 
         question_guide.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         question_guide.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         question_guide.setText("(write your own question for password reset)");
-        panelBorder1.add(question_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, 10));
+        step1_panel.add(question_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, 10));
 
-        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        answer.setText("Your Answer");
-        panelBorder1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 355, -1, -1));
+        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step1_panel.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 330, -1));
+
+        answer_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        answer_label.setText("Your Answer");
+        step1_panel.add(answer_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
 
         answer_guide.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         answer_guide.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         answer_guide.setText("(make sure to remember your answer)");
-        panelBorder1.add(answer_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 360, -1, 10));
+        step1_panel.add(answer_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, 10));
 
-        validation.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
-        validation.setForeground(new java.awt.Color(153, 153, 153));
-        validation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        validation.setText("Validation for Password Reset");
-        panelBorder1.add(validation, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 279, 150, -1));
+        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step1_panel.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, -1));
+
+        next_btn.setBackground(new java.awt.Color(102, 102, 255));
+        next_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        next_btn.setForeground(new java.awt.Color(255, 255, 255));
+        next_btn.setText("NEXT");
+        next_btn.setAlignmentY(0.0F);
+        next_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                next_btnActionPerformed(evt);
+            }
+        });
+        step1_panel.add(next_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 330, -1));
+
+        create_panel.addTab("tab1", step1_panel);
+
+        step2_panel.setBackground(new java.awt.Color(255, 255, 255));
+        step2_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        result_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        result_label.setText("Result");
+        step2_panel.add(result_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 340, 20));
+
+        bmi_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step2_panel.add(bmi_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 330, 20));
+
+        classification_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step2_panel.add(classification_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 330, 20));
+
+        bmi_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step2_panel.add(bmi_range_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 330, 20));
+
+        normal_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        step2_panel.add(normal_range_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, 20));
+
+        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        age_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        age_label.setText("Age");
+        panelBorder2.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        age_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
+
+        sex_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        sex_label.setText("Sex");
+        panelBorder2.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
+        male_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        male_rdb.setText("Male");
+        panelBorder2.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
+
+        female_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        female_rdb.setText("Female");
+        panelBorder2.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+
+        weight_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        weight_label.setText("Weight");
+        panelBorder2.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 120, -1));
+
+        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 120, -1));
+
+        height_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        height_label.setText("Height");
+        panelBorder2.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
+
+        confirm_btn.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        confirm_btn.setText("Confirm");
+        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_btnActionPerformed(evt);
+            }
+        });
+        panelBorder2.add(confirm_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 250, -1));
+
+        step2_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 310, 170));
 
         signup_btn.setBackground(new java.awt.Color(102, 102, 255));
         signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -178,39 +429,50 @@ public class SignupForm extends javax.swing.JFrame {
                 signup_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 330, -1));
-        panelBorder1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 283, 90, 10));
-        panelBorder1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 283, 80, 10));
+        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 330, -1));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 480));
+        create_panel.addTab("tab2", step2_panel);
 
-        panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
-        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(create_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 450));
 
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-idle.png"))); // NOI18N
-        back_btn.setBorder(null);
-        back_btn.setBorderPainted(false);
-        back_btn.setContentAreaFilled(false);
-        back_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+        footer.setBackground(new java.awt.Color(255, 255, 255));
+        footer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        signup_message.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        signup_message.setText("Already have an account?");
+        footer.add(signup_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
+
+        signin_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        signin_btn.setForeground(new java.awt.Color(10, 177, 52));
+        signin_btn.setText("Sign in");
+        signin_btn.setBorder(null);
+        signin_btn.setBorderPainted(false);
+        signin_btn.setContentAreaFilled(false);
+        signin_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                back_btnMouseEntered(evt);
+                signin_btnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                back_btnMouseExited(evt);
+                signin_btnMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                back_btnMousePressed(evt);
+                signin_btnMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                back_btnMouseReleased(evt);
+                signin_btnMouseReleased(evt);
             }
         });
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        signin_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                signin_btnActionPerformed(evt);
             }
         });
-        panelBorder2.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 5, -1, -1));
+        footer.add(signin_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, -1, -1));
+
+        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 480));
+
+        background.setBackground(new java.awt.Color(153, 153, 255));
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -235,35 +497,14 @@ public class SignupForm extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder2.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 5, 30, 30));
+        background.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 5, 30, 30));
 
-        getContentPane().add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
         getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        new LoginForm().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_back_btnActionPerformed
-
-    private void back_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseReleased
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-hover.png")));
-    }//GEN-LAST:event_back_btnMouseReleased
-
-    private void back_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMousePressed
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-click.png")));
-    }//GEN-LAST:event_back_btnMousePressed
-
-    private void back_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseExited
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-idle.png")));
-    }//GEN-LAST:event_back_btnMouseExited
-
-    private void back_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseEntered
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-hover.png")));
-    }//GEN-LAST:event_back_btnMouseEntered
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
         int confirmExit = JOptionPane.showConfirmDialog(null,
@@ -293,11 +534,33 @@ public class SignupForm extends javax.swing.JFrame {
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMouseEntered
 
+    private void next_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_btnActionPerformed
+        create_panel.setSelectedIndex(1);
+    }//GEN-LAST:event_next_btnActionPerformed
+
+    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
+        if (password_check.isSelected()) {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
+            password_field.setEchoChar((char) 0);
+        } else {
+            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
+            password_field.setEchoChar('*');
+        }
+    }//GEN-LAST:event_password_checkActionPerformed
+
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        updateBmiAndEnableSignup();
+    }//GEN-LAST:event_confirm_btnActionPerformed
+
     private void signup_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_btnActionPerformed
         String firstname = first_name_field.getText().trim();
         String lastname = last_name_field.getText().trim();
         String email = email_field.getText().trim();
         String username = username_field.getText().trim();
+        String age = age_field.getText();
+        String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
+        String weight = weight_field.getText();
+        String height = height_field.getText();
         String password = String.valueOf(password_field.getPassword()).trim();
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
@@ -331,8 +594,8 @@ public class SignupForm extends javax.swing.JFrame {
             return;
         }
         //CHECK IF USERNAME HAS ADMIN CREDENTIALS
-        if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3") ||
-            username.equals("admin4") || username.equals("admin5")) {
+        if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3")
+                || username.equals("admin4") || username.equals("admin5")) {
             JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -383,85 +646,69 @@ public class SignupForm extends javax.swing.JFrame {
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-                    + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
-                    + "VALUES (?,?,?,?,?,?,?)";
+                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
             ps.setString(3, email);
             ps.setString(4, username);
-            ps.setString(5, password);
-            ps.setString(6, sec_question);
-            ps.setString(7, sec_answer);
+            ps.setString(5, age);
+            ps.setString(6, sex);
+            ps.setString(7, weight);
+            ps.setString(8, height);
+            ps.setString(9, password);
+            ps.setString(10, sec_question);
+            ps.setString(11, sec_answer);
 
             if (ps.executeUpdate() > 0) {
-                JOptionPane.showMessageDialog(null, "New user added!");
                 first_name_field.setText("");
                 last_name_field.setText("");
                 email_field.setText("");
                 username_field.setText("");
+                age_field.setText("");
+                if (male_rdb.isSelected()) {
+                    male_rdb.setSelected(false);
+                } else if (female_rdb.isSelected()) {
+                    female_rdb.setSelected(false);
+                }
+                weight_field.setText("");
+                height_field.setText("");
                 password_field.setText("");
                 sec_question_field.setText("");
                 sec_answer_field.setText("");
                 password_check.setSelected(false);
                 password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
                 password_field.setEchoChar('*');
+                JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new LoginForm().setVisible(true);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_signup_btnActionPerformed
 
-    private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
-        if (password_check.isSelected()) {
-            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
-            password_field.setEchoChar((char) 0);
-        } else {
-            password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
-            password_field.setEchoChar('*');
-        }
-    }//GEN-LAST:event_password_checkActionPerformed
+    private void signin_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signin_btnActionPerformed
+        new LoginForm().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_signin_btnActionPerformed
 
-    private void setupSignupButtonListener() {
-        javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
-            @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
+    private void signin_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signin_btnMouseEntered
+        signin_btn.setForeground(new Color(6, 115, 33));
+    }//GEN-LAST:event_signin_btnMouseEntered
 
-            @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
+    private void signin_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signin_btnMouseExited
+        signin_btn.setForeground(new Color(10, 177, 52));
+    }//GEN-LAST:event_signin_btnMouseExited
 
-            @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
-        };
-        first_name_field.getDocument().addDocumentListener(documentListener);
-        last_name_field.getDocument().addDocumentListener(documentListener);
-        email_field.getDocument().addDocumentListener(documentListener);
-        username_field.getDocument().addDocumentListener(documentListener);
-        password_field.getDocument().addDocumentListener(documentListener);
-        sec_question_field.getDocument().addDocumentListener(documentListener);
-        sec_answer_field.getDocument().addDocumentListener(documentListener);
-    }
+    private void signin_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signin_btnMousePressed
+        signin_btn.setForeground(new Color(5, 96, 28));
+    }//GEN-LAST:event_signin_btnMousePressed
 
-    private void toggleLoginButton() {
-        String firstname = first_name_field.getText().trim();
-        String lastname = last_name_field.getText().trim();
-        String email = email_field.getText().trim();
-        String username = username_field.getText().trim();
-        String password = String.valueOf(password_field.getPassword()).trim();
-        String secQuestion = sec_question_field.getText().trim();
-        String secAnswer = sec_answer_field.getText().trim();
-        signup_btn.setEnabled(
-                !firstname.isEmpty() && !lastname.isEmpty() &&
-                !email.isEmpty() && !username.isEmpty() &&
-                !password.isEmpty() && !secQuestion.isEmpty() &&
-                !secAnswer.isEmpty());
-    }
+    private void signin_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signin_btnMouseReleased
+        signin_btn.setForeground(new Color(6, 115, 33));
+    }//GEN-LAST:event_signin_btnMouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -494,36 +741,58 @@ public class SignupForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel answer;
+    private javax.swing.JTextField age_field;
+    private javax.swing.JLabel age_label;
     private javax.swing.JLabel answer_guide;
-    private javax.swing.JButton back_btn;
+    private javax.swing.JLabel answer_label;
+    private Resources.components.PanelBorder background;
+    private javax.swing.JLabel bmi_label;
+    private javax.swing.JLabel bmi_range_label;
+    private javax.swing.JLabel classification_label;
+    private javax.swing.JButton confirm_btn;
     private javax.swing.JLabel create_account;
+    private javax.swing.JTabbedPane create_panel;
     private javax.swing.JLabel element;
-    private javax.swing.JLabel email;
     private javax.swing.JTextField email_field;
+    private javax.swing.JLabel email_label;
     private javax.swing.JButton exit_btn;
-    private javax.swing.JLabel first_name;
+    private javax.swing.JRadioButton female_rdb;
     private javax.swing.JTextField first_name_field;
+    private javax.swing.JLabel first_name_label;
+    private Resources.components.PanelBorder footer;
+    private Resources.components.PanelBorder header;
+    private javax.swing.JTextField height_field;
+    private javax.swing.JLabel height_label;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
+    private javax.swing.JLabel last_name_label;
+    private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
-    private Resources.components.PanelBorder panelBorder1;
+    private javax.swing.JButton next_btn;
+    private javax.swing.JLabel normal_range_label;
     private Resources.components.PanelBorder panelBorder2;
-    private javax.swing.JLabel password;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
-    private javax.swing.JLabel question;
+    private javax.swing.JLabel password_label;
     private javax.swing.JLabel question_guide;
+    private javax.swing.JLabel question_label;
+    private javax.swing.JLabel result_label;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
+    private javax.swing.JLabel sex_label;
+    private javax.swing.JButton signin_btn;
     private javax.swing.JButton signup_btn;
-    private javax.swing.JLabel username;
+    private javax.swing.JLabel signup_message;
+    private Resources.components.PanelBorder step1_panel;
+    private Resources.components.PanelBorder step2_panel;
     private javax.swing.JTextField username_field;
-    private javax.swing.JLabel validation;
+    private javax.swing.JLabel username_label;
+    private javax.swing.JLabel validation_label;
+    private javax.swing.JTextField weight_field;
+    private javax.swing.JLabel weight_label;
     // End of variables declaration//GEN-END:variables
 }
