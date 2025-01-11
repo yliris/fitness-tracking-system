@@ -3,6 +3,7 @@ package Home;
 import Account.LoginForm;
 import Account.EditInfoForm;
 import Connection.DatabaseConnection;
+import Resources.components.ScrollBarWin11UI;
 import Resources.components.TableActionCellEditor;
 import Resources.components.TableActionCellRender;
 import Resources.components.TableActionEvent;
@@ -15,6 +16,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
@@ -47,6 +51,7 @@ public class AdminHome extends javax.swing.JFrame {
         user_table.getTableHeader().setDefaultRenderer(headerRenderer);
 
         JTableHeader header = user_table.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getPreferredSize().width, 30));
         header.setBackground(new Color(255, 255, 255));
         header.setForeground(new Color(51, 51, 51));
 
@@ -248,11 +253,11 @@ public class AdminHome extends javax.swing.JFrame {
         admin_panels = new javax.swing.JTabbedPane();
         user_table_panel = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        user_table = new javax.swing.JTable();
         total_users = new javax.swing.JLabel();
         user_searchbar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        user_table = new javax.swing.JTable();
         adduser_panel = new Resources.components.PanelBorder();
         panelBorder2 = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
@@ -378,6 +383,32 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel1.setText("User Information Table");
         user_table_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 70, 180, 30));
 
+        total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
+        total_users.setForeground(new java.awt.Color(255, 255, 255));
+        total_users.setText("Total Users =");
+        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 40));
+
+        user_searchbar.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        user_searchbar.setText("Search User");
+        user_searchbar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                user_searchbarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                user_searchbarFocusLost(evt);
+            }
+        });
+        user_searchbar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                user_searchbarKeyReleased(evt);
+            }
+        });
+        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 280, 30));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-search-icon.png"))); // NOI18N
+        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 30, 30));
+
         user_table.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         user_table.setForeground(new java.awt.Color(51, 51, 51));
         user_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -446,32 +477,6 @@ public class AdminHome extends javax.swing.JFrame {
         }
 
         user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 940, 320));
-
-        total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
-        total_users.setForeground(new java.awt.Color(255, 255, 255));
-        total_users.setText("Total Users =");
-        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 40));
-
-        user_searchbar.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        user_searchbar.setText("Search User");
-        user_searchbar.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                user_searchbarFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                user_searchbarFocusLost(evt);
-            }
-        });
-        user_searchbar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                user_searchbarKeyReleased(evt);
-            }
-        });
-        user_table_panel.add(user_searchbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 280, 30));
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-search-icon.png"))); // NOI18N
-        user_table_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 30, 30));
 
         admin_panels.addTab("tab1", user_table_panel);
 
@@ -820,6 +825,9 @@ public class AdminHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        
+        UIDefaults ui = UIManager.getDefaults();
+        ui.put("ScrollBarUI", ScrollBarWin11UI.class.getCanonicalName());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AdminHome().setVisible(true);

@@ -230,29 +230,33 @@ public class EditInfoForm extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 5, 30, 30));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
-        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 370, -1));
-        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 370, -1));
-        panelBorder1.add(lastname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 180, -1));
-        panelBorder1.add(firstname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 180, -1));
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 30, 30));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 20));
+        panelBorder1.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 290, -1));
+        panelBorder1.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 290, -1));
+        panelBorder1.add(lastname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
+        panelBorder1.add(firstname_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 140, -1));
 
-        jLabel4.setText("email");
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel4.setText("Email:");
+        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
-        jLabel1.setText("last name");
-        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel1.setText("Last Name:");
+        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, -1));
 
-        jLabel2.setText("username");
-        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel2.setText("Username:");
+        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
-        jLabel3.setText("first name");
-        panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel3.setText("First Name:");
+        panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 140, -1));
 
         update_btn.setText("Update");
-        panelBorder1.add(update_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, -1, -1));
+        panelBorder1.add(update_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, -1, -1));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 300));
+        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 430));
 
         pack();
         setLocationRelativeTo(null);

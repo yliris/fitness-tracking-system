@@ -2,6 +2,7 @@ package Home;
 
 import Account.LoginForm;
 import Connection.DatabaseConnection;
+import Resources.components.ScrollBarWin11UI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.Connection;
@@ -10,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 public class UserHome extends javax.swing.JFrame {
 
@@ -1348,6 +1351,8 @@ public class UserHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        UIDefaults ui = UIManager.getDefaults();
+        ui.put("ScrollBarUI", ScrollBarWin11UI.class.getCanonicalName());
         int userId = 1;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
