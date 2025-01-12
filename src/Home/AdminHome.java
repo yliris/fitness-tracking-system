@@ -22,6 +22,9 @@ public class AdminHome extends javax.swing.JFrame {
         this.setIconImage(icon);
         loadDataToTable();
         updateTotalUsers();
+        ButtonGroup sexRdb = new ButtonGroup();
+        sexRdb.add(male_rdb);
+        sexRdb.add(female_rdb);
 
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
@@ -237,24 +240,35 @@ public class AdminHome extends javax.swing.JFrame {
         search_user_icon = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         user_table = new javax.swing.JTable();
+        usertable_background = new javax.swing.JLabel();
         adduser_panel = new Resources.components.PanelBorder();
         panelBorder2 = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
-        add_btn = new javax.swing.JButton();
-        first_name = new javax.swing.JLabel();
-        last_name = new javax.swing.JLabel();
+        first_name_label = new javax.swing.JLabel();
         first_name_field = new javax.swing.JTextField();
+        last_name_label = new javax.swing.JLabel();
         last_name_field = new javax.swing.JTextField();
-        email = new javax.swing.JLabel();
+        email_label = new javax.swing.JLabel();
         email_field = new javax.swing.JTextField();
-        username = new javax.swing.JLabel();
+        username_label = new javax.swing.JLabel();
         username_field = new javax.swing.JTextField();
-        password = new javax.swing.JLabel();
+        age_label = new javax.swing.JLabel();
+        age_field = new javax.swing.JTextField();
+        sex_label = new javax.swing.JLabel();
+        male_rdb = new javax.swing.JRadioButton();
+        female_rdb = new javax.swing.JRadioButton();
+        weight_label = new javax.swing.JLabel();
+        weight_field = new javax.swing.JTextField();
+        height_label = new javax.swing.JLabel();
+        height_field = new javax.swing.JTextField();
+        password_label = new javax.swing.JLabel();
         password_field = new javax.swing.JPasswordField();
-        question = new javax.swing.JLabel();
+        question_label = new javax.swing.JLabel();
         sec_question_field = new javax.swing.JTextField();
-        answer = new javax.swing.JLabel();
+        answer_label = new javax.swing.JLabel();
         sec_answer_field = new javax.swing.JTextField();
+        add_btn = new javax.swing.JButton();
+        adduser_background = new javax.swing.JLabel();
         background = new Resources.components.PanelBorder();
         mover = new Resources.components.PanelMover();
 
@@ -319,9 +333,9 @@ public class AdminHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 20, -1, -1));
+        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1165, 20, -1, -1));
 
-        admin_header.setBackground(new java.awt.Color(142, 142, 255));
+        admin_header.setBackground(new java.awt.Color(255, 255, 255));
         admin_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         usertable_btn.setBackground(new java.awt.Color(142, 142, 255));
@@ -365,7 +379,7 @@ public class AdminHome extends javax.swing.JFrame {
         total_users.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         total_users.setForeground(new java.awt.Color(255, 255, 255));
         total_users.setText("Total Users =");
-        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1210, 40));
+        user_table_panel.add(total_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1210, 40));
 
         user_searchbar.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         user_searchbar.setText("Search User");
@@ -489,6 +503,9 @@ public class AdminHome extends javax.swing.JFrame {
 
         user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1210, 420));
 
+        usertable_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/admin-user-element.png"))); // NOI18N
+        user_table_panel.add(usertable_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+
         admin_panels.addTab("tab1", user_table_panel);
 
         adduser_panel.setBackground(new java.awt.Color(142, 142, 255));
@@ -509,7 +526,89 @@ public class AdminHome extends javax.swing.JFrame {
                 password_checkActionPerformed(evt);
             }
         });
-        panelBorder2.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 185, 20, 20));
+        panelBorder2.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 285, 20, 20));
+
+        first_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        first_name_label.setText("First Name");
+        panelBorder2.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, -1));
+
+        last_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        last_name_label.setText("Last Name");
+        panelBorder2.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+
+        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 150, -1));
+
+        email_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        email_label.setText("Email");
+        panelBorder2.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 310, -1));
+
+        username_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        username_label.setText("Username");
+        panelBorder2.add(username_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 310, -1));
+
+        age_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        age_label.setText("Age");
+        panelBorder2.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        age_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 150, -1));
+
+        sex_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        sex_label.setText("Sex");
+        panelBorder2.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+
+        male_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        male_rdb.setText("Male");
+        panelBorder2.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
+
+        female_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        female_rdb.setText("Female");
+        panelBorder2.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+
+        weight_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        weight_label.setText("Weight");
+        panelBorder2.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 150, -1));
+
+        height_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        height_label.setText("Height");
+        panelBorder2.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+
+        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, -1));
+
+        password_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        password_label.setText("Password");
+        panelBorder2.add(password_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 310, -1));
+
+        question_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        question_label.setText("Validation Question");
+        panelBorder2.add(question_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+
+        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 310, -1));
+
+        answer_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        answer_label.setText("Validation Answer");
+        panelBorder2.add(answer_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
+
+        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder2.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 310, -1));
 
         add_btn.setBackground(new java.awt.Color(102, 102, 255));
         add_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -521,58 +620,12 @@ public class AdminHome extends javax.swing.JFrame {
                 add_btnActionPerformed(evt);
             }
         });
-        panelBorder2.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 330, 30));
+        panelBorder2.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 310, 30));
 
-        first_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        first_name.setText("First Name");
-        panelBorder2.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        adduser_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 350, 470));
 
-        last_name.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        last_name.setText("Last Name");
-        panelBorder2.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
-
-        first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, -1));
-
-        last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 160, -1));
-
-        email.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        email.setText("Email");
-        panelBorder2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
-        email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 330, -1));
-
-        username.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        username.setText("Username");
-        panelBorder2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
-
-        username_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(username_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 330, -1));
-
-        password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        password.setText("Password");
-        panelBorder2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
-
-        password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 330, -1));
-
-        question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        question.setText("Validation Question");
-        panelBorder2.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
-
-        sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 330, -1));
-
-        answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        answer.setText("Validation Answer");
-        panelBorder2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
-
-        sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 330, -1));
-
-        adduser_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 350, 380));
+        adduser_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/admin-user-element.png"))); // NOI18N
+        adduser_panel.add(adduser_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         admin_panels.addTab("tab2", adduser_panel);
 
@@ -696,6 +749,10 @@ public class AdminHome extends javax.swing.JFrame {
         String lastname = last_name_field.getText().trim();
         String email = email_field.getText().trim();
         String username = username_field.getText().trim();
+        String age = age_field.getText();
+        String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
+        String weight = weight_field.getText();
+        String height = height_field.getText();
         String password = String.valueOf(password_field.getPassword()).trim();
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
@@ -730,7 +787,7 @@ public class AdminHome extends javax.swing.JFrame {
         }
         //CHECK IF USERNAME HAS ADMIN CREDENTIALS
         if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3")
-            || username.equals("admin4") || username.equals("admin5")) {
+                || username.equals("admin4") || username.equals("admin5")) {
             JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -781,31 +838,27 @@ public class AdminHome extends javax.swing.JFrame {
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-            + "(`first_name`, `last_name`, `email`, `username`, `password`, `sec_question`, `sec_answer`)"
-            + "VALUES (?,?,?,?,?,?,?)";
+                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
             ps.setString(3, email);
             ps.setString(4, username);
-            ps.setString(5, password);
-            ps.setString(6, sec_question);
-            ps.setString(7, sec_answer);
+            ps.setString(5, age);
+            ps.setString(6, sex);
+            ps.setString(7, weight);
+            ps.setString(8, height);
+            ps.setString(9, password);
+            ps.setString(10, sec_question);
+            ps.setString(11, sec_answer);
 
             if (ps.executeUpdate() > 0) {
-                JOptionPane.showMessageDialog(null, "New user added!");
-                first_name_field.setText("");
-                last_name_field.setText("");
-                email_field.setText("");
-                username_field.setText("");
-                password_field.setText("");
-                sec_question_field.setText("");
-                sec_answer_field.setText("");
-                password_check.setSelected(false);
-                password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
-                password_field.setEchoChar('*');
                 loadDataToTable();
                 updateTotalUsers();
+                JOptionPane.showMessageDialog(null, "New user added!");
+                new AdminHome().setVisible(true);
+                dispose();
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
@@ -836,7 +889,6 @@ public class AdminHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        
         UIDefaults ui = UIManager.getDefaults();
         ui.put("ScrollBarUI", ScrollBarWin11UI.class.getCanonicalName());
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -848,39 +900,50 @@ public class AdminHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_btn;
+    private javax.swing.JLabel adduser_background;
     private javax.swing.JButton adduser_btn;
     private Resources.components.PanelBorder adduser_panel;
     private Resources.components.PanelBorder admin_header;
     private javax.swing.JTabbedPane admin_panels;
-    private javax.swing.JLabel answer;
+    private javax.swing.JTextField age_field;
+    private javax.swing.JLabel age_label;
+    private javax.swing.JLabel answer_label;
     private Resources.components.PanelBorder background;
-    private javax.swing.JLabel email;
     private javax.swing.JTextField email_field;
+    private javax.swing.JLabel email_label;
     private javax.swing.JButton exit_btn;
-    private javax.swing.JLabel first_name;
+    private javax.swing.JRadioButton female_rdb;
     private javax.swing.JTextField first_name_field;
+    private javax.swing.JLabel first_name_label;
     private javax.swing.JLabel greetings;
+    private javax.swing.JTextField height_field;
+    private javax.swing.JLabel height_label;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel last_name;
     private javax.swing.JTextField last_name_field;
+    private javax.swing.JLabel last_name_label;
     private javax.swing.JButton logout_btn;
+    private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
     private Resources.components.PanelBorder panelBorder2;
-    private javax.swing.JLabel password;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
-    private javax.swing.JLabel question;
+    private javax.swing.JLabel password_label;
+    private javax.swing.JLabel question_label;
     private javax.swing.JLabel search_user_icon;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
+    private javax.swing.JLabel sex_label;
     private javax.swing.JLabel total_users;
     private javax.swing.JTextField user_searchbar;
     private javax.swing.JTable user_table;
     private javax.swing.JLabel user_table_label;
     private Resources.components.PanelBorder user_table_panel;
-    private javax.swing.JLabel username;
     private javax.swing.JTextField username_field;
+    private javax.swing.JLabel username_label;
+    private javax.swing.JLabel usertable_background;
     private javax.swing.JButton usertable_btn;
+    private javax.swing.JTextField weight_field;
+    private javax.swing.JLabel weight_label;
     // End of variables declaration//GEN-END:variables
 }

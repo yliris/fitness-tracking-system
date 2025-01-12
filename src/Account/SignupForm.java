@@ -681,8 +681,8 @@ public class SignupForm extends javax.swing.JFrame {
                 password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-close.png")));
                 password_field.setEchoChar('*');
                 JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
                 new LoginForm().setVisible(true);
+                dispose();
             }
         } catch (SQLException ex) {
             Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
