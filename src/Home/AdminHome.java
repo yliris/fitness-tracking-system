@@ -530,21 +530,21 @@ public class AdminHome extends javax.swing.JFrame {
 
         first_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         first_name_label.setText("First Name");
-        panelBorder2.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        panelBorder2.add(first_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, -1, -1));
 
         first_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(first_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, -1));
 
         last_name_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         last_name_label.setText("Last Name");
-        panelBorder2.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+        panelBorder2.add(last_name_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 15, -1, -1));
 
         last_name_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(last_name_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 150, -1));
 
         email_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         email_label.setText("Email");
-        panelBorder2.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        panelBorder2.add(email_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 65, -1, -1));
 
         email_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(email_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 310, -1));
@@ -558,54 +558,54 @@ public class AdminHome extends javax.swing.JFrame {
 
         age_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         age_label.setText("Age");
-        panelBorder2.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        panelBorder2.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 165, -1, -1));
 
         age_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 150, -1));
 
         sex_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         sex_label.setText("Sex");
-        panelBorder2.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+        panelBorder2.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, -1));
 
         male_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         male_rdb.setText("Male");
-        panelBorder2.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
+        panelBorder2.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
 
         female_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         female_rdb.setText("Female");
-        panelBorder2.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+        panelBorder2.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
 
         weight_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        weight_label.setText("Weight");
-        panelBorder2.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        weight_label.setText("Weight (kg)");
+        panelBorder2.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, -1, -1));
 
         weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 150, -1));
 
         height_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        height_label.setText("Height");
-        panelBorder2.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+        height_label.setText("Height (cm)");
+        panelBorder2.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 215, -1, -1));
 
         height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, -1));
 
         password_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         password_label.setText("Password");
-        panelBorder2.add(password_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        panelBorder2.add(password_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 265, -1, -1));
 
         password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 310, -1));
 
         question_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         question_label.setText("Validation Question");
-        panelBorder2.add(question_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        panelBorder2.add(question_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
 
         sec_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(sec_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 310, -1));
 
         answer_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         answer_label.setText("Validation Answer");
-        panelBorder2.add(answer_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
+        panelBorder2.add(answer_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 375, -1, -1));
 
         sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder2.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 310, -1));

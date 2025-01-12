@@ -85,8 +85,6 @@ public class SignupForm extends javax.swing.JFrame {
         });
         male_rdb.addActionListener(e -> toggleSignupButton());
         female_rdb.addActionListener(e -> toggleSignupButton());
-
-        signup_btn.addActionListener(e -> updateBmiAndEnableSignup());
     }
 
     private void toggleSignupButton() {
@@ -97,85 +95,92 @@ public class SignupForm extends javax.swing.JFrame {
         signup_btn.setEnabled(isValid);
     }
 
-    private void updateBmiAndEnableSignup() {
-        try {
-            int age = Integer.parseInt(age_field.getText());
-            String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
-            float weight = Float.parseFloat(weight_field.getText());
-            float height = Float.parseFloat(height_field.getText()) / 100;
-
-            if (weight > 0 && height > 0) {
-                int bmiValue = (int) (weight / (height * height));
-                bmi_label.setText(String.format("BMI: " + bmiValue + " kg/m²"));
-
-                String classification;
-                String ageGroupClassification = "";
-
-                if ("Male".equals(sex)) {
-                    if (bmiValue < 18.5) {
-                        classification = "Underweight";
-                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
-                        classification = "Normal weight";
-                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
-                        classification = "Overweight";
-                    } else {
-                        classification = "Obese";
-                    }
-                } else if ("Female".equals(sex)) {
-                    if (bmiValue < 18.5) {
-                        classification = "Underweight";
-                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
-                        classification = "Normal weight";
-                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
-                        classification = "Overweight";
-                    } else {
-                        classification = "Obese";
-                    }
-                } else {
-                    classification = "N/A";
-                }
-
-                if (age < 18) {
-                    ageGroupClassification = "Note: BMI classification for children is different.";
-                } else if (age >= 65) {
-                    ageGroupClassification = "Note: BMI recommendations for elderly may vary.";
-                }
-
-                classification_label.setText("Classification: " + classification + " " + ageGroupClassification);
-                bmi_range_label.setText("Healthy BMI Range: 18.5 - 24.9");
-
-                float minNormalWeight = 18.5f * (height * height);
-                float maxNormalWeight = 24.9f * (height * height);
-                float weightToLose = weight - maxNormalWeight;
-                float weightToGain = minNormalWeight - weight;
-
-                if (bmiValue < 18.5) {
-                    normal_range_label.setText(String.format("Gain %.2f kg to reach normal range.", weightToGain));
-                } else if (bmiValue > 24.9) {
-                    normal_range_label.setText(String.format("Lose %.2f kg to reach normal range.", weightToLose));
-                } else {
-                    normal_range_label.setText("You are within the normal weight range.");
-                }
-
-                signup_btn.setEnabled(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid weight or height values.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for weight and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+//    private void updateBmiAndEnableSignup() {
+//        try {
+//            int age = Integer.parseInt(age_field.getText());
+//            String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
+//            float weight = Float.parseFloat(weight_field.getText());
+//            float height = Float.parseFloat(height_field.getText()) / 100;
+//
+//            if (weight > 0 && height > 0) {
+//                int bmiValue = (int) (weight / (height * height));
+//                bmi_label.setText(String.format("BMI: " + bmiValue + " kg/m²"));
+//
+//                String classification;
+//                String ageGroupClassification = "";
+//
+//                if ("Male".equals(sex)) {
+//                    if (bmiValue < 18.5) {
+//                        classification = "Underweight";
+//                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+//                        classification = "Normal weight";
+//                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
+//                        classification = "Overweight";
+//                    } else {
+//                        classification = "Obese";
+//                    }
+//                } else if ("Female".equals(sex)) {
+//                    if (bmiValue < 18.5) {
+//                        classification = "Underweight";
+//                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+//                        classification = "Normal weight";
+//                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
+//                        classification = "Overweight";
+//                    } else {
+//                        classification = "Obese";
+//                    }
+//                } else {
+//                    classification = "N/A";
+//                }
+//
+//                if (age < 18) {
+//                    ageGroupClassification = "Note: BMI classification for children is different.";
+//                } else if (age >= 65) {
+//                    ageGroupClassification = "Note: BMI recommendations for elderly may vary.";
+//                }
+//
+//                classification_label.setText("Classification: " + classification + " " + ageGroupClassification);
+//                bmi_range_label.setText("Healthy BMI Range: 18.5 - 24.9");
+//
+//                float minNormalWeight = 18.5f * (height * height);
+//                float maxNormalWeight = 24.9f * (height * height);
+//                float weightToLose = weight - maxNormalWeight;
+//                float weightToGain = minNormalWeight - weight;
+//
+//                if (bmiValue < 18.5) {
+//                    normal_range_label.setText(String.format("Gain %.2f kg to reach normal range.", weightToGain));
+//                } else if (bmiValue > 24.9) {
+//                    normal_range_label.setText(String.format("Lose %.2f kg to reach normal range.", weightToLose));
+//                } else {
+//                    normal_range_label.setText("You are within the normal weight range.");
+//                }
+//
+//                signup_btn.setEnabled(true);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Invalid weight or height values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for weight and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        result_label = new javax.swing.JLabel();
+        bmi_label = new javax.swing.JLabel();
+        classification_label = new javax.swing.JLabel();
+        bmi_range_label = new javax.swing.JLabel();
+        normal_range_label = new javax.swing.JLabel();
         element = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        exit_btn = new javax.swing.JButton();
         header = new Resources.components.PanelBorder();
         create_account = new javax.swing.JLabel();
+        mover = new Resources.components.PanelMover();
         create_panel = new javax.swing.JTabbedPane();
         step1_panel = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
@@ -200,29 +205,41 @@ public class SignupForm extends javax.swing.JFrame {
         sec_answer_field = new javax.swing.JTextField();
         next_btn = new javax.swing.JButton();
         step2_panel = new Resources.components.PanelBorder();
-        result_label = new javax.swing.JLabel();
-        bmi_label = new javax.swing.JLabel();
-        classification_label = new javax.swing.JLabel();
-        bmi_range_label = new javax.swing.JLabel();
-        normal_range_label = new javax.swing.JLabel();
-        panelBorder2 = new Resources.components.PanelBorder();
+        signup_btn = new javax.swing.JButton();
+        panelBorder1 = new Resources.components.PanelBorder();
         age_label = new javax.swing.JLabel();
         age_field = new javax.swing.JTextField();
         sex_label = new javax.swing.JLabel();
         male_rdb = new javax.swing.JRadioButton();
         female_rdb = new javax.swing.JRadioButton();
         weight_label = new javax.swing.JLabel();
-        height_field = new javax.swing.JTextField();
         weight_field = new javax.swing.JTextField();
         height_label = new javax.swing.JLabel();
-        confirm_btn = new javax.swing.JButton();
-        signup_btn = new javax.swing.JButton();
+        height_field = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        or = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         footer = new Resources.components.PanelBorder();
         signup_message = new javax.swing.JLabel();
         signin_btn = new javax.swing.JButton();
         background = new Resources.components.PanelBorder();
-        exit_btn = new javax.swing.JButton();
-        mover = new Resources.components.PanelMover();
+
+        result_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        result_label.setText("Result");
+
+        bmi_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+
+        classification_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+
+        bmi_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+
+        normal_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -247,6 +264,31 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel3.setText("Achieve Your Goals!");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 445, -1, -1));
 
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
+        exit_btn.setBorder(null);
+        exit_btn.setBorderPainted(false);
+        exit_btn.setContentAreaFilled(false);
+        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exit_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exit_btnMouseReleased(evt);
+            }
+        });
+        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 5, 30, 30));
+
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -255,6 +297,7 @@ public class SignupForm extends javax.swing.JFrame {
         header.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 50));
+        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
 
         step1_panel.setBackground(new java.awt.Color(255, 255, 255));
         step1_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -335,7 +378,7 @@ public class SignupForm extends javax.swing.JFrame {
         answer_guide.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         answer_guide.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         answer_guide.setText("(make sure to remember your answer)");
-        step1_panel.add(answer_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, 10));
+        step1_panel.add(answer_guide, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 330, -1, 10));
 
         sec_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         step1_panel.add(sec_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, -1));
@@ -357,68 +400,6 @@ public class SignupForm extends javax.swing.JFrame {
         step2_panel.setBackground(new java.awt.Color(255, 255, 255));
         step2_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        result_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        result_label.setText("Result");
-        step2_panel.add(result_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 340, 20));
-
-        bmi_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        step2_panel.add(bmi_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 330, 20));
-
-        classification_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        step2_panel.add(classification_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 330, 20));
-
-        bmi_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        step2_panel.add(bmi_range_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 330, 20));
-
-        normal_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        step2_panel.add(normal_range_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, 20));
-
-        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        age_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        age_label.setText("Age");
-        panelBorder2.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
-
-        age_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
-
-        sex_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        sex_label.setText("Sex");
-        panelBorder2.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
-
-        male_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        male_rdb.setText("Male");
-        panelBorder2.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
-
-        female_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        female_rdb.setText("Female");
-        panelBorder2.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
-
-        weight_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        weight_label.setText("Weight");
-        panelBorder2.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
-        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 120, -1));
-
-        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        panelBorder2.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 120, -1));
-
-        height_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        height_label.setText("Height");
-        panelBorder2.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
-
-        confirm_btn.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        confirm_btn.setText("Confirm");
-        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirm_btnActionPerformed(evt);
-            }
-        });
-        panelBorder2.add(confirm_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 250, -1));
-
-        step2_panel.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 310, 170));
-
         signup_btn.setBackground(new java.awt.Color(102, 102, 255));
         signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         signup_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -429,7 +410,76 @@ public class SignupForm extends javax.swing.JFrame {
                 signup_btnActionPerformed(evt);
             }
         });
-        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 330, -1));
+        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, -1));
+
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
+        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        age_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        age_label.setText("Age");
+        panelBorder1.add(age_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        age_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(age_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 110, -1));
+
+        sex_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        sex_label.setText("Sex");
+        panelBorder1.add(sex_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        male_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        male_rdb.setText("Male");
+        panelBorder1.add(male_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
+
+        female_rdb.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        female_rdb.setText("Female");
+        panelBorder1.add(female_rdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+
+        weight_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        weight_label.setText("Weight (kg)");
+        panelBorder1.add(weight_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        weight_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(weight_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, -1));
+
+        height_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        height_label.setText("Height (cm)");
+        panelBorder1.add(height_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+
+        height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 120, -1));
+
+        step2_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 290, 140));
+
+        jLabel4.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("For Health Tracking");
+        step2_panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 55, 150, -1));
+
+        jLabel5.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel5.setText("- Having your age, sex, weight, and height is important in order");
+        step2_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 330, 20));
+
+        jLabel7.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel7.setText("an accurate and effective guidance for your health.");
+        step2_panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 320, 20));
+
+        jLabel6.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel6.setText("to track, and manage your health and fitness goals to achieve");
+        step2_panel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 320, 10));
+        step2_panel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, 10));
+        step2_panel.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 110, 10));
+        step2_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 150, 10));
+
+        or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        or.setForeground(new java.awt.Color(153, 153, 153));
+        or.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        or.setText("Or");
+        step2_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 385, 20, -1));
+        step2_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 150, 10));
 
         create_panel.addTab("tab2", step2_panel);
 
@@ -473,34 +523,7 @@ public class SignupForm extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(153, 153, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
-        exit_btn.setBorder(null);
-        exit_btn.setBorderPainted(false);
-        exit_btn.setContentAreaFilled(false);
-        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exit_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exit_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exit_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exit_btnMouseReleased(evt);
-            }
-        });
-        exit_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exit_btnActionPerformed(evt);
-            }
-        });
-        background.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 5, 30, 30));
-
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
-        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
 
         pack();
         setLocationRelativeTo(null);
@@ -547,10 +570,6 @@ public class SignupForm extends javax.swing.JFrame {
             password_field.setEchoChar('*');
         }
     }//GEN-LAST:event_password_checkActionPerformed
-
-    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
-        updateBmiAndEnableSignup();
-    }//GEN-LAST:event_confirm_btnActionPerformed
 
     private void signup_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_btnActionPerformed
         String firstname = first_name_field.getText().trim();
@@ -749,7 +768,6 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel bmi_label;
     private javax.swing.JLabel bmi_range_label;
     private javax.swing.JLabel classification_label;
-    private javax.swing.JButton confirm_btn;
     private javax.swing.JLabel create_account;
     private javax.swing.JTabbedPane create_panel;
     private javax.swing.JLabel element;
@@ -766,15 +784,24 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextField last_name_field;
     private javax.swing.JLabel last_name_label;
     private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
     private javax.swing.JButton next_btn;
     private javax.swing.JLabel normal_range_label;
-    private Resources.components.PanelBorder panelBorder2;
+    private javax.swing.JLabel or;
+    private Resources.components.PanelBorder panelBorder1;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JLabel password_label;

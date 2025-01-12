@@ -21,6 +21,11 @@ public class UserHome extends javax.swing.JFrame {
         body_panel.setSelectedIndex(1);
 
         loadUserData();
+        setGreetings();
+    }
+    
+    private void setGreetings() {
+        greetings.setText("Hi, " + username_profile.getText() + "!");
     }
 
     private void loadUserData() {
