@@ -2,9 +2,9 @@ package Content;
 
 import java.awt.Color;
 
-public class Profile extends javax.swing.JPanel {
+public class Home extends javax.swing.JPanel {
 
-    public Profile() {
+    public Home() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
     }
@@ -16,9 +16,9 @@ public class Profile extends javax.swing.JPanel {
         panelBorder1 = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
 
-        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
+        panelBorder1.setBackground(new java.awt.Color(153, 204, 255));
 
-        jLabel1.setText("PROFILE");
+        jLabel1.setText("HOME");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -27,7 +27,7 @@ public class Profile extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(1377, Short.MAX_VALUE))
+                .addContainerGap(1386, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
