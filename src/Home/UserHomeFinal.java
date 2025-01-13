@@ -33,6 +33,7 @@ public class UserHomeFinal extends javax.swing.JFrame {
         home_background.setLayout(new java.awt.BorderLayout());
 
         home_header_background.setBackground(new java.awt.Color(255, 255, 255));
+        home_header_background.setPreferredSize(new java.awt.Dimension(1440, 80));
         home_header_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         home_header.setBackground(new java.awt.Color(81, 199, 135));
@@ -91,23 +92,23 @@ public class UserHomeFinal extends javax.swing.JFrame {
         home_headerLayout.setHorizontalGroup(
             home_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(home_headerLayout.createSequentialGroup()
-                .addContainerGap(1335, Short.MAX_VALUE)
+                .addContainerGap(1337, Short.MAX_VALUE)
                 .addComponent(logout_btn)
                 .addGap(5, 5, 5)
                 .addComponent(exit_btn)
-                .addGap(16, 16, 16))
+                .addGap(14, 14, 14))
         );
         home_headerLayout.setVerticalGroup(
             home_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, home_headerLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addGroup(home_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(logout_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(exit_btn))
-                .addGap(24, 24, 24))
+                .addGap(14, 14, 14))
         );
 
-        home_header_background.add(home_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1420, -1));
+        home_header_background.add(home_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1420, 60));
         home_header_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 20));
 
         home_background.add(home_header_background, java.awt.BorderLayout.PAGE_START);
