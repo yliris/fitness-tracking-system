@@ -691,7 +691,7 @@ public class UserHome extends javax.swing.JFrame {
                 password_checkActionPerformed(evt);
             }
         });
-        edit_security_form.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 95, 20, 20));
+        edit_security_form.add(password_check, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 145, 20, 20));
 
         exit_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn3.setBorder(null);
@@ -728,23 +728,23 @@ public class UserHome extends javax.swing.JFrame {
         profile_password.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         profile_password.setForeground(new java.awt.Color(255, 255, 255));
         profile_password.setText("Password");
-        edit_security_form.add(profile_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 350, 20));
+        edit_security_form.add(profile_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 350, 20));
 
         profile_sec_question.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         profile_sec_question.setForeground(new java.awt.Color(255, 255, 255));
         profile_sec_question.setText("Validation Question");
-        edit_security_form.add(profile_sec_question, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 350, 20));
+        edit_security_form.add(profile_sec_question, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, 20));
 
         profile_question_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_security_form.add(profile_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 350, -1));
+        edit_security_form.add(profile_question_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
 
         profile_sec_answer.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         profile_sec_answer.setForeground(new java.awt.Color(255, 255, 255));
         profile_sec_answer.setText("Validation Answer");
-        edit_security_form.add(profile_sec_answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, 20));
+        edit_security_form.add(profile_sec_answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 350, 20));
 
         profile_answer_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_security_form.add(profile_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
+        edit_security_form.add(profile_answer_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 350, -1));
 
         security_save_btn.setBackground(new java.awt.Color(39, 154, 91));
         security_save_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -756,12 +756,12 @@ public class UserHome extends javax.swing.JFrame {
                 security_save_btnActionPerformed(evt);
             }
         });
-        edit_security_form.add(security_save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 350, 30));
+        edit_security_form.add(security_save_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 350, 30));
 
         profile_password_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        edit_security_form.add(profile_password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 350, -1));
+        edit_security_form.add(profile_password_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 350, -1));
 
-        edit_profile_security.add(edit_security_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 400, 290));
+        edit_profile_security.add(edit_security_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 400, 340));
 
         profile_tabs.addTab("tab3", edit_profile_security);
 
@@ -904,7 +904,7 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboard_btnMouseExited
 
     private void dashboard_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMousePressed
-        dashboard_btn.setBackground(new Color(66, 66, 255));
+        dashboard_btn.setBackground(new Color(40, 127, 80));
     }//GEN-LAST:event_dashboard_btnMousePressed
 
     private void dashboard_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseReleased
@@ -924,7 +924,7 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_exercise_btnMouseExited
 
     private void exercise_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exercise_btnMousePressed
-        exercise_btn.setBackground(new Color(66, 66, 255));
+        exercise_btn.setBackground(new Color(40, 127, 80));
     }//GEN-LAST:event_exercise_btnMousePressed
 
     private void exercise_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exercise_btnMouseReleased
@@ -944,7 +944,7 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_diet_btnMouseExited
 
     private void diet_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMousePressed
-        diet_btn.setBackground(new Color(66, 66, 255));
+        diet_btn.setBackground(new Color(40, 127, 80));
     }//GEN-LAST:event_diet_btnMousePressed
 
     private void diet_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseReleased
@@ -964,7 +964,7 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_guide_btnMouseExited
 
     private void guide_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMousePressed
-        guide_btn.setBackground(new Color(66, 66, 255));
+        guide_btn.setBackground(new Color(40, 127, 80));
     }//GEN-LAST:event_guide_btnMousePressed
 
     private void guide_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseReleased
