@@ -2,7 +2,7 @@ package Account;
 
 import Resources.components.DatabaseConnection;
 import Home.AdminHome;
-import Home.UserHome;
+import Home.UserHomee;
 import java.awt.*;
 import java.sql.*;
 import java.util.logging.*;
@@ -303,7 +303,7 @@ public class LoginForm extends javax.swing.JFrame {
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Login Success!");
                 int userId = rs.getInt("user_id");
-                UserHome userHome = new UserHome(userId);
+                UserHomee userHome = new UserHomee(userId);
                 userHome.setVisible(true);
                 this.dispose();
             } else {

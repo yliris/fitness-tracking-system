@@ -16,7 +16,7 @@ public class Profile extends javax.swing.JPanel {
         panelBorder1 = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
 
-        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
+        panelBorder1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setText("PROFILE");
 
@@ -27,14 +27,14 @@ public class Profile extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(1377, Short.MAX_VALUE))
+                .addContainerGap(1174, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(628, Short.MAX_VALUE))
+                .addContainerGap(516, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

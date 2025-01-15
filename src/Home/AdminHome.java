@@ -48,8 +48,11 @@ public class AdminHome extends javax.swing.JFrame {
                 deleteUser(row);
             }
         };
-        user_table.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
-        user_table.getColumnModel().getColumn(10).setCellEditor(new TableActionCellEditor(event));
+        user_table.getColumnModel().getColumn(11).setCellRenderer(new TableActionCellRender());
+        user_table.getColumnModel().getColumn(11).setCellEditor(new TableActionCellEditor(event));
+
+        add_btn.setEnabled(false);
+        setupAddButtonListener();
     }
 
     public void loadDataToTable() {
@@ -76,13 +79,38 @@ public class AdminHome extends javax.swing.JFrame {
                 String weight = getWeight + " kg";
                 String height = getHeight + " cm";
                 String BMI = "N/A";
+                String classification = "N/A";
+
                 if (getWeight != null && getHeight != null) {
                     float meterHeight = getHeight / 100;
-                    int calculateBMI = (int) (getWeight / (meterHeight * meterHeight));
+                    float bmiValue = getWeight / (meterHeight * meterHeight);
+                    int calculateBMI = (int) bmiValue;
                     BMI = calculateBMI + " kg/m²";
+
+                    if ("male".equalsIgnoreCase(sex)) {
+                        if (bmiValue < 18) {
+                            classification = "Underweight";
+                        } else if (bmiValue >= 18 && bmiValue <= 24) {
+                            classification = "Normal Weight";
+                        } else if (bmiValue >= 25 && bmiValue <= 29) {
+                            classification = "Overweight";
+                        } else if (bmiValue >= 30) {
+                            classification = "Obese";
+                        }
+                    } else if ("female".equalsIgnoreCase(sex)) {
+                        if (bmiValue < 18.5) {
+                            classification = "Underweight";
+                        } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+                            classification = "Normal Weight";
+                        } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+                            classification = "Overweight";
+                        } else if (bmiValue >= 30) {
+                            classification = "Obese";
+                        }
+                    }
                 }
 
-                model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI});
+                model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI, classification});
             }
 
             user_table.setBackground(new Color(255, 255, 255));
@@ -186,30 +214,48 @@ public class AdminHome extends javax.swing.JFrame {
     }
 
     private void editUser(int row) {
+        int selectedRow = user_table.getSelectedRow();
+
         if (user_table.isEditing()) {
             user_table.getCellEditor().stopCellEditing();
         }
 
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "No row selected!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) user_table.getModel();
 
-        if (row < 0 || row >= model.getRowCount()) {
+        if (selectedRow >= model.getRowCount()) {
             JOptionPane.showMessageDialog(this, "Invalid row selected!",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int userId = (int) model.getValueAt(row, 0);
-        String firstName = (String) model.getValueAt(row, 1);
-        String lastName = (String) model.getValueAt(row, 2);
-        String email = (String) model.getValueAt(row, 3);
-        String username = (String) model.getValueAt(row, 4);
-        int age = (int) model.getValueAt(row, 5);
-        String sex = (String) model.getValueAt(row, 6);
-        float weight = (float) model.getValueAt(row, 7);
-        float height = (float) model.getValueAt(row, 8);
+        int editUserId = Integer.parseInt(model.getValueAt(row, 0).toString());
+        String editFirstName = (String) model.getValueAt(row, 1);
+        String editLastName = (String) model.getValueAt(row, 2);
+        String editEmail = (String) model.getValueAt(row, 3);
+        String editUsername = (String) model.getValueAt(row, 4);
+        int editAge = Integer.parseInt(model.getValueAt(row, 5).toString());
+        String editSex = (String) model.getValueAt(row, 6);
+        String weightString = model.getValueAt(row, 7).toString().replaceAll("[^0-9.]", "");
+        String heightString = model.getValueAt(row, 8).toString().replaceAll("[^0-9.]", "");
+        float editWeight = Float.parseFloat(weightString);
+        float editHeight = Float.parseFloat(heightString);
 
-        EditInfoForm editForm = new EditInfoForm(this, userId, firstName, lastName, email, username, age, sex, weight, height);
-        editForm.setVisible(true);
+        String adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
+        if (adminPassword.equals("admin123") || adminPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
+            EditInfoForm editForm = new EditInfoForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
+            editForm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Incorrect Password, Logging out!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+            new LoginForm().setVisible(true);
+            dispose();
+        }
     }
 
     private void centerTableData() {
@@ -221,11 +267,61 @@ public class AdminHome extends javax.swing.JFrame {
         }
     }
 
+    private void setupAddButtonListener() {
+        javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleAddButton();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleAddButton();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleAddButton();
+            }
+        };
+        first_name_field.getDocument().addDocumentListener(documentListener);
+        last_name_field.getDocument().addDocumentListener(documentListener);
+        email_field.getDocument().addDocumentListener(documentListener);
+        username_field.getDocument().addDocumentListener(documentListener);
+        age_field.getDocument().addDocumentListener(documentListener);
+        male_rdb.addActionListener(e -> toggleAddButton());
+        female_rdb.addActionListener(e -> toggleAddButton());
+        weight_field.getDocument().addDocumentListener(documentListener);
+        height_field.getDocument().addDocumentListener(documentListener);
+        password_field.getDocument().addDocumentListener(documentListener);
+        sec_question_field.getDocument().addDocumentListener(documentListener);
+        sec_answer_field.getDocument().addDocumentListener(documentListener);
+    }
+
+    private void toggleAddButton() {
+        String firstname = first_name_field.getText().trim();
+        String lastname = last_name_field.getText().trim();
+        String email = email_field.getText().trim();
+        String username = username_field.getText().trim();
+        String age = age_field.getText();
+        String weight = weight_field.getText();
+        String height = height_field.getText();
+        String password = String.valueOf(password_field.getPassword()).trim();
+        String secQuestion = sec_question_field.getText().trim();
+        String secAnswer = sec_answer_field.getText().trim();
+        add_btn.setEnabled(!firstname.isEmpty() && !lastname.isEmpty()
+                && !email.isEmpty() && !username.isEmpty()
+                && !age.isEmpty() && !weight.isEmpty() && !height.isEmpty()
+                && (male_rdb.isSelected() || female_rdb.isSelected())
+                && !password.isEmpty() && !secQuestion.isEmpty()
+                && !secAnswer.isEmpty());
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new Resources.components.PanelBorder();
+        admin_background = new Resources.components.PanelBorder();
         greetings = new javax.swing.JLabel();
         exit_btn = new javax.swing.JButton();
         logout_btn = new javax.swing.JButton();
@@ -276,14 +372,14 @@ public class AdminHome extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        admin_background.setBackground(new java.awt.Color(255, 255, 255));
+        admin_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         greetings.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         greetings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/admin-icon.png"))); // NOI18N
         greetings.setText("Hello, Admin!");
         greetings.setIconTextGap(10);
-        panelBorder1.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 50));
+        admin_background.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 50));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -308,7 +404,7 @@ public class AdminHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, -1, -1));
+        admin_background.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, -1, -1));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-black-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -333,7 +429,7 @@ public class AdminHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1165, 20, -1, -1));
+        admin_background.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1165, 20, -1, -1));
 
         admin_header.setBackground(new java.awt.Color(255, 255, 255));
         admin_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -364,7 +460,7 @@ public class AdminHome extends javax.swing.JFrame {
         });
         admin_header.add(adduser_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 150, 50));
 
-        panelBorder1.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 70));
+        admin_background.add(admin_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 70));
 
         admin_panels.setBackground(new java.awt.Color(142, 142, 255));
 
@@ -406,64 +502,64 @@ public class AdminHome extends javax.swing.JFrame {
         user_table.setForeground(new java.awt.Color(51, 51, 51));
         user_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Email", "Username", "Age", "Sex", "Weight", "Height", "BMI", "Actions"
+                "ID", "First Name", "Last Name", "Email", "Username", "Age", "Sex", "Weight", "Height", "BMI", "Classification", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -496,9 +592,11 @@ public class AdminHome extends javax.swing.JFrame {
             user_table.getColumnModel().getColumn(8).setMinWidth(1);
             user_table.getColumnModel().getColumn(8).setPreferredWidth(10);
             user_table.getColumnModel().getColumn(9).setMinWidth(1);
-            user_table.getColumnModel().getColumn(9).setPreferredWidth(15);
-            user_table.getColumnModel().getColumn(10).setMinWidth(5);
+            user_table.getColumnModel().getColumn(9).setPreferredWidth(10);
+            user_table.getColumnModel().getColumn(10).setMinWidth(1);
             user_table.getColumnModel().getColumn(10).setPreferredWidth(5);
+            user_table.getColumnModel().getColumn(11).setMinWidth(5);
+            user_table.getColumnModel().getColumn(11).setPreferredWidth(5);
         }
 
         user_table_panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1210, 420));
@@ -629,7 +727,7 @@ public class AdminHome extends javax.swing.JFrame {
 
         admin_panels.addTab("tab2", adduser_panel);
 
-        panelBorder1.add(admin_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
+        admin_background.add(admin_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
 
         background.setBackground(new java.awt.Color(142, 142, 255));
 
@@ -644,10 +742,10 @@ public class AdminHome extends javax.swing.JFrame {
             .addGap(0, 560, Short.MAX_VALUE)
         );
 
-        panelBorder1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 20));
+        admin_background.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
+        admin_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 20));
 
-        getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 640));
+        getContentPane().add(admin_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 640));
 
         pack();
         setLocationRelativeTo(null);
@@ -903,6 +1001,7 @@ public class AdminHome extends javax.swing.JFrame {
     private javax.swing.JLabel adduser_background;
     private javax.swing.JButton adduser_btn;
     private Resources.components.PanelBorder adduser_panel;
+    private Resources.components.PanelBorder admin_background;
     private Resources.components.PanelBorder admin_header;
     private javax.swing.JTabbedPane admin_panels;
     private javax.swing.JTextField age_field;
@@ -924,7 +1023,6 @@ public class AdminHome extends javax.swing.JFrame {
     private javax.swing.JButton logout_btn;
     private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
-    private Resources.components.PanelBorder panelBorder1;
     private Resources.components.PanelBorder panelBorder2;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JPasswordField password_field;

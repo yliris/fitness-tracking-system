@@ -519,11 +519,11 @@ public class SignupForm extends javax.swing.JFrame {
         });
         footer.add(signin_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, -1, -1));
 
-        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 480));
+        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 580));
 
         background.setBackground(new java.awt.Color(153, 153, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 580));
 
         pack();
         setLocationRelativeTo(null);
