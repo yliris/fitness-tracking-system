@@ -16,7 +16,9 @@ public class Home extends javax.swing.JPanel {
         panelBorder1 = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
 
-        panelBorder1.setBackground(new java.awt.Color(153, 204, 255));
+        setOpaque(false);
+
+        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("HOME");
 

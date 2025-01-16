@@ -1,17 +1,64 @@
 package Home;
 
 import Account.LoginForm;
+import Content.Activity;
+import Content.Dashboard;
+import Content.Diet;
+import Content.Guide;
+import Content.Home;
 import Content.Profile;
+import Resources.components.DatabaseConnection;
 import java.awt.Color;
+import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class UserHome extends javax.swing.JFrame {
-    
-    Profile profile = new Profile();
 
-    public UserHome() {
+    private int userId;
+
+    Profile profile = new Profile();
+    Home home = new Home();
+    Dashboard dashboard = new Dashboard();
+    Activity activity = new Activity();
+    Diet diet = new Diet();
+    Guide guide = new Guide();
+
+    public UserHome(int userId) {
         initComponents();
+        this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
+        body.add(profile, "Profile");
+        body.add(home, "Home");
+        body.add(dashboard, "Dashboard");
+        body.add(activity, "Activity");
+        body.add(diet, "Diet");
+        body.add(guide, "Guide");
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Home");
+        setGreetings();
+    }
+
+    private void setGreetings() {
+        String usernameQuery = "SELECT username FROM tb_users WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(usernameQuery)) {
+
+            stmt.setInt(1, this.userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    greetings.setText("Hi, " + rs.getString("username"));
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error loading user data: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +84,7 @@ public class UserHome extends javax.swing.JFrame {
         other_btn = new Resources.components.PanelBorder();
         logout_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
+        body = new javax.swing.JLayeredPane();
         body_background = new Resources.components.PanelBorder();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,8 +133,8 @@ public class UserHome extends javax.swing.JFrame {
             .addGroup(profile_btnLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(fits_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(greetings, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(greetings, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         profile_btnLayout.setVerticalGroup(
@@ -99,7 +147,7 @@ public class UserHome extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        header_panel.add(profile_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 70));
+        header_panel.add(profile_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 70));
 
         home_btn.setBackground(new java.awt.Color(50, 158, 100));
         home_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -135,7 +183,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(home_icon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 140, 50));
+        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 130, 50));
 
         dashboard_btn.setBackground(new java.awt.Color(50, 158, 100));
         dashboard_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -171,7 +219,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(dashboard_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(dashboard_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 140, 50));
+        header_panel.add(dashboard_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 130, 50));
 
         activity_btn.setBackground(new java.awt.Color(50, 158, 100));
         activity_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -207,7 +255,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(activity_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 140, 50));
+        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 130, 50));
 
         diet_btn.setBackground(new java.awt.Color(50, 158, 100));
         diet_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -243,7 +291,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(diet_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 140, 50));
+        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 130, 50));
 
         guide_btn.setBackground(new java.awt.Color(50, 158, 100));
         guide_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -279,7 +327,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(diet_icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 140, 50));
+        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 130, 50));
 
         other_btn.setBackground(new java.awt.Color(50, 158, 100));
         other_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -305,14 +353,14 @@ public class UserHome extends javax.swing.JFrame {
         other_btn.setLayout(other_btnLayout);
         other_btnLayout.setHorizontalGroup(
             other_btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGap(0, 130, Short.MAX_VALUE)
         );
         other_btnLayout.setVerticalGroup(
             other_btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 10, 140, 50));
+        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 130, 50));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-white-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -383,9 +431,24 @@ public class UserHome extends javax.swing.JFrame {
 
         user_background.add(header_background, java.awt.BorderLayout.PAGE_START);
 
+        body.setLayout(new java.awt.CardLayout());
+
         body_background.setBackground(new java.awt.Color(255, 255, 255));
-        body_background.setLayout(new java.awt.CardLayout());
-        user_background.add(body_background, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout body_backgroundLayout = new javax.swing.GroupLayout(body_background);
+        body_background.setLayout(body_backgroundLayout);
+        body_backgroundLayout.setHorizontalGroup(
+            body_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1250, Short.MAX_VALUE)
+        );
+        body_backgroundLayout.setVerticalGroup(
+            body_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 560, Short.MAX_VALUE)
+        );
+
+        body.add(body_background, "card2");
+
+        user_background.add(body, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(user_background, java.awt.BorderLayout.CENTER);
 
@@ -411,10 +474,10 @@ public class UserHome extends javax.swing.JFrame {
 
     private void logout_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btnActionPerformed
         int confirmLogout = JOptionPane.showConfirmDialog(null,
-            "Are you sure you want to logout?",
-            "Logout",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
+                "Are you sure you want to logout?",
+                "Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
         if (confirmLogout == JOptionPane.YES_OPTION) {
             dispose();
@@ -440,10 +503,10 @@ public class UserHome extends javax.swing.JFrame {
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
         int confirmExit = JOptionPane.showConfirmDialog(null,
-            "Are you sure you want to quit?",
-            "Quit",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
         if (confirmExit == JOptionPane.YES_OPTION) {
             dispose();
@@ -467,7 +530,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_profile_btnMouseReleased
 
     private void profile_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Profile");
     }//GEN-LAST:event_profile_btnMouseClicked
 
     private void home_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseEntered
@@ -487,7 +551,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_home_btnMouseReleased
 
     private void home_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Home");
     }//GEN-LAST:event_home_btnMouseClicked
 
     private void dashboard_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseEntered
@@ -507,7 +572,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboard_btnMouseReleased
 
     private void dashboard_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Dashboard");
     }//GEN-LAST:event_dashboard_btnMouseClicked
 
     private void activity_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseEntered
@@ -527,7 +593,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_activity_btnMouseReleased
 
     private void activity_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Activity");
     }//GEN-LAST:event_activity_btnMouseClicked
 
     private void diet_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseEntered
@@ -547,7 +614,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_diet_btnMouseReleased
 
     private void diet_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Diet");
     }//GEN-LAST:event_diet_btnMouseClicked
 
     private void guide_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseEntered
@@ -567,7 +635,8 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_guide_btnMouseReleased
 
     private void guide_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseClicked
-        
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Guide");
     }//GEN-LAST:event_guide_btnMouseClicked
 
     private void other_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseEntered
@@ -587,7 +656,7 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_other_btnMouseReleased
 
     private void other_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseClicked
-        
+
     }//GEN-LAST:event_other_btnMouseClicked
 
     public static void main(String args[]) {
@@ -616,9 +685,10 @@ public class UserHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        int id = 1;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserHome().setVisible(true);
+                new UserHome(id).setVisible(true);
             }
         });
     }
@@ -626,6 +696,7 @@ public class UserHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Resources.components.PanelBorder activity_btn;
     private javax.swing.JLabel activity_icon;
+    private javax.swing.JLayeredPane body;
     private Resources.components.PanelBorder body_background;
     private Resources.components.PanelBorder dashboard_btn;
     private javax.swing.JLabel dashboard_icon;

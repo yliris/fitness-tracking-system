@@ -2,9 +2,9 @@ package Content;
 
 import java.awt.Color;
 
-public class Exercise extends javax.swing.JPanel {
+public class Activity extends javax.swing.JPanel {
 
-    public Exercise() {
+    public Activity() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
     }
