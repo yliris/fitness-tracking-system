@@ -183,7 +183,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(home_icon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 130, 50));
+        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 140, 50));
 
         dashboard_btn.setBackground(new java.awt.Color(50, 158, 100));
         dashboard_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -219,7 +219,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(dashboard_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(dashboard_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 130, 50));
+        header_panel.add(dashboard_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 140, 50));
 
         activity_btn.setBackground(new java.awt.Color(50, 158, 100));
         activity_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -255,7 +255,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(activity_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 130, 50));
+        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 140, 50));
 
         diet_btn.setBackground(new java.awt.Color(50, 158, 100));
         diet_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -291,7 +291,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(diet_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 130, 50));
+        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 140, 50));
 
         guide_btn.setBackground(new java.awt.Color(50, 158, 100));
         guide_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -327,7 +327,7 @@ public class UserHome extends javax.swing.JFrame {
             .addComponent(diet_icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 130, 50));
+        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 140, 50));
 
         other_btn.setBackground(new java.awt.Color(50, 158, 100));
         other_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -353,14 +353,14 @@ public class UserHome extends javax.swing.JFrame {
         other_btn.setLayout(other_btnLayout);
         other_btnLayout.setHorizontalGroup(
             other_btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
         other_btnLayout.setVerticalGroup(
             other_btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 130, 50));
+        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 140, 50));
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-white-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -385,7 +385,7 @@ public class UserHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        header_panel.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1155, 20, -1, -1));
+        header_panel.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 20, -1, -1));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -410,7 +410,7 @@ public class UserHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        header_panel.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 20, -1, -1));
+        header_panel.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1195, 20, -1, -1));
 
         javax.swing.GroupLayout header_backgroundLayout = new javax.swing.GroupLayout(header_background);
         header_background.setLayout(header_backgroundLayout);

@@ -71,6 +71,7 @@ public class LoginForm extends javax.swing.JFrame {
         exit_btn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
         panelBorder2 = new Resources.components.PanelBorder();
         mover = new Resources.components.PanelMover();
 
@@ -264,6 +265,14 @@ public class LoginForm extends javax.swing.JFrame {
         panelBorder1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 140, 10));
         panelBorder1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 140, 10));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 420, 480));
 
         panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
@@ -445,6 +454,31 @@ public class LoginForm extends javax.swing.JFrame {
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMouseEntered
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String testUser = "testUser";
+        String testPassword = "testPassword";
+        PreparedStatement ps;
+        ResultSet rs;
+        String checkLoginQuery = "SELECT * FROM `tb_users` WHERE (`email` = ? OR `username` = ?) AND `password` = ?";
+        try {
+            ps = DatabaseConnection.getConnection().prepareStatement(checkLoginQuery);
+            ps.setString(1, testUser);
+            ps.setString(2, testUser);
+            ps.setString(3, testPassword);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int userId = rs.getInt("user_id");
+                UserHome userHome = new UserHome(userId);
+                this.dispose();
+                userHome.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Quick Login Failed. Check test credentials in the database.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -482,6 +516,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel element;
     private javax.swing.JButton exit_btn;
     private javax.swing.JButton forgot_pass_btn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
