@@ -87,26 +87,36 @@ public class AdminHome extends javax.swing.JFrame {
                     int calculateBMI = (int) bmiValue;
                     BMI = calculateBMI + " kg/m²";
 
-                    if ("male".equalsIgnoreCase(sex)) {
-                        if (bmiValue < 18) {
-                            classification = "Underweight";
-                        } else if (bmiValue >= 18 && bmiValue <= 24) {
-                            classification = "Normal Weight";
-                        } else if (bmiValue >= 25 && bmiValue <= 29) {
+                    if (getAge >= 20) {
+                        if (bmiValue < 16) {
+                            classification = "Severe Thinness";
+                        } else if (bmiValue >= 16 && bmiValue < 17) {
+                            classification = "Moderate Thinness";
+                        } else if (bmiValue >= 17 && bmiValue < 18.5) {
+                            classification = "Mild Thinness";
+                        } else if (bmiValue >= 18.5 && bmiValue < 25) {
+                            classification = "Normal";
+                        } else if (bmiValue >= 25 && bmiValue < 30) {
                             classification = "Overweight";
-                        } else if (bmiValue >= 30) {
-                            classification = "Obese";
+                        } else if (bmiValue >= 30 && bmiValue < 35) {
+                            classification = "Obese Class I";
+                        } else if (bmiValue >= 35 && bmiValue < 40) {
+                            classification = "Obese Class II";
+                        } else if (bmiValue >= 40) {
+                            classification = "Obese Class III";
                         }
-                    } else if ("female".equalsIgnoreCase(sex)) {
-                        if (bmiValue < 18.5) {
+                    } else if (getAge >= 2 && getAge < 20) {
+                        if (bmiValue < 5) {
                             classification = "Underweight";
-                        } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
-                            classification = "Normal Weight";
-                        } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+                        } else if (bmiValue >= 5 && bmiValue < 85) {
+                            classification = "Healthy Weight";
+                        } else if (bmiValue >= 85 && bmiValue < 95) {
+                            classification = "Risk of Overweight";
+                        } else if (bmiValue >= 95) {
                             classification = "Overweight";
-                        } else if (bmiValue >= 30) {
-                            classification = "Obese";
                         }
+                    } else {
+                        classification = "Invalid age for BMI calculation";
                     }
                 }
 
@@ -577,24 +587,24 @@ public class AdminHome extends javax.swing.JFrame {
             user_table.getColumnModel().getColumn(0).setMinWidth(1);
             user_table.getColumnModel().getColumn(0).setPreferredWidth(1);
             user_table.getColumnModel().getColumn(1).setMinWidth(1);
-            user_table.getColumnModel().getColumn(1).setPreferredWidth(60);
+            user_table.getColumnModel().getColumn(1).setPreferredWidth(50);
             user_table.getColumnModel().getColumn(2).setMinWidth(1);
-            user_table.getColumnModel().getColumn(2).setPreferredWidth(40);
+            user_table.getColumnModel().getColumn(2).setPreferredWidth(30);
             user_table.getColumnModel().getColumn(3).setMinWidth(1);
             user_table.getColumnModel().getColumn(4).setMinWidth(1);
-            user_table.getColumnModel().getColumn(4).setPreferredWidth(40);
+            user_table.getColumnModel().getColumn(4).setPreferredWidth(30);
             user_table.getColumnModel().getColumn(5).setMinWidth(1);
             user_table.getColumnModel().getColumn(5).setPreferredWidth(1);
             user_table.getColumnModel().getColumn(6).setMinWidth(1);
             user_table.getColumnModel().getColumn(6).setPreferredWidth(5);
             user_table.getColumnModel().getColumn(7).setMinWidth(1);
-            user_table.getColumnModel().getColumn(7).setPreferredWidth(10);
+            user_table.getColumnModel().getColumn(7).setPreferredWidth(5);
             user_table.getColumnModel().getColumn(8).setMinWidth(1);
-            user_table.getColumnModel().getColumn(8).setPreferredWidth(10);
+            user_table.getColumnModel().getColumn(8).setPreferredWidth(5);
             user_table.getColumnModel().getColumn(9).setMinWidth(1);
             user_table.getColumnModel().getColumn(9).setPreferredWidth(10);
             user_table.getColumnModel().getColumn(10).setMinWidth(1);
-            user_table.getColumnModel().getColumn(10).setPreferredWidth(5);
+            user_table.getColumnModel().getColumn(10).setPreferredWidth(15);
             user_table.getColumnModel().getColumn(11).setMinWidth(5);
             user_table.getColumnModel().getColumn(11).setPreferredWidth(5);
         }

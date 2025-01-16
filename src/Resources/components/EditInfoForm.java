@@ -367,7 +367,7 @@ public class EditInfoForm extends javax.swing.JFrame {
         height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         edit_background.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 130, -1));
 
-        update_btn.setBackground(new java.awt.Color(142, 142, 255));
+        update_btn.setBackground(new java.awt.Color(102, 102, 255));
         update_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         update_btn.setForeground(new java.awt.Color(255, 255, 255));
         update_btn.setText("UPDATE");
