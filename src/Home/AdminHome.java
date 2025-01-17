@@ -1,5 +1,6 @@
 package Home;
 
+import Account.AdminEditForm;
 import Account.LoginForm;
 import Resources.components.*;
 import java.sql.*;
@@ -259,7 +260,7 @@ public class AdminHome extends javax.swing.JFrame {
         String adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
         if (adminPassword.equals("admin123") || adminPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
-            EditInfoForm editForm = new EditInfoForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
+            AdminEditForm editForm = new AdminEditForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
             editForm.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Incorrect Password, Logging out!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);

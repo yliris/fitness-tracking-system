@@ -1,11 +1,12 @@
-package Resources.components;
+package Account;
 
 import Home.AdminHome;
+import Resources.components.DatabaseConnection;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;
 
-public class EditInfoForm extends javax.swing.JFrame {
+public class AdminEditForm extends javax.swing.JFrame {
 
     private String originalFirstName;
     private String originalLastName;
@@ -18,11 +19,11 @@ public class EditInfoForm extends javax.swing.JFrame {
 
     private AdminHome adminHome;
 
-    public EditInfoForm(AdminHome adminHome, int editUserId, String editFirstName, String editLastName, String editEmail, String editUsername, int editAge, String editSex, float editWeight, float editHeight) {
+    public AdminEditForm(AdminHome adminHome, int editUserId, String editFirstName, String editLastName, String editEmail, String editUsername, int editAge, String editSex, float editWeight, float editHeight) {
         this.adminHome = adminHome;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        mover.initMoving(EditInfoForm.this);
+        mover.initMoving(AdminEditForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
         ButtonGroup sexRdb = new ButtonGroup();
@@ -117,7 +118,10 @@ public class EditInfoForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Email is invalid.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (!updatedEmail.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(null, "Invalid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //CHECK IF EMAIL ALREADY EXISTS
         if (isEmailExists(updatedEmail, userId)) {
             JOptionPane.showMessageDialog(this, "Email is already in use.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -449,14 +453,15 @@ public class EditInfoForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminEditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminEditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminEditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditInfoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminEditForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         AdminHome adminHome = new AdminHome();
@@ -472,7 +477,7 @@ public class EditInfoForm extends javax.swing.JFrame {
                 String editSex = "Male";
                 float editWeight = (float) 56.7;
                 float editHeight = (float) 177.4;
-                new EditInfoForm(adminHome, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight).setVisible(true);
+                new AdminEditForm(adminHome, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight).setVisible(true);
             }
         });
     }

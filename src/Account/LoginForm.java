@@ -1,5 +1,6 @@
 package Account;
 
+import Resources.components.ForgotPassword1;
 import Resources.components.DatabaseConnection;
 import Home.AdminHome;
 import Home.UserHome;
@@ -44,6 +45,33 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
+    }
+
+    private void setupLoginButtonListener() {
+        javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleLoginButton();
+            }
+        };
+        user_field.getDocument().addDocumentListener(documentListener);
+        password_field.getDocument().addDocumentListener(documentListener);
+    }
+
+    private void toggleLoginButton() {
+        String username = user_field.getText().trim();
+        String password = String.valueOf(password_field.getPassword()).trim();
+        user_login_btn.setEnabled(!username.isEmpty() && !password.isEmpty());
     }
 
     @SuppressWarnings("unchecked")
@@ -323,34 +351,6 @@ public class LoginForm extends javax.swing.JFrame {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_user_login_btnActionPerformed
-
-    //IF FIELDS ARE EMPTY, THEN LOGIN BUTTON IS DISABLED AND VICE VERSA
-    private void setupLoginButtonListener() {
-        javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
-            @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
-
-            @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
-
-            @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                toggleLoginButton();
-            }
-        };
-        user_field.getDocument().addDocumentListener(documentListener);
-        password_field.getDocument().addDocumentListener(documentListener);
-    }
-
-    private void toggleLoginButton() {
-        String username = user_field.getText().trim();
-        String password = String.valueOf(password_field.getPassword()).trim();
-        user_login_btn.setEnabled(!username.isEmpty() && !password.isEmpty());
-    }
 
     private void signup_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_btnMouseEntered
         signup_btn.setForeground(new Color(6, 115, 33));

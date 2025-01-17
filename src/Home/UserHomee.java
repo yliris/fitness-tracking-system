@@ -426,7 +426,6 @@ public class UserHomee extends javax.swing.JFrame {
         profile.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         profile.setForeground(new java.awt.Color(84, 84, 84));
         profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/profile-icon.png"))); // NOI18N
         profile.setText("PROFILE");
         profile.setIconTextGap(15);
         profile_header.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 40));

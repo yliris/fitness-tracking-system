@@ -1,11 +1,13 @@
-package Account;
+package Resources.components;
 
+import Account.LoginForm;
 import Resources.components.DatabaseConnection;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 
 public class ForgotPassword3 extends javax.swing.JFrame {
+
     private String user;
 
     public ForgotPassword3(String user) {
@@ -104,21 +106,21 @@ public class ForgotPassword3 extends javax.swing.JFrame {
 
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
         String newPassword = new String(newpassword_field.getPassword());
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             String checkPasswordQuery = "SELECT password FROM tb_users WHERE username = ? OR email = ?";
             PreparedStatement checkPs = conn.prepareStatement(checkPasswordQuery);
             checkPs.setString(1, user);
             checkPs.setString(2, user);
             ResultSet rs = checkPs.executeQuery();
-            
+
             if (newPassword.length() < 8) {
                 JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             if (rs.next()) {
-            String currentPassword = rs.getString("password");
+                String currentPassword = rs.getString("password");
                 if (newPassword.equals(currentPassword)) {
                     JOptionPane.showMessageDialog(this, "The new password cannot be the same as the old password.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -127,17 +129,21 @@ public class ForgotPassword3 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "User not found. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             String updateQuery = "UPDATE tb_users SET password = ? WHERE username = ? OR email = ?";
             PreparedStatement ps = conn.prepareStatement(updateQuery);
             ps.setString(1, newPassword);
             ps.setString(2, user);
             ps.setString(3, user);
-            
+
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Password successfully reset!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+                Window[] windows = Window.getWindows();
+                for (Window window : windows) {
+                    window.dispose();
+                }
+                new LoginForm().setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to reset password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -149,11 +155,19 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     private void setupPasswordFieldListener() {
         javax.swing.event.DocumentListener listener = new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { toggleResetButton(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                toggleResetButton();
+            }
+
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { toggleResetButton(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                toggleResetButton();
+            }
+
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { toggleResetButton(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                toggleResetButton();
+            }
         };
 
         newpassword_field.getDocument().addDocumentListener(listener);
@@ -162,8 +176,8 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     private void toggleResetButton() {
         boolean enable = !newpassword_field.getText().isEmpty();
         reset_btn.setEnabled(enable);
-    }    
-    
+    }
+
     private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMouseEntered
@@ -193,7 +207,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void password_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_checkActionPerformed
-        if(password_check.isSelected()){
+        if (password_check.isSelected()) {
             password_check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/eye-open.png")));
             newpassword_field.setEchoChar((char) 0);
         } else {
@@ -201,7 +215,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
             newpassword_field.setEchoChar('*');
         }
     }//GEN-LAST:event_password_checkActionPerformed
-        
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

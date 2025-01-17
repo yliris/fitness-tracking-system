@@ -6,32 +6,38 @@ import Content.Dashboard;
 import Content.Diet;
 import Content.Guide;
 import Content.Home;
-import Content.Profile;
 import Resources.components.DatabaseConnection;
 import java.awt.Color;
 import java.awt.CardLayout;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class UserHome extends javax.swing.JFrame {
 
     private int userId;
 
-    Profile profile = new Profile();
-    Home home = new Home();
-    Dashboard dashboard = new Dashboard();
-    Activity activity = new Activity();
-    Diet diet = new Diet();
-    Guide guide = new Guide();
+    private Home home;
+    private Dashboard dashboard;
+    private Activity activity;
+    private Diet diet;
+    private Guide guide;
 
     public UserHome(int userId) {
         initComponents();
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
-        body.add(profile, "Profile");
+        Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
+        this.setIconImage(icon);
+        home = new Home(this.userId);
+        dashboard = new Dashboard();
+        activity = new Activity();
+        diet = new Diet();
+        guide = new Guide();
         body.add(home, "Home");
         body.add(dashboard, "Dashboard");
         body.add(activity, "Activity");
@@ -101,23 +107,6 @@ public class UserHome extends javax.swing.JFrame {
         header_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         profile_btn.setBackground(new java.awt.Color(102, 102, 255));
-        profile_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profile_btnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                profile_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                profile_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                profile_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                profile_btnMouseReleased(evt);
-            }
-        });
 
         fits_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fits_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-small-icon.png"))); // NOI18N
@@ -512,27 +501,6 @@ public class UserHome extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_exit_btnActionPerformed
-
-    private void profile_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMouseEntered
-        profile_btn.setBackground(new Color(122, 122, 255));
-    }//GEN-LAST:event_profile_btnMouseEntered
-
-    private void profile_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMouseExited
-        profile_btn.setBackground(new Color(102, 102, 255));
-    }//GEN-LAST:event_profile_btnMouseExited
-
-    private void profile_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMousePressed
-        profile_btn.setBackground(new Color(66, 66, 255));
-    }//GEN-LAST:event_profile_btnMousePressed
-
-    private void profile_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMouseReleased
-        profile_btn.setBackground(new Color(122, 122, 255));
-    }//GEN-LAST:event_profile_btnMouseReleased
-
-    private void profile_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_btnMouseClicked
-        CardLayout cardLayout = (CardLayout) body.getLayout();
-        cardLayout.show(body, "Profile");
-    }//GEN-LAST:event_profile_btnMouseClicked
 
     private void home_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseEntered
         home_btn.setBackground(new Color(57, 182, 115));

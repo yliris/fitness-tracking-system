@@ -1,5 +1,6 @@
-package Account;
+package Resources.components;
 
+import Account.LoginForm;
 import Resources.components.DatabaseConnection;
 import java.awt.*;
 import java.sql.*;
@@ -190,15 +191,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        int confirmExit = JOptionPane.showConfirmDialog(null,
-                "Are you sure you want to exit?",
-                "Exit",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-
-        if (confirmExit == JOptionPane.YES_OPTION) {
-            this.dispose();
-        }
+        this.dispose();
     }//GEN-LAST:event_exit_btnActionPerformed
         
     public static void main(String args[]) {

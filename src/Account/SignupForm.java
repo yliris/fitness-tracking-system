@@ -3,6 +3,7 @@ package Account;
 import Resources.components.DatabaseConnection;
 import java.awt.*;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.logging.*;
 import javax.swing.*;
 
@@ -95,75 +96,6 @@ public class SignupForm extends javax.swing.JFrame {
         signup_btn.setEnabled(isValid);
     }
 
-//    private void updateBmiAndEnableSignup() {
-//        try {
-//            int age = Integer.parseInt(age_field.getText());
-//            String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
-//            float weight = Float.parseFloat(weight_field.getText());
-//            float height = Float.parseFloat(height_field.getText()) / 100;
-//
-//            if (weight > 0 && height > 0) {
-//                int bmiValue = (int) (weight / (height * height));
-//                bmi_label.setText(String.format("BMI: " + bmiValue + " kg/m²"));
-//
-//                String classification;
-//                String ageGroupClassification = "";
-//
-//                if ("Male".equals(sex)) {
-//                    if (bmiValue < 18.5) {
-//                        classification = "Underweight";
-//                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
-//                        classification = "Normal weight";
-//                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
-//                        classification = "Overweight";
-//                    } else {
-//                        classification = "Obese";
-//                    }
-//                } else if ("Female".equals(sex)) {
-//                    if (bmiValue < 18.5) {
-//                        classification = "Underweight";
-//                    } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
-//                        classification = "Normal weight";
-//                    } else if (bmiValue >= 25 && bmiValue < 29.9) {
-//                        classification = "Overweight";
-//                    } else {
-//                        classification = "Obese";
-//                    }
-//                } else {
-//                    classification = "N/A";
-//                }
-//
-//                if (age < 18) {
-//                    ageGroupClassification = "Note: BMI classification for children is different.";
-//                } else if (age >= 65) {
-//                    ageGroupClassification = "Note: BMI recommendations for elderly may vary.";
-//                }
-//
-//                classification_label.setText("Classification: " + classification + " " + ageGroupClassification);
-//                bmi_range_label.setText("Healthy BMI Range: 18.5 - 24.9");
-//
-//                float minNormalWeight = 18.5f * (height * height);
-//                float maxNormalWeight = 24.9f * (height * height);
-//                float weightToLose = weight - maxNormalWeight;
-//                float weightToGain = minNormalWeight - weight;
-//
-//                if (bmiValue < 18.5) {
-//                    normal_range_label.setText(String.format("Gain %.2f kg to reach normal range.", weightToGain));
-//                } else if (bmiValue > 24.9) {
-//                    normal_range_label.setText(String.format("Lose %.2f kg to reach normal range.", weightToLose));
-//                } else {
-//                    normal_range_label.setText("You are within the normal weight range.");
-//                }
-//
-//                signup_btn.setEnabled(true);
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Invalid weight or height values.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for weight and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -205,7 +137,6 @@ public class SignupForm extends javax.swing.JFrame {
         sec_answer_field = new javax.swing.JTextField();
         next_btn = new javax.swing.JButton();
         step2_panel = new Resources.components.PanelBorder();
-        signup_btn = new javax.swing.JButton();
         panelBorder1 = new Resources.components.PanelBorder();
         age_label = new javax.swing.JLabel();
         age_field = new javax.swing.JTextField();
@@ -224,6 +155,8 @@ public class SignupForm extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         or = new javax.swing.JLabel();
+        signup_btn = new javax.swing.JButton();
+        back_btn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         footer = new Resources.components.PanelBorder();
         signup_message = new javax.swing.JLabel();
@@ -297,7 +230,7 @@ public class SignupForm extends javax.swing.JFrame {
         header.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 50));
-        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
+        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 10));
 
         step1_panel.setBackground(new java.awt.Color(255, 255, 255));
         step1_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -400,18 +333,6 @@ public class SignupForm extends javax.swing.JFrame {
         step2_panel.setBackground(new java.awt.Color(255, 255, 255));
         step2_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        signup_btn.setBackground(new java.awt.Color(102, 102, 255));
-        signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        signup_btn.setForeground(new java.awt.Color(255, 255, 255));
-        signup_btn.setText("SIGN UP");
-        signup_btn.setAlignmentY(0.0F);
-        signup_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signup_btnActionPerformed(evt);
-            }
-        });
-        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 330, -1));
-
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -472,14 +393,38 @@ public class SignupForm extends javax.swing.JFrame {
         step2_panel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 320, 10));
         step2_panel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, 10));
         step2_panel.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 110, 10));
-        step2_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 150, 10));
+        step2_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 140, 10));
 
         or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         or.setForeground(new java.awt.Color(153, 153, 153));
         or.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         or.setText("Or");
-        step2_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 385, 20, -1));
-        step2_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 150, 10));
+        step2_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 385, 20, -1));
+
+        signup_btn.setBackground(new java.awt.Color(102, 102, 255));
+        signup_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        signup_btn.setForeground(new java.awt.Color(255, 255, 255));
+        signup_btn.setText("SIGN UP");
+        signup_btn.setAlignmentY(0.0F);
+        signup_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signup_btnActionPerformed(evt);
+            }
+        });
+        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 190, -1));
+
+        back_btn.setBackground(new java.awt.Color(102, 102, 102));
+        back_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        back_btn.setForeground(new java.awt.Color(255, 255, 255));
+        back_btn.setText("GO BACK");
+        back_btn.setAlignmentY(0.0F);
+        back_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_btnActionPerformed(evt);
+            }
+        });
+        step2_panel.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 90, -1));
+        step2_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 140, 10));
 
         create_panel.addTab("tab2", step2_panel);
 
@@ -490,7 +435,7 @@ public class SignupForm extends javax.swing.JFrame {
 
         signup_message.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         signup_message.setText("Already have an account?");
-        footer.add(signup_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
+        footer.add(signup_message, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
 
         signin_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
         signin_btn.setForeground(new java.awt.Color(10, 177, 52));
@@ -517,13 +462,13 @@ public class SignupForm extends javax.swing.JFrame {
                 signin_btnActionPerformed(evt);
             }
         });
-        footer.add(signin_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, -1, -1));
+        footer.add(signin_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
-        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 580));
+        getContentPane().add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 410, 40));
 
         background.setBackground(new java.awt.Color(153, 153, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 580));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 260, 480));
 
         pack();
         setLocationRelativeTo(null);
@@ -584,6 +529,13 @@ public class SignupForm extends javax.swing.JFrame {
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
 
+        //CHECK IF REQUIRED FIELDS ARE FILLED
+        if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || username.isEmpty()
+                || age.isEmpty() || weight.isEmpty() || height.isEmpty() || password.isEmpty()
+                || sec_question.isEmpty() || sec_answer.isEmpty() || sex == null) {
+            JOptionPane.showMessageDialog(null, "All fields must be filled.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //CHECK IF FIRST AND LAST NAME HAS INVALID CHARACTERS
         if (!firstname.matches("^[a-zA-Z]+([- ][a-zA-Z]+)*$")) {
             JOptionPane.showMessageDialog(null, "First name must only contain letters, spaces, or hyphens.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -596,6 +548,11 @@ public class SignupForm extends javax.swing.JFrame {
         //CHECK IF EMAIL IS VALID
         if (!email.endsWith("@gmail.com")) {
             JOptionPane.showMessageDialog(null, "Email is invalid.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(null, "Invalid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         //CHECK IF USERNAME CONTAINS SPACE
         if (username.contains(" ")) {
@@ -613,14 +570,33 @@ public class SignupForm extends javax.swing.JFrame {
             return;
         }
         //CHECK IF USERNAME HAS ADMIN CREDENTIALS
-        if (username.equals("admin1") || username.equals("admin2") || username.equals("admin3")
-                || username.equals("admin4") || username.equals("admin5")) {
+        String[] reservedUsernames = {"admin1", "admin2", "admin3", "admin4", "admin5"};
+        if (Arrays.asList(reservedUsernames).contains(username)) {
             JOptionPane.showMessageDialog(null, "This username is already taken", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF AGE IS A POSITIVE INTEGER
+        if (!age.matches("^\\d+$") || Integer.parseInt(age) <= 0) {
+            JOptionPane.showMessageDialog(null, "Age must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF WEIGHT AND HEIGHT ARE POSITIVE NUMBERS
+        if (!weight.matches("^\\d+(\\.\\d+)?$") || Double.parseDouble(weight) <= 0) {
+            JOptionPane.showMessageDialog(null, "Weight must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!height.matches("^\\d+(\\.\\d+)?$") || Double.parseDouble(height) <= 0) {
+            JOptionPane.showMessageDialog(null, "Height must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //CHECK IF PASSWORD IS STRONG
         if (password.length() < 8) {
             JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK SECURITY QUESTION AND ANSWER LENGTH
+        if (sec_question.length() < 5 || sec_answer.length() < 3) {
+            JOptionPane.showMessageDialog(null, "Security question must be at least 5 characters long and answer must be at least 3 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //NO SQL INJECTION OR HTML TAGS
@@ -729,6 +705,10 @@ public class SignupForm extends javax.swing.JFrame {
         signin_btn.setForeground(new Color(6, 115, 33));
     }//GEN-LAST:event_signin_btnMouseReleased
 
+    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+        create_panel.setSelectedIndex(0);
+    }//GEN-LAST:event_back_btnActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -764,6 +744,7 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel age_label;
     private javax.swing.JLabel answer_guide;
     private javax.swing.JLabel answer_label;
+    private javax.swing.JButton back_btn;
     private Resources.components.PanelBorder background;
     private javax.swing.JLabel bmi_label;
     private javax.swing.JLabel bmi_range_label;
