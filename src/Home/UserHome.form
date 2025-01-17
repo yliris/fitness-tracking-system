@@ -62,6 +62,9 @@
                       <Component id="header_panel" pref="1238" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Component id="mover" alignment="1" pref="1250" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -70,6 +73,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="header_panel" pref="68" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="mover" min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -455,6 +464,8 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="Resources.components.PanelMover" name="mover">
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JLayeredPane" name="body">

@@ -120,7 +120,7 @@ public class Home extends javax.swing.JPanel {
 
         home_panel.add(profile_form, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 520, 170));
 
-        profile_background.setBackground(new java.awt.Color(153, 153, 153));
+        profile_background.setBackground(new java.awt.Color(124, 124, 124));
         profile_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         profile_edit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/user-edit-idle.png"))); // NOI18N

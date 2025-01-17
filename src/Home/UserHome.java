@@ -31,6 +31,7 @@ public class UserHome extends javax.swing.JFrame {
         initComponents();
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
+        mover.initMoving(UserHome.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
         home = new Home(this.userId);
@@ -90,6 +91,7 @@ public class UserHome extends javax.swing.JFrame {
         other_btn = new Resources.components.PanelBorder();
         logout_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
+        mover = new Resources.components.PanelMover();
         body = new javax.swing.JLayeredPane();
         body_background = new Resources.components.PanelBorder();
 
@@ -409,6 +411,8 @@ public class UserHome extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(header_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1238, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(header_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(mover, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE))
         );
         header_backgroundLayout.setVerticalGroup(
             header_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,6 +420,10 @@ public class UserHome extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(header_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(header_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(header_backgroundLayout.createSequentialGroup()
+                    .addComponent(mover, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 74, Short.MAX_VALUE)))
         );
 
         user_background.add(header_background, java.awt.BorderLayout.PAGE_START);
@@ -680,6 +688,7 @@ public class UserHome extends javax.swing.JFrame {
     private Resources.components.PanelBorder home_btn;
     private javax.swing.JLabel home_icon;
     private javax.swing.JButton logout_btn;
+    private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder other_btn;
     private Resources.components.PanelBorder profile_btn;
     private Resources.components.PanelBorder user_background;

@@ -139,7 +139,7 @@
             <Container class="Resources.components.PanelBorder" name="profile_background">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
+                  <Color blue="7c" green="7c" red="7c" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
