@@ -345,6 +345,50 @@ public class UserEditForm extends javax.swing.JFrame {
             return;
         }
 
+        String BMI;
+        String classification;
+        if (weight > 0 && height > 0) {
+            float meterHeight = height / 100;
+            float bmiValue = weight / (meterHeight * meterHeight);
+            int calculateBMI = (int) bmiValue;
+            BMI = calculateBMI + " kg/m²";
+
+            if (age >= 20) {
+                if (bmiValue < 16) {
+                    classification = "Severe Thinness";
+                } else if (bmiValue >= 16 && bmiValue < 17) {
+                    classification = "Moderate Thinness";
+                } else if (bmiValue >= 17 && bmiValue < 18.5) {
+                    classification = "Mild Thinness";
+                } else if (bmiValue >= 18.5 && bmiValue < 25) {
+                    classification = "Normal";
+                } else if (bmiValue >= 25 && bmiValue < 30) {
+                    classification = "Overweight";
+                } else if (bmiValue >= 30 && bmiValue < 35) {
+                    classification = "Obese Class I";
+                } else if (bmiValue >= 35 && bmiValue < 40) {
+                    classification = "Obese Class II";
+                } else {
+                    classification = "Obese Class III";
+                }
+            } else if (age >= 2 && age < 20) {
+                if (bmiValue < 5) {
+                    classification = "Underweight";
+                } else if (bmiValue >= 5 && bmiValue < 85) {
+                    classification = "Healthy Weight";
+                } else if (bmiValue >= 85 && bmiValue < 95) {
+                    classification = "Risk of Overweight";
+                } else {
+                    classification = "Overweight";
+                }
+            } else {
+                classification = "Invalid age for BMI calculation";
+            }
+        } else {
+            BMI = "N/A";
+            classification = "Invalid data";
+        }
+
         PreparedStatement ps;
         ResultSet rs;
         String checkNameQuery = "SELECT * FROM `tb_users` WHERE `first_name` = ? AND `last_name` = ?";
@@ -353,7 +397,7 @@ public class UserEditForm extends javax.swing.JFrame {
 
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ?, age = ?, sex = ?, weight = ?, height = ? WHERE user_id = ?";
+            String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ?, age = ?, sex = ?, weight = ?, height = ?, bmi = ?, classification = ? WHERE user_id = ?";
             ps = conn.prepareStatement(updateQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
@@ -363,7 +407,9 @@ public class UserEditForm extends javax.swing.JFrame {
             ps.setString(6, sex);
             ps.setFloat(7, weight);
             ps.setFloat(8, height);
-            ps.setInt(9, userId);
+            ps.setString(9, BMI);
+            ps.setString(10, classification);
+            ps.setInt(11, userId);
 
             int rowsUpdated = ps.executeUpdate();
 
@@ -372,6 +418,7 @@ public class UserEditForm extends javax.swing.JFrame {
                 String fullName = firstname + " " + lastname;
                 home.updateUserDetails(username, fullName, email);
                 home.updateProfileIcon(sex);
+                home.updateUserBMI(BMI, classification);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Update failed. User not found.", "Error", JOptionPane.ERROR_MESSAGE);

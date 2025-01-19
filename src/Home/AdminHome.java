@@ -60,10 +60,12 @@ public class AdminHome extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) user_table.getModel();
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String query = "SELECT user_id, first_name, last_name, email, username, age, sex, weight, height FROM tb_users";
+            String selectQuery = "SELECT user_id, first_name, last_name, email, username, age, sex, weight, height FROM tb_users";
+            String updateQuery = "UPDATE tb_users SET bmi = ?, classification = ? WHERE user_id = ?";
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery(selectQuery);
 
+            PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
             model.setRowCount(0);
 
             while (rs.next()) {
@@ -119,6 +121,11 @@ public class AdminHome extends javax.swing.JFrame {
                     } else {
                         classification = "Invalid age for BMI calculation";
                     }
+                    
+                    updateStmt.setString(1, BMI);
+                    updateStmt.setString(2, classification);
+                    updateStmt.setInt(3, userId);
+                    updateStmt.executeUpdate();
                 }
 
                 model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI, classification});
@@ -513,26 +520,6 @@ public class AdminHome extends javax.swing.JFrame {
         user_table.setForeground(new java.awt.Color(51, 51, 51));
         user_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},

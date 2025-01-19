@@ -1,8 +1,6 @@
 package Resources.components;
 
 import Account.*;
-import Account.LoginForm;
-import Resources.components.DatabaseConnection;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;

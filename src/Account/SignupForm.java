@@ -521,10 +521,10 @@ public class SignupForm extends javax.swing.JFrame {
         String lastname = last_name_field.getText().trim();
         String email = email_field.getText().trim();
         String username = username_field.getText().trim();
-        String age = age_field.getText();
+        String age = age_field.getText().trim();
         String sex = male_rdb.isSelected() ? "Male" : (female_rdb.isSelected() ? "Female" : null);
-        String weight = weight_field.getText();
-        String height = height_field.getText();
+        String weight = weight_field.getText().trim();
+        String height = height_field.getText().trim();
         String password = String.valueOf(password_field.getPassword()).trim();
         String sec_question = sec_question_field.getText().trim();
         String sec_answer = sec_answer_field.getText().trim();
@@ -605,6 +605,69 @@ public class SignupForm extends javax.swing.JFrame {
             return;
         }
 
+        //CHECK IF AGE, WEIGHT, AND HEIGHT ARE POSITIVE NUMBERS
+        int ageValue;
+        float weightValue, heightValue;
+        try {
+            ageValue = Integer.parseInt(age);
+            if (ageValue <= 0) {
+                JOptionPane.showMessageDialog(null, "Age must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            weightValue = Float.parseFloat(weight);
+            heightValue = Float.parseFloat(height);
+            if (weightValue <= 0 || heightValue <= 0) {
+                JOptionPane.showMessageDialog(null, "Weight and height must be positive numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Weight and height must be valid numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        float heightInMeters = heightValue / 100;
+        float bmiValue = weightValue / (heightInMeters * heightInMeters);
+        int calculateBMI = (int) bmiValue;
+        String bmi = calculateBMI + " kg/m²";
+        String classification = "";
+
+        if (ageValue >= 20) {
+            if (bmiValue < 16) {
+                classification = "Severe Thinness";
+            } else if (bmiValue >= 16 && bmiValue < 17) {
+                classification = "Moderate Thinness";
+            } else if (bmiValue >= 17 && bmiValue < 18.5) {
+                classification = "Mild Thinness";
+            } else if (bmiValue >= 18.5 && bmiValue < 25) {
+                classification = "Normal";
+            } else if (bmiValue >= 25 && bmiValue < 30) {
+                classification = "Overweight";
+            } else if (bmiValue >= 30 && bmiValue < 35) {
+                classification = "Obese Class I";
+            } else if (bmiValue >= 35 && bmiValue < 40) {
+                classification = "Obese Class II";
+            } else if (bmiValue >= 40) {
+                classification = "Obese Class III";
+            }
+        } else if (ageValue >= 2 && ageValue < 20) {
+            if (bmiValue < 5) {
+                classification = "Underweight";
+            } else if (bmiValue >= 5 && bmiValue < 85) {
+                classification = "Healthy Weight";
+            } else if (bmiValue >= 85 && bmiValue < 95) {
+                classification = "Risk of Overweight";
+            } else if (bmiValue >= 95) {
+                classification = "Overweight";
+            }
+        } else {
+            classification = "Invalid age for BMI calculation";
+        }
+
         PreparedStatement ps;
         ResultSet rs;
 
@@ -641,8 +704,8 @@ public class SignupForm extends javax.swing.JFrame {
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`, `bmi`, `classification`)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
@@ -655,6 +718,8 @@ public class SignupForm extends javax.swing.JFrame {
             ps.setString(9, password);
             ps.setString(10, sec_question);
             ps.setString(11, sec_answer);
+            ps.setString(12, bmi);
+            ps.setString(13, classification);
 
             if (ps.executeUpdate() > 0) {
                 first_name_field.setText("");
