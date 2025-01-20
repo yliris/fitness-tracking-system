@@ -87,45 +87,37 @@ public class AdminHome extends javax.swing.JFrame {
                 if (getWeight != null && getHeight != null) {
                     float meterHeight = getHeight / 100;
                     float bmiValue = getWeight / (meterHeight * meterHeight);
-                    int calculateBMI = (int) bmiValue;
-                    BMI = calculateBMI + " kg/m²";
+                    BMI = String.format("%.1f", bmiValue) + " kg/m²";
 
                     if (getAge >= 20) {
-                        if (bmiValue < 16) {
-                            classification = "Severe Thinness";
-                        } else if (bmiValue >= 16 && bmiValue < 17) {
-                            classification = "Moderate Thinness";
-                        } else if (bmiValue >= 17 && bmiValue < 18.5) {
-                            classification = "Mild Thinness";
-                        } else if (bmiValue >= 18.5 && bmiValue < 25) {
-                            classification = "Normal";
-                        } else if (bmiValue >= 25 && bmiValue < 30) {
-                            classification = "Overweight";
-                        } else if (bmiValue >= 30 && bmiValue < 35) {
-                            classification = "Obese Class I";
-                        } else if (bmiValue >= 35 && bmiValue < 40) {
-                            classification = "Obese Class II";
-                        } else if (bmiValue >= 40) {
-                            classification = "Obese Class III";
-                        }
-                    } else if (getAge >= 2 && getAge < 20) {
-                        if (bmiValue < 5) {
+                        if (bmiValue < 18.5) {
                             classification = "Underweight";
-                        } else if (bmiValue >= 5 && bmiValue < 85) {
-                            classification = "Healthy Weight";
-                        } else if (bmiValue >= 85 && bmiValue < 95) {
-                            classification = "Risk of Overweight";
-                        } else if (bmiValue >= 95) {
+                        } else if (bmiValue >= 18.5 && bmiValue <= 25) {
+                            classification = "Normal Weight";
+                        } else if (bmiValue >= 26 && bmiValue <= 30) {
                             classification = "Overweight";
+                        } else if (bmiValue >= 31) {
+                            classification = "Obese";
+                        } else if (getAge >= 2 && getAge < 20) {
+                            if (bmiValue < 5) {
+                                classification = "Underweight";
+                            } else if (bmiValue >= 5 && bmiValue < 85) {
+                                classification = "Healthy Weight";
+                            } else if (bmiValue >= 85 && bmiValue < 95) {
+                                classification = "Risk of Overweight";
+                            } else if (bmiValue >= 95) {
+                                classification = "Overweight";
+                            }
+                        } else {
+                            classification = "Invalid age for BMI calculation";
                         }
-                    } else {
-                        classification = "Invalid age for BMI calculation";
+
+                        updateStmt.setString(1, BMI);
+                        updateStmt.setString(2, classification);
+                        updateStmt.setInt(3, userId);
+                        updateStmt.executeUpdate();
                     }
-                    
-                    updateStmt.setString(1, BMI);
-                    updateStmt.setString(2, classification);
-                    updateStmt.setInt(3, userId);
-                    updateStmt.executeUpdate();
+
                 }
 
                 model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI, classification});
@@ -264,16 +256,29 @@ public class AdminHome extends javax.swing.JFrame {
         float editWeight = Float.parseFloat(weightString);
         float editHeight = Float.parseFloat(heightString);
 
-        String adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
-        if (adminPassword.equals("admin123") || adminPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
-            AdminEditForm editForm = new AdminEditForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
-            editForm.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Incorrect Password, Logging out!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
-            new LoginForm().setVisible(true);
-            dispose();
-        }
+        int failedAttempts = 0;
+        String adminPassword;
+        do {
+            adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
+            if (adminPassword.equals("admin123")) {
+                JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
+                AdminEditForm editForm = new AdminEditForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
+                editForm.setVisible(true);
+                return;
+            } else if (adminPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Fill in the Password to continue!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+            } else {
+                failedAttempts++;
+                if (failedAttempts >= 3) {
+                    JOptionPane.showMessageDialog(this, "Incorrect Password! Logging out after 3 failed attempts.", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    dispose();
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect Password!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } while (true);
     }
 
     private void centerTableData() {

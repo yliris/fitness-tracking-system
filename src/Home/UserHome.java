@@ -156,7 +156,7 @@ public class UserHome extends javax.swing.JFrame {
         home_btn.add(home_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
         home_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        home_label.setForeground(new java.awt.Color(255, 242, 242));
+        home_label.setForeground(new java.awt.Color(255, 255, 255));
         home_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         home_label.setText("HOME");
         home_label.setIconTextGap(10);
@@ -190,7 +190,7 @@ public class UserHome extends javax.swing.JFrame {
         dashboard_btn.add(dashboard_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
         dashboard_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        dashboard_label.setForeground(new java.awt.Color(255, 242, 242));
+        dashboard_label.setForeground(new java.awt.Color(255, 255, 255));
         dashboard_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dashboard_label.setText("DASHBOARD");
         dashboard_label.setIconTextGap(10);
@@ -224,7 +224,7 @@ public class UserHome extends javax.swing.JFrame {
         activity_btn.add(activity_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
         exercise_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        exercise_label.setForeground(new java.awt.Color(255, 242, 242));
+        exercise_label.setForeground(new java.awt.Color(255, 255, 255));
         exercise_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exercise_label.setText("EXERCISE");
         exercise_label.setIconTextGap(10);
@@ -258,7 +258,7 @@ public class UserHome extends javax.swing.JFrame {
         diet_btn.add(diet_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
         diet_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        diet_label.setForeground(new java.awt.Color(255, 242, 242));
+        diet_label.setForeground(new java.awt.Color(255, 255, 255));
         diet_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         diet_label.setText("DIET");
         diet_label.setIconTextGap(10);
@@ -292,7 +292,7 @@ public class UserHome extends javax.swing.JFrame {
         guide_btn.add(diet_icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
         guide_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        guide_label.setForeground(new java.awt.Color(255, 242, 242));
+        guide_label.setForeground(new java.awt.Color(255, 255, 255));
         guide_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         guide_label.setText("GUIDE");
         guide_label.setIconTextGap(10);
@@ -322,7 +322,7 @@ public class UserHome extends javax.swing.JFrame {
         other_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         guide_label1.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        guide_label1.setForeground(new java.awt.Color(255, 242, 242));
+        guide_label1.setForeground(new java.awt.Color(255, 255, 255));
         guide_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         guide_label1.setText("OTHER");
         guide_label1.setIconTextGap(10);

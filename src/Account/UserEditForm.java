@@ -345,48 +345,66 @@ public class UserEditForm extends javax.swing.JFrame {
             return;
         }
 
-        String BMI;
-        String classification;
+        String BMI = "";
+        String classification = "";
+        String healthyRange = "";
+        String weightNeeds = "";
         if (weight > 0 && height > 0) {
             float meterHeight = height / 100;
             float bmiValue = weight / (meterHeight * meterHeight);
-            int calculateBMI = (int) bmiValue;
-            BMI = calculateBMI + " kg/m²";
+            BMI = String.format("%.1f", bmiValue) + " kg/m²";
 
             if (age >= 20) {
-                if (bmiValue < 16) {
-                    classification = "Severe Thinness";
-                } else if (bmiValue >= 16 && bmiValue < 17) {
-                    classification = "Moderate Thinness";
-                } else if (bmiValue >= 17 && bmiValue < 18.5) {
-                    classification = "Mild Thinness";
-                } else if (bmiValue >= 18.5 && bmiValue < 25) {
-                    classification = "Normal";
-                } else if (bmiValue >= 25 && bmiValue < 30) {
-                    classification = "Overweight";
-                } else if (bmiValue >= 30 && bmiValue < 35) {
-                    classification = "Obese Class I";
-                } else if (bmiValue >= 35 && bmiValue < 40) {
-                    classification = "Obese Class II";
-                } else {
-                    classification = "Obese Class III";
-                }
-            } else if (age >= 2 && age < 20) {
-                if (bmiValue < 5) {
+                if (bmiValue < 18.5) {
                     classification = "Underweight";
-                } else if (bmiValue >= 5 && bmiValue < 85) {
-                    classification = "Healthy Weight";
-                } else if (bmiValue >= 85 && bmiValue < 95) {
-                    classification = "Risk of Overweight";
-                } else {
+                } else if (bmiValue >= 18.5 && bmiValue <= 25) {
+                    classification = "Normal Weight";
+                } else if (bmiValue >= 26 && bmiValue <= 30) {
                     classification = "Overweight";
+                } else if (bmiValue >= 31) {
+                    classification = "Obese";
+                } else if (age >= 2 && age < 20) {
+                    if (bmiValue < 5) {
+                        classification = "Underweight";
+                    } else if (bmiValue >= 5 && bmiValue < 85) {
+                        classification = "Healthy Weight";
+                    } else if (bmiValue >= 85 && bmiValue < 95) {
+                        classification = "Risk of Overweight";
+                    } else if (bmiValue >= 95) {
+                        classification = "Overweight";
+                    }
+                } else {
+                    classification = "Invalid age for BMI calculation";
                 }
             } else {
-                classification = "Invalid age for BMI calculation";
+                BMI = "N/A";
+                classification = "Invalid data";
             }
-        } else {
-            BMI = "N/A";
-            classification = "Invalid data";
+
+            float minBMI = 18.5f;
+            float maxBMI = 24.9f;
+            healthyRange = (String.format("%.1f", minBMI) + " - " + String.format("%.1f kg", maxBMI));
+
+            try {
+                String bmiCleaned = BMI.replaceAll("[^\\d.]", "");
+                float bmiVal = Float.parseFloat(bmiCleaned);
+
+                float currentWeight = bmiVal * meterHeight * meterHeight;
+                float minWeight = minBMI * meterHeight * meterHeight;
+                float maxWeight = maxBMI * meterHeight * meterHeight;
+
+                if (currentWeight < minWeight) {
+                    float weightToGain = minWeight - currentWeight;
+                    weightNeeds = ("Gain " + String.format("%.2f", weightToGain) + " kg to reach a healthy weight.");
+                } else if (currentWeight > maxWeight) {
+                    float weightToLose = currentWeight - maxWeight;
+                    weightNeeds = ("Lose " + String.format("%.2f", weightToLose) + " kg to reach a healthy weight.");
+                } else {
+                    weightNeeds = ("Your weight is within the healthy range!");
+                }
+            } catch (Exception e) {
+                weightNeeds = "Invalid BMI value. Please check your data.";
+            }
         }
 
         PreparedStatement ps;
@@ -418,7 +436,7 @@ public class UserEditForm extends javax.swing.JFrame {
                 String fullName = firstname + " " + lastname;
                 home.updateUserDetails(username, fullName, email);
                 home.updateProfileIcon(sex);
-                home.updateUserBMI(BMI, classification);
+                home.updateUserBMI(BMI, classification, healthyRange, weightNeeds);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Update failed. User not found.", "Error", JOptionPane.ERROR_MESSAGE);

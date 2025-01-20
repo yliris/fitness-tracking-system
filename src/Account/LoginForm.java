@@ -1,5 +1,6 @@
 package Account;
 
+import Content.Home;
 import Resources.components.ForgotPassword1;
 import Resources.components.DatabaseConnection;
 import Home.AdminHome;
@@ -342,6 +343,7 @@ public class LoginForm extends javax.swing.JFrame {
                 int userId = rs.getInt("user_id");
                 UserHome userHome = new UserHome(userId);
                 userHome.setVisible(true);
+                
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
