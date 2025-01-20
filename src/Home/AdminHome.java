@@ -897,6 +897,11 @@ public class AdminHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //CHECK SECURITY QUESTION AND ANSWER LENGTH
+        if (sec_question.length() < 5 || sec_answer.length() < 3) {
+            JOptionPane.showMessageDialog(null, "Security question must be at least 5 characters long and answer must be at least 3 characters long.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //NO SQL INJECTION OR HTML TAGS
         if (username.matches(".*<.*>.*") || firstname.matches(".*<.*>.*") || lastname.matches(".*<.*>.*")) {
             JOptionPane.showMessageDialog(null, "Fields cannot contain HTML tags.", "Input Error", JOptionPane.ERROR_MESSAGE);

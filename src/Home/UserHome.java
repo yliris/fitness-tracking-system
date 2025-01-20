@@ -7,6 +7,7 @@ import Content.Diet;
 import Content.Guide;
 import Content.Home;
 import Resources.components.DatabaseConnection;
+import Resources.components.ScrollBarWin11UI;
 import java.awt.Color;
 import java.awt.CardLayout;
 import java.awt.Image;
@@ -16,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 public class UserHome extends javax.swing.JFrame {
 
@@ -473,19 +476,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void home_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseEntered
-        home_btn.setBackground(new Color(114,134,211));
+        home_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_home_btnMouseEntered
 
     private void home_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseExited
-        home_btn.setBackground(new Color(142,167,233));
+        home_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_home_btnMouseExited
 
     private void home_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMousePressed
-        home_btn.setBackground(new Color(58,84,186));
+        home_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_home_btnMousePressed
 
     private void home_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseReleased
-        home_btn.setBackground(new Color(114,134,211));
+        home_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_home_btnMouseReleased
 
     private void home_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_btnMouseClicked
@@ -494,19 +497,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_home_btnMouseClicked
 
     private void dashboard_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseEntered
-        dashboard_btn.setBackground(new Color(114,134,211));
+        dashboard_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_dashboard_btnMouseEntered
 
     private void dashboard_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseExited
-        dashboard_btn.setBackground(new Color(142,167,233));
+        dashboard_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_dashboard_btnMouseExited
 
     private void dashboard_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMousePressed
-        dashboard_btn.setBackground(new Color(58,84,186));
+        dashboard_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_dashboard_btnMousePressed
 
     private void dashboard_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseReleased
-        dashboard_btn.setBackground(new Color(114,134,211));
+        dashboard_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_dashboard_btnMouseReleased
 
     private void dashboard_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseClicked
@@ -515,19 +518,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboard_btnMouseClicked
 
     private void activity_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseEntered
-        activity_btn.setBackground(new Color(114,134,211));
+        activity_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_activity_btnMouseEntered
 
     private void activity_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseExited
-        activity_btn.setBackground(new Color(142,167,233));
+        activity_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_activity_btnMouseExited
 
     private void activity_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMousePressed
-        activity_btn.setBackground(new Color(58,84,186));
+        activity_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_activity_btnMousePressed
 
     private void activity_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseReleased
-        activity_btn.setBackground(new Color(114,134,211));
+        activity_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_activity_btnMouseReleased
 
     private void activity_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseClicked
@@ -536,19 +539,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_activity_btnMouseClicked
 
     private void diet_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseEntered
-        diet_btn.setBackground(new Color(114,134,211));
+        diet_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_diet_btnMouseEntered
 
     private void diet_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseExited
-        diet_btn.setBackground(new Color(142,167,233));
+        diet_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_diet_btnMouseExited
 
     private void diet_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMousePressed
-        diet_btn.setBackground(new Color(58,84,186));
+        diet_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_diet_btnMousePressed
 
     private void diet_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseReleased
-        diet_btn.setBackground(new Color(114,134,211));
+        diet_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_diet_btnMouseReleased
 
     private void diet_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diet_btnMouseClicked
@@ -557,19 +560,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_diet_btnMouseClicked
 
     private void guide_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseEntered
-        guide_btn.setBackground(new Color(114,134,211));
+        guide_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_guide_btnMouseEntered
 
     private void guide_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseExited
-        guide_btn.setBackground(new Color(142,167,233));
+        guide_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_guide_btnMouseExited
 
     private void guide_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMousePressed
-        guide_btn.setBackground(new Color(58,84,186));
+        guide_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_guide_btnMousePressed
 
     private void guide_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseReleased
-        guide_btn.setBackground(new Color(114,134,211));
+        guide_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_guide_btnMouseReleased
 
     private void guide_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guide_btnMouseClicked
@@ -578,19 +581,19 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_guide_btnMouseClicked
 
     private void other_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseEntered
-        other_btn.setBackground(new Color(114,134,211));
+        other_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_other_btnMouseEntered
 
     private void other_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseExited
-        other_btn.setBackground(new Color(142,167,233));
+        other_btn.setBackground(new Color(142, 167, 233));
     }//GEN-LAST:event_other_btnMouseExited
 
     private void other_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMousePressed
-        other_btn.setBackground(new Color(58,84,186));
+        other_btn.setBackground(new Color(58, 84, 186));
     }//GEN-LAST:event_other_btnMousePressed
 
     private void other_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseReleased
-        other_btn.setBackground(new Color(114,134,211));
+        other_btn.setBackground(new Color(114, 134, 211));
     }//GEN-LAST:event_other_btnMouseReleased
 
     private void other_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseClicked
@@ -623,6 +626,8 @@ public class UserHome extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        UIDefaults ui = UIManager.getDefaults();
+        ui.put("ScrollBarUI", ScrollBarWin11UI.class.getCanonicalName());
         int id = 1;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
