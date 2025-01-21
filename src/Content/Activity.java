@@ -1,8 +1,6 @@
 package Content;
 
 import Resources.components.DatabaseConnection;
-import Resources.components.UtilityMethods;
-import static Resources.components.UtilityMethods.DefaultText2;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static Resources.components.UtilityMethods.TransparentField2;
+import java.util.*;
 
 public class Activity extends javax.swing.JPanel {
 
@@ -133,25 +131,31 @@ public class Activity extends javax.swing.JPanel {
         day_cbox = new javax.swing.JComboBox<>();
         label2 = new javax.swing.JLabel();
         type_cbox = new javax.swing.JComboBox<>();
-        label5 = new javax.swing.JLabel();
-        duration_cbox = new javax.swing.JComboBox<>();
+        label3 = new javax.swing.JLabel();
         name_cbox = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
-        or = new javax.swing.JLabel();
+        optional = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        label6 = new javax.swing.JLabel();
-        label3 = new javax.swing.JLabel();
         label4 = new javax.swing.JLabel();
+        duration_field = new javax.swing.JSpinner();
+        label5 = new javax.swing.JLabel();
+        duration_cbox = new javax.swing.JComboBox<>();
+        label6 = new javax.swing.JLabel();
+        sets_field = new javax.swing.JSpinner();
+        label7 = new javax.swing.JLabel();
+        reps_field = new javax.swing.JSpinner();
         activity_form_buttons = new Resources.components.PanelBorder();
         exeadd_btn = new javax.swing.JButton();
         exeupd_btn = new javax.swing.JButton();
         exedel_btn = new javax.swing.JButton();
-        duration_field = new javax.swing.JSpinner();
-        reps_field = new javax.swing.JSpinner();
-        sets_field = new javax.swing.JSpinner();
-        label7 = new javax.swing.JLabel();
-        history_btn = new javax.swing.JButton();
-        execomplete_btn = new javax.swing.JButton();
+        exeguide_btn = new Resources.components.PanelBorder();
+        guide_icon = new javax.swing.JLabel();
+        exehistory_btn = new Resources.components.PanelBorder();
+        history_icon = new javax.swing.JLabel();
+        history_label = new javax.swing.JLabel();
+        execomplete_btn = new Resources.components.PanelBorder();
+        complete_icon = new javax.swing.JLabel();
+        complete_label = new javax.swing.JLabel();
         exercise_element = new javax.swing.JLabel();
 
         activity_background.setBackground(new java.awt.Color(255, 255, 255));
@@ -186,6 +190,11 @@ public class Activity extends javax.swing.JPanel {
         exercise_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
         exercise_table.setShowHorizontalLines(true);
         exercise_table.getTableHeader().setReorderingAllowed(false);
+        exercise_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exercise_tableMouseClicked(evt);
+            }
+        });
         scrollPaneWin111.setViewportView(exercise_table);
         if (exercise_table.getColumnModel().getColumnCount() > 0) {
             exercise_table.getColumnModel().getColumn(0).setMinWidth(1);
@@ -231,15 +240,10 @@ public class Activity extends javax.swing.JPanel {
         type_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose exercise type--", "Cardiovascular (Aerobic) Exercise", "Strength (Resistance) Training", "Flexibility Exercise", "Balance Exercise", "High-Intensity Interval Training (HIIT)", "Functional Fitness Training", "Mind-Body Exercises", "Sports and Recreational Activities" }));
         activity_form_panel.add(type_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 20));
 
-        label5.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
-        label5.setForeground(new java.awt.Color(255, 255, 255));
-        label5.setText("Exercise Name");
-        activity_form_panel.add(label5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
-
-        duration_cbox.setBackground(new java.awt.Color(204, 204, 204));
-        duration_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        duration_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Time--", "None", "Hour", "Minute", "Second", " " }));
-        activity_form_panel.add(duration_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 140, -1));
+        label3.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
+        label3.setForeground(new java.awt.Color(255, 255, 255));
+        label3.setText("Exercise Name");
+        activity_form_panel.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         name_cbox.setBackground(new java.awt.Color(204, 204, 204));
         name_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
@@ -247,27 +251,49 @@ public class Activity extends javax.swing.JPanel {
         activity_form_panel.add(name_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 300, -1));
         activity_form_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, 10));
 
-        or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        or.setForeground(new java.awt.Color(193, 193, 193));
-        or.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        or.setText("Optional");
-        activity_form_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 195, 60, -1));
+        optional.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        optional.setForeground(new java.awt.Color(193, 193, 193));
+        optional.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        optional.setText("Optional");
+        activity_form_panel.add(optional, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 195, 60, -1));
         activity_form_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 120, 10));
-
-        label6.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        label6.setForeground(new java.awt.Color(255, 255, 255));
-        label6.setText("Time");
-        activity_form_panel.add(label6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
-
-        label3.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        label3.setForeground(new java.awt.Color(255, 255, 255));
-        label3.setText("Sets");
-        activity_form_panel.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         label4.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         label4.setForeground(new java.awt.Color(255, 255, 255));
-        label4.setText("Reps");
-        activity_form_panel.add(label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
+        label4.setText("Duration");
+        activity_form_panel.add(label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        duration_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        duration_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        activity_form_panel.add(duration_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 140, -1));
+
+        label5.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        label5.setForeground(new java.awt.Color(255, 255, 255));
+        label5.setText("Time");
+        activity_form_panel.add(label5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
+
+        duration_cbox.setBackground(new java.awt.Color(204, 204, 204));
+        duration_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        duration_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Hour", "Minute", "Second", " " }));
+        activity_form_panel.add(duration_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 140, -1));
+
+        label6.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        label6.setForeground(new java.awt.Color(255, 255, 255));
+        label6.setText("Sets");
+        activity_form_panel.add(label6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        sets_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        sets_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        activity_form_panel.add(sets_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 140, -1));
+
+        label7.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        label7.setForeground(new java.awt.Color(255, 255, 255));
+        label7.setText("Reps");
+        activity_form_panel.add(label7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
+
+        reps_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        reps_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        activity_form_panel.add(reps_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 140, -1));
 
         activity_form_buttons.setBackground(new java.awt.Color(68, 94, 196));
         activity_form_buttons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -311,52 +337,97 @@ public class Activity extends javax.swing.JPanel {
         });
         activity_form_buttons.add(exedel_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 120, 30));
 
-        activity_form_panel.add(activity_form_buttons, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 300, 110));
+        activity_form_panel.add(activity_form_buttons, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 300, 110));
 
-        duration_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        duration_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        activity_form_panel.add(duration_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 140, -1));
+        activity_background.add(activity_form_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 350, 460));
 
-        reps_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        reps_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        activity_form_panel.add(reps_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 140, -1));
-
-        sets_field.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        sets_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        activity_form_panel.add(sets_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 140, -1));
-
-        label7.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        label7.setForeground(new java.awt.Color(255, 255, 255));
-        label7.setText("Duration");
-        activity_form_panel.add(label7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
-
-        activity_background.add(activity_form_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 350, 440));
-
-        history_btn.setBackground(new java.awt.Color(102, 102, 102));
-        history_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        history_btn.setForeground(new java.awt.Color(255, 255, 255));
-        history_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/history-icon.png"))); // NOI18N
-        history_btn.setText("History");
-        history_btn.setIconTextGap(15);
-        history_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                history_btnActionPerformed(evt);
+        exeguide_btn.setBackground(new java.awt.Color(58, 139, 89));
+        exeguide_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exeguide_btnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exeguide_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exeguide_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exeguide_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exeguide_btnMouseReleased(evt);
             }
         });
-        activity_background.add(history_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, 40));
+        exeguide_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        execomplete_btn.setBackground(new java.awt.Color(72, 98, 197));
-        execomplete_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        execomplete_btn.setForeground(new java.awt.Color(255, 255, 255));
-        execomplete_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/complete-icon.png"))); // NOI18N
-        execomplete_btn.setText("Mark as Complete");
-        execomplete_btn.setIconTextGap(15);
-        execomplete_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                execomplete_btnActionPerformed(evt);
+        guide_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        guide_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon.png"))); // NOI18N
+        exeguide_btn.add(guide_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        activity_background.add(exeguide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 40, 40));
+
+        exehistory_btn.setBackground(new java.awt.Color(89, 89, 89));
+        exehistory_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exehistory_btnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exehistory_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exehistory_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exehistory_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                exehistory_btnMouseReleased(evt);
             }
         });
-        activity_background.add(execomplete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 510, 190, 40));
+        exehistory_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        history_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        history_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/history-icon.png"))); // NOI18N
+        exehistory_btn.add(history_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        history_label.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
+        history_label.setForeground(new java.awt.Color(255, 255, 255));
+        history_label.setText("History");
+        exehistory_btn.add(history_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        activity_background.add(exehistory_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 510, 100, 40));
+
+        execomplete_btn.setBackground(new java.awt.Color(68, 94, 196));
+        execomplete_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                execomplete_btnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                execomplete_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                execomplete_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                execomplete_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                execomplete_btnMouseReleased(evt);
+            }
+        });
+        execomplete_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        complete_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        complete_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/complete-icon.png"))); // NOI18N
+        execomplete_btn.add(complete_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        complete_label.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
+        complete_label.setForeground(new java.awt.Color(255, 255, 255));
+        complete_label.setText("Mark as Complete");
+        execomplete_btn.add(complete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 120, 40));
+
+        activity_background.add(execomplete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 510, 170, 40));
 
         exercise_element.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/exercise-element.png"))); // NOI18N
         activity_background.add(exercise_element, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -385,8 +456,7 @@ public class Activity extends javax.swing.JPanel {
         //CHECK IF ALL ITEMS ARE INVALID
         if (day.equals("--Choose the day--")
                 && type.equals("--Choose exercise type--")
-                && exercise.equals("--Choose the exercise--")
-                && durationUnit.equals("--Time--")) {
+                && exercise.equals("--Choose the exercise--")) {
             JOptionPane.showMessageDialog(this, "Please fill all fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -403,15 +473,16 @@ public class Activity extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please choose an exercise.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (durationUnit.equals("--Time--")) {
-            JOptionPane.showMessageDialog(this, "Please select a valid duration unit.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         //CHECK IF DURATION IS EMPTY OR NOT
         String durationStr;
         if (duration == 0) {
             durationStr = "None";
         } else {
+            if (durationUnit.equals("None")) {
+                JOptionPane.showMessageDialog(this, "Please select a valid time unit.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             if (duration == 1) {
                 durationStr = duration + " " + durationUnit;
             } else {
@@ -430,6 +501,8 @@ public class Activity extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
             model.addRow(new Object[]{day, type, exercise, durationStr, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps});
 
+            sortTableByDay(model);
+
             String insertExerciseQuery = "INSERT INTO tb_incomplete_exercises (user_id, day, type, exercise, duration, sets, reps) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(insertExerciseQuery)) {
@@ -443,27 +516,183 @@ public class Activity extends javax.swing.JPanel {
                 stmt.executeUpdate();
             }
             JOptionPane.showMessageDialog(this, "Exercise added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            day_cbox.setSelectedIndex(0);
+            type_cbox.setSelectedIndex(0);
+            name_cbox.setSelectedIndex(0);
+            duration_cbox.setSelectedIndex(0);
+            duration_field.setValue(0);
+            sets_field.setValue(0);
+            reps_field.setValue(0);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error while adding exercise: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_exeadd_btnActionPerformed
 
+    private void sortTableByDay(DefaultTableModel model) {
+        List<String> daysOrder = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+
+        List<Object[]> rows = new ArrayList<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            rows.add(row);
+        }
+
+        rows.sort(Comparator.comparing(row -> daysOrder.indexOf(row[0].toString())));
+
+        model.setRowCount(0);
+        for (Object[] row : rows) {
+            model.addRow(row);
+        }
+    }
+
     private void exeupd_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exeupd_btnActionPerformed
 
     }//GEN-LAST:event_exeupd_btnActionPerformed
 
     private void exedel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exedel_btnActionPerformed
+        int selectedRow = exercise_table.getSelectedRow();
 
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this exercise?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            String day = (String) exercise_table.getValueAt(selectedRow, 0);
+            String type = (String) exercise_table.getValueAt(selectedRow, 1);
+            String exercise = (String) exercise_table.getValueAt(selectedRow, 2);
+
+            String deleteQuery = "DELETE FROM tb_incomplete_exercises WHERE user_id = ? AND day = ? AND type = ? AND exercise = ?";
+
+            try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(deleteQuery)) {
+                stmt.setInt(1, userId);
+                stmt.setString(2, day);
+                stmt.setString(3, type);
+                stmt.setString(4, exercise);
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
+                    model.removeRow(selectedRow);
+
+                    JOptionPane.showMessageDialog(this, "Exercise deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    day_cbox.setSelectedIndex(0);
+                    type_cbox.setSelectedIndex(0);
+                    name_cbox.setSelectedIndex(0);
+                    duration_cbox.setSelectedIndex(0);
+                    duration_field.setValue(0);
+                    sets_field.setValue(0);
+                    reps_field.setValue(0);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No matching record found in the database.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error while deleting exercise: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_exedel_btnActionPerformed
 
-    private void execomplete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_execomplete_btnActionPerformed
+    private void exercise_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exercise_tableMouseClicked
+        int selectedRow = exercise_table.getSelectedRow();
 
-    }//GEN-LAST:event_execomplete_btnActionPerformed
+        if (selectedRow >= 0) {
+            String day = exercise_table.getValueAt(selectedRow, 0).toString();
+            String type = exercise_table.getValueAt(selectedRow, 1).toString();
+            String exercise = exercise_table.getValueAt(selectedRow, 2).toString();
+            String durationStr = exercise_table.getValueAt(selectedRow, 3).toString();
+            String setsStr = exercise_table.getValueAt(selectedRow, 4).toString();
+            String repsStr = exercise_table.getValueAt(selectedRow, 5).toString();
 
-    private void history_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_history_btnActionPerformed
+            day_cbox.setSelectedItem(day);
+            type_cbox.setSelectedItem(type);
+            name_cbox.setSelectedItem(exercise);
 
-    }//GEN-LAST:event_history_btnActionPerformed
+            if (!durationStr.equals("None")) {
+                String[] durationParts = durationStr.split(" ");
+                int durationValue = Integer.parseInt(durationParts[0]);
+                String durationUnit = durationParts[1].replace("s", "");
+
+                duration_field.setValue(durationValue);
+                duration_cbox.setSelectedItem(durationUnit);
+            } else {
+                duration_field.setValue(0);
+                duration_cbox.setSelectedItem("None");
+            }
+
+            sets_field.setValue(setsStr.equals("None") ? 0 : Integer.parseInt(setsStr));
+            reps_field.setValue(repsStr.equals("None") ? 0 : Integer.parseInt(repsStr));
+        }
+    }//GEN-LAST:event_exercise_tableMouseClicked
+
+    private void execomplete_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseClicked
+        
+    }//GEN-LAST:event_execomplete_btnMouseClicked
+
+    private void exehistory_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseClicked
+        
+    }//GEN-LAST:event_exehistory_btnMouseClicked
+
+    private void exeguide_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseClicked
+        
+    }//GEN-LAST:event_exeguide_btnMouseClicked
+
+    private void execomplete_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_execomplete_btnMouseEntered
+
+    private void execomplete_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_execomplete_btnMouseExited
+
+    private void execomplete_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_execomplete_btnMousePressed
+
+    private void execomplete_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_execomplete_btnMouseReleased
+
+    private void exehistory_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exehistory_btnMouseEntered
+
+    private void exehistory_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exehistory_btnMouseExited
+
+    private void exehistory_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exehistory_btnMousePressed
+
+    private void exehistory_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exehistory_btnMouseReleased
+
+    private void exeguide_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exeguide_btnMouseEntered
+
+    private void exeguide_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exeguide_btnMouseExited
+
+    private void exeguide_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exeguide_btnMousePressed
+
+    private void exeguide_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exeguide_btnMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -471,16 +700,22 @@ public class Activity extends javax.swing.JPanel {
     private Resources.components.PanelBorder activity_form_buttons;
     private Resources.components.PanelBorder activity_form_panel;
     private Resources.components.PanelBorder activity_table_panel;
+    private javax.swing.JLabel complete_icon;
+    private javax.swing.JLabel complete_label;
     private javax.swing.JComboBox<String> day_cbox;
     private javax.swing.JComboBox<String> duration_cbox;
     private javax.swing.JSpinner duration_field;
     private javax.swing.JButton exeadd_btn;
-    private javax.swing.JButton execomplete_btn;
+    private Resources.components.PanelBorder execomplete_btn;
     private javax.swing.JButton exedel_btn;
+    private Resources.components.PanelBorder exeguide_btn;
+    private Resources.components.PanelBorder exehistory_btn;
     private javax.swing.JLabel exercise_element;
     private javax.swing.JTable exercise_table;
     private javax.swing.JButton exeupd_btn;
-    private javax.swing.JButton history_btn;
+    private javax.swing.JLabel guide_icon;
+    private javax.swing.JLabel history_icon;
+    private javax.swing.JLabel history_label;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel label1;
@@ -491,7 +726,7 @@ public class Activity extends javax.swing.JPanel {
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JComboBox<String> name_cbox;
-    private javax.swing.JLabel or;
+    private javax.swing.JLabel optional;
     private javax.swing.JSpinner reps_field;
     private Resources.components.ScrollPaneWin11 scrollPaneWin111;
     private javax.swing.JSpinner sets_field;
