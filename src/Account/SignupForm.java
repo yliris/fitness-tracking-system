@@ -92,7 +92,7 @@ public class SignupForm extends javax.swing.JFrame {
         boolean isValid = !age_field.getText().isEmpty()
                 && !weight_field.getText().isEmpty()
                 && !height_field.getText().isEmpty()
-                && (male_rdb.isSelected() || female_rdb.isSelected());
+                && !(male_rdb.isSelected() || female_rdb.isSelected());
         signup_btn.setEnabled(isValid);
     }
 
@@ -100,11 +100,6 @@ public class SignupForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        result_label = new javax.swing.JLabel();
-        bmi_label = new javax.swing.JLabel();
-        classification_label = new javax.swing.JLabel();
-        bmi_range_label = new javax.swing.JLabel();
-        normal_range_label = new javax.swing.JLabel();
         element = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -162,17 +157,6 @@ public class SignupForm extends javax.swing.JFrame {
         signup_message = new javax.swing.JLabel();
         signin_btn = new javax.swing.JButton();
         background = new Resources.components.PanelBorder();
-
-        result_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        result_label.setText("Result");
-
-        bmi_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-
-        classification_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-
-        bmi_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-
-        normal_range_label.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -369,30 +353,30 @@ public class SignupForm extends javax.swing.JFrame {
         height_field.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         panelBorder1.add(height_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 120, -1));
 
-        step2_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 290, 140));
+        step2_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 290, 140));
 
         jLabel4.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("For Health Tracking");
-        step2_panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 55, 150, -1));
+        step2_panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 15, 150, -1));
 
         jLabel5.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("- Having your age, sex, weight, and height is important in order");
-        step2_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 330, 20));
+        step2_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 330, 20));
 
         jLabel7.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("an accurate and effective guidance for your health.");
-        step2_panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 320, 20));
+        step2_panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 320, 20));
 
         jLabel6.setFont(new java.awt.Font("Cascadia Mono", 0, 9)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
         jLabel6.setText("to track, and manage your health and fitness goals to achieve");
-        step2_panel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 320, 10));
-        step2_panel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, 10));
-        step2_panel.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 110, 10));
+        step2_panel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 320, 10));
+        step2_panel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 90, 10));
+        step2_panel.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 100, 10));
         step2_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 140, 10));
 
         or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
@@ -411,7 +395,7 @@ public class SignupForm extends javax.swing.JFrame {
                 signup_btnActionPerformed(evt);
             }
         });
-        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 190, -1));
+        step2_panel.add(signup_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 190, -1));
 
         back_btn.setBackground(new java.awt.Color(102, 102, 102));
         back_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -423,8 +407,8 @@ public class SignupForm extends javax.swing.JFrame {
                 back_btnActionPerformed(evt);
             }
         });
-        step2_panel.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 90, -1));
-        step2_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 140, 10));
+        step2_panel.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 90, -1));
+        step2_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 150, 10));
 
         create_panel.addTab("tab2", step2_panel);
 
@@ -811,9 +795,6 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel answer_label;
     private javax.swing.JButton back_btn;
     private Resources.components.PanelBorder background;
-    private javax.swing.JLabel bmi_label;
-    private javax.swing.JLabel bmi_range_label;
-    private javax.swing.JLabel classification_label;
     private javax.swing.JLabel create_account;
     private javax.swing.JTabbedPane create_panel;
     private javax.swing.JLabel element;
@@ -845,7 +826,6 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton male_rdb;
     private Resources.components.PanelMover mover;
     private javax.swing.JButton next_btn;
-    private javax.swing.JLabel normal_range_label;
     private javax.swing.JLabel or;
     private Resources.components.PanelBorder panelBorder1;
     private javax.swing.JToggleButton password_check;
@@ -853,7 +833,6 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel password_label;
     private javax.swing.JLabel question_guide;
     private javax.swing.JLabel question_label;
-    private javax.swing.JLabel result_label;
     private javax.swing.JTextField sec_answer_field;
     private javax.swing.JTextField sec_question_field;
     private javax.swing.JLabel sex_label;

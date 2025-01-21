@@ -26,18 +26,16 @@ public class UserSecurityForm extends javax.swing.JFrame {
     private void populateSecurityDetails(int userId) {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String query = "SELECT password, sec_question, sec_answer FROM tb_users WHERE user_id = ?";
+            String query = "SELECT sec_question, sec_answer FROM tb_users WHERE user_id = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, userId);
 
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                originalPassword = rs.getString("password");
                 originalQuestion = rs.getString("sec_question");
                 originalAnswer = rs.getString("sec_answer");
 
-                profile_password_field.setText(originalPassword);
                 profile_question_field.setText(originalQuestion);
                 profile_answer_field.setText(originalAnswer);
             } else {

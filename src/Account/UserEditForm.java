@@ -31,43 +31,42 @@ public class UserEditForm extends javax.swing.JFrame {
     }
 
     private void populateUserDetails(int userId) {
-        try {
-            Connection conn = DatabaseConnection.getConnection();
-            String query = "SELECT * FROM tb_users WHERE user_id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+        String query = "SELECT * FROM tb_users WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
             pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    originalFirstname = rs.getString("first_name");
+                    originalLastname = rs.getString("last_name");
+                    originalEmail = rs.getString("email");
+                    originalUsername = rs.getString("username");
+                    originalAge = rs.getInt("age");
+                    originalSex = rs.getString("sex");
+                    originalWeight = rs.getFloat("weight");
+                    originalHeight = rs.getFloat("height");
 
-            if (rs.next()) {
-                originalFirstname = rs.getString("first_name");
-                originalLastname = rs.getString("last_name");
-                originalEmail = rs.getString("email");
-                originalUsername = rs.getString("username");
-                originalAge = rs.getInt("age");
-                originalSex = rs.getString("sex");
-                originalWeight = rs.getFloat("weight");
-                originalHeight = rs.getFloat("height");
+                    firstname_field.setText(originalFirstname);
+                    lastname_field.setText(originalLastname);
+                    email_field.setText(originalEmail);
+                    username_field.setText(originalUsername);
+                    age_field.setText(String.valueOf(originalAge));
 
-                firstname_field.setText(originalFirstname);
-                lastname_field.setText(originalLastname);
-                email_field.setText(originalEmail);
-                username_field.setText(originalUsername);
-                age_field.setText(String.valueOf(originalAge));
-                if ("Male".equals(originalSex)) {
-                    male_rdb.setSelected(true);
+                    if ("Male".equalsIgnoreCase(originalSex)) {
+                        male_rdb.setSelected(true);
+                    } else {
+                        female_rdb.setSelected(true);
+                    }
+
+                    weight_field.setText(String.valueOf(originalWeight));
+                    height_field.setText(String.valueOf(originalHeight));
                 } else {
-                    female_rdb.setSelected(true);
+                    JOptionPane.showMessageDialog(this, "No user found with ID: " + userId, "Info", JOptionPane.INFORMATION_MESSAGE);
                 }
-                weight_field.setText(String.valueOf(originalWeight));
-                height_field.setText(String.valueOf(originalHeight));
             }
-
-            rs.close();
-            pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "An error occurred while fetching user details.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching user details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -395,10 +394,10 @@ public class UserEditForm extends javax.swing.JFrame {
 
                 if (currentWeight < minWeight) {
                     float weightToGain = minWeight - currentWeight;
-                    weightNeeds = ("Gain " + String.format("%.2f", weightToGain) + " kg to reach a healthy weight.");
+                    weightNeeds = ("Recommendation: Gain " + String.format("%.2f", weightToGain) + " kg to reach a healthy weight.");
                 } else if (currentWeight > maxWeight) {
                     float weightToLose = currentWeight - maxWeight;
-                    weightNeeds = ("Lose " + String.format("%.2f", weightToLose) + " kg to reach a healthy weight.");
+                    weightNeeds = ("Recommendation: Lose " + String.format("%.2f", weightToLose) + " kg to reach a healthy weight.");
                 } else {
                     weightNeeds = ("Your weight is within the healthy range!");
                 }
@@ -409,9 +408,9 @@ public class UserEditForm extends javax.swing.JFrame {
 
         PreparedStatement ps;
         ResultSet rs;
-        String checkNameQuery = "SELECT * FROM `tb_users` WHERE `first_name` = ? AND `last_name` = ?";
-        String checkEmailQuery = "SELECT * FROM `tb_users` WHERE `email` = ?";
-        String checkUsernameQuery = "SELECT * FROM `tb_users` WHERE `username` = ?";
+        String checkNameQuery = "SELECT * FROM tb_users WHERE first_name = ? AND last_name = ?";
+        String checkEmailQuery = "SELECT * FROM tb_users WHERE email = ?";
+        String checkUsernameQuery = "SELECT * FROM tb_users WHERE username = ?";
 
         try {
             Connection conn = DatabaseConnection.getConnection();

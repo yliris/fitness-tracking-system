@@ -20,11 +20,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
-public class Activity extends javax.swing.JPanel {
+public class Exercise extends javax.swing.JPanel {
 
     private int userId;
 
-    public Activity(int userId) {
+    public Exercise(int userId) {
         initComponents();
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));

@@ -1,9 +1,10 @@
 package Home;
 
 import Account.LoginForm;
-import Content.Activity;
+import Content.Exercise;
 import Content.Diet;
 import Content.Guide;
+import Content.Achievements;
 import Content.Home;
 import Resources.components.DatabaseConnection;
 import Resources.components.ScrollBarWin11UI;
@@ -24,8 +25,9 @@ public class UserHome extends javax.swing.JFrame {
     private int userId;
 
     private Home home;
-    private Activity activity;
+    private Exercise activity;
     private Diet diet;
+    private Achievements achievements;
     private Guide guide;
 
     public UserHome(int userId) {
@@ -36,12 +38,14 @@ public class UserHome extends javax.swing.JFrame {
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
         home = new Home(this.userId);
-        activity = new Activity(this.userId);
+        activity = new Exercise(this.userId);
         diet = new Diet();
+        achievements = new Achievements();
         guide = new Guide();
         body.add(home, "Home");
         body.add(activity, "Activity");
         body.add(diet, "Diet");
+        body.add(achievements, "Achievements");
         body.add(guide, "Guide");
         CardLayout cardLayout = (CardLayout) body.getLayout();
         cardLayout.show(body, "Home");
@@ -94,9 +98,10 @@ public class UserHome extends javax.swing.JFrame {
         guide_btn = new Resources.components.PanelBorder();
         diet_icon1 = new javax.swing.JLabel();
         guide_label = new javax.swing.JLabel();
-        other_btn = new Resources.components.PanelBorder();
-        guide_label1 = new javax.swing.JLabel();
-        panelBorder1 = new Resources.components.PanelBorder();
+        achievements_btn = new Resources.components.PanelBorder();
+        achievements_label = new javax.swing.JLabel();
+        achievements_icon = new javax.swing.JLabel();
+        exit_panel = new Resources.components.PanelBorder();
         logout_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
         mover = new Resources.components.PanelMover();
@@ -267,38 +272,42 @@ public class UserHome extends javax.swing.JFrame {
 
         header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 10, 160, 50));
 
-        other_btn.setBackground(new java.awt.Color(142, 167, 233));
-        other_btn.setPreferredSize(new java.awt.Dimension(40, 48));
-        other_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+        achievements_btn.setBackground(new java.awt.Color(142, 167, 233));
+        achievements_btn.setPreferredSize(new java.awt.Dimension(40, 48));
+        achievements_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                other_btnMouseClicked(evt);
+                achievements_btnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                other_btnMouseEntered(evt);
+                achievements_btnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                other_btnMouseExited(evt);
+                achievements_btnMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                other_btnMousePressed(evt);
+                achievements_btnMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                other_btnMouseReleased(evt);
+                achievements_btnMouseReleased(evt);
             }
         });
-        other_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        achievements_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        guide_label1.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        guide_label1.setForeground(new java.awt.Color(255, 255, 255));
-        guide_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        guide_label1.setText("OTHER");
-        guide_label1.setIconTextGap(10);
-        other_btn.add(guide_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
+        achievements_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        achievements_label.setForeground(new java.awt.Color(255, 255, 255));
+        achievements_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        achievements_label.setText("ACHIEVEMENTS");
+        achievements_label.setIconTextGap(10);
+        achievements_btn.add(achievements_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 160, 50));
+        achievements_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        achievements_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/achievements-icon.png"))); // NOI18N
+        achievements_btn.add(achievements_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
 
-        panelBorder1.setBackground(new java.awt.Color(114, 134, 211));
-        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        header_panel.add(achievements_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 160, 50));
+
+        exit_panel.setBackground(new java.awt.Color(114, 134, 211));
+        exit_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/logout-white-idle.png"))); // NOI18N
         logout_btn.setBorder(null);
@@ -323,7 +332,7 @@ public class UserHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        exit_panel.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -348,9 +357,9 @@ public class UserHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        exit_panel.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        header_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 110, 70));
+        header_panel.add(exit_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 110, 70));
 
         header_background.add(header_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 6, 1240, 68));
         header_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 6));
@@ -523,25 +532,26 @@ public class UserHome extends javax.swing.JFrame {
         cardLayout.show(body, "Guide");
     }//GEN-LAST:event_guide_btnMouseClicked
 
-    private void other_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseEntered
-        other_btn.setBackground(new Color(114, 134, 211));
-    }//GEN-LAST:event_other_btnMouseEntered
+    private void achievements_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_achievements_btnMouseEntered
+        achievements_btn.setBackground(new Color(114, 134, 211));
+    }//GEN-LAST:event_achievements_btnMouseEntered
 
-    private void other_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseExited
-        other_btn.setBackground(new Color(142, 167, 233));
-    }//GEN-LAST:event_other_btnMouseExited
+    private void achievements_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_achievements_btnMouseExited
+        achievements_btn.setBackground(new Color(142, 167, 233));
+    }//GEN-LAST:event_achievements_btnMouseExited
 
-    private void other_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMousePressed
-        other_btn.setBackground(new Color(58, 84, 186));
-    }//GEN-LAST:event_other_btnMousePressed
+    private void achievements_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_achievements_btnMousePressed
+        achievements_btn.setBackground(new Color(58, 84, 186));
+    }//GEN-LAST:event_achievements_btnMousePressed
 
-    private void other_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseReleased
-        other_btn.setBackground(new Color(114, 134, 211));
-    }//GEN-LAST:event_other_btnMouseReleased
+    private void achievements_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_achievements_btnMouseReleased
+        achievements_btn.setBackground(new Color(114, 134, 211));
+    }//GEN-LAST:event_achievements_btnMouseReleased
 
-    private void other_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_other_btnMouseClicked
-
-    }//GEN-LAST:event_other_btnMouseClicked
+    private void achievements_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_achievements_btnMouseClicked
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, "Achievements");
+    }//GEN-LAST:event_achievements_btnMouseClicked
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -580,6 +590,9 @@ public class UserHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Resources.components.PanelBorder achievements_btn;
+    private javax.swing.JLabel achievements_icon;
+    private javax.swing.JLabel achievements_label;
     private Resources.components.PanelBorder activity_btn;
     private javax.swing.JLabel activity_icon;
     private javax.swing.JLayeredPane body;
@@ -590,11 +603,11 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel diet_label;
     private javax.swing.JLabel exercise_label;
     private javax.swing.JButton exit_btn;
+    private Resources.components.PanelBorder exit_panel;
     private javax.swing.JLabel fits_icon;
     private javax.swing.JLabel greetings;
     private Resources.components.PanelBorder guide_btn;
     private javax.swing.JLabel guide_label;
-    private javax.swing.JLabel guide_label1;
     private Resources.components.PanelBorder header_background;
     private Resources.components.PanelBorder header_panel;
     private Resources.components.PanelBorder home_btn;
@@ -602,8 +615,6 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel home_label;
     private javax.swing.JButton logout_btn;
     private Resources.components.PanelMover mover;
-    private Resources.components.PanelBorder other_btn;
-    private Resources.components.PanelBorder panelBorder1;
     private Resources.components.PanelBorder profile_btn;
     private Resources.components.PanelBorder user_background;
     // End of variables declaration//GEN-END:variables
