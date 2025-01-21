@@ -197,6 +197,7 @@ public class Home extends javax.swing.JPanel {
         motivation_panel = new Resources.components.PanelBorder();
         motivation_label = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        update_bmi_btn = new javax.swing.JButton();
         label1 = new javax.swing.JLabel();
         label2 = new javax.swing.JLabel();
         bmi_result = new javax.swing.JLabel();
@@ -205,6 +206,11 @@ public class Home extends javax.swing.JPanel {
         healthy_range = new javax.swing.JLabel();
         weight_needs = new javax.swing.JLabel();
         panelBorder1 = new Resources.components.PanelBorder();
+        panelBorder2 = new Resources.components.PanelBorder();
+        panelBorder5 = new Resources.components.PanelBorder();
+        jLabel1 = new javax.swing.JLabel();
+        panelBorder7 = new Resources.components.PanelBorder();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -360,6 +366,31 @@ public class Home extends javax.swing.JPanel {
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        update_bmi_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/update-idle.png"))); // NOI18N
+        update_bmi_btn.setBorder(null);
+        update_bmi_btn.setBorderPainted(false);
+        update_bmi_btn.setContentAreaFilled(false);
+        update_bmi_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                update_bmi_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                update_bmi_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                update_bmi_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                update_bmi_btnMouseReleased(evt);
+            }
+        });
+        update_bmi_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update_bmi_btnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(update_bmi_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 30, -1, 20));
+
         label1.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label1.setForeground(new java.awt.Color(29, 22, 22));
         label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -415,6 +446,40 @@ public class Home extends javax.swing.JPanel {
         jPanel1.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
 
         home_background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 640, 170));
+
+        panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
+        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        home_background.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 120, 110));
+
+        panelBorder5.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel1.setText("pie chart, most workout type done");
+
+        javax.swing.GroupLayout panelBorder5Layout = new javax.swing.GroupLayout(panelBorder5);
+        panelBorder5.setLayout(panelBorder5Layout);
+        panelBorder5Layout.setHorizontalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder5Layout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(51, 51, 51))
+        );
+        panelBorder5Layout.setVerticalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder5Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addContainerGap(252, Short.MAX_VALUE))
+        );
+
+        home_background.add(panelBorder5, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 240, 300, 300));
+
+        panelBorder7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setText("total completed meals");
+        panelBorder7.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        home_background.add(panelBorder7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 190, 110));
 
         add(home_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
     }// </editor-fold>//GEN-END:initComponents
@@ -487,6 +552,26 @@ public class Home extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_profile_delete_btnActionPerformed
 
+    private void update_bmi_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_bmi_btnActionPerformed
+        
+    }//GEN-LAST:event_update_bmi_btnActionPerformed
+
+    private void update_bmi_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_bmi_btnMouseEntered
+        update_bmi_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/update-hover.png")));
+    }//GEN-LAST:event_update_bmi_btnMouseEntered
+
+    private void update_bmi_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_bmi_btnMouseExited
+        update_bmi_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/update-idle.png")));
+    }//GEN-LAST:event_update_bmi_btnMouseExited
+
+    private void update_bmi_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_bmi_btnMousePressed
+        update_bmi_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/update-idle.png")));
+    }//GEN-LAST:event_update_bmi_btnMousePressed
+
+    private void update_bmi_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_bmi_btnMouseReleased
+        update_bmi_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/update-hover.png")));
+    }//GEN-LAST:event_update_bmi_btnMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bmi_profile;
@@ -497,6 +582,8 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel healthy_range;
     private javax.swing.JLabel height_profile;
     private Resources.components.PanelBorder home_background;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
@@ -505,12 +592,16 @@ public class Home extends javax.swing.JPanel {
     private Resources.components.PanelBorder motivation_panel;
     private javax.swing.JLabel name_profile;
     private Resources.components.PanelBorder panelBorder1;
+    private Resources.components.PanelBorder panelBorder2;
+    private Resources.components.PanelBorder panelBorder5;
+    private Resources.components.PanelBorder panelBorder7;
     private Resources.components.PanelBorder profile_background;
     private javax.swing.JButton profile_delete_btn;
     private javax.swing.JButton profile_edit_btn;
     private javax.swing.JLabel profile_label;
     private javax.swing.JPanel profile_panel;
     private javax.swing.JButton profile_security_btn;
+    private javax.swing.JButton update_bmi_btn;
     private javax.swing.JLabel user_profile_icon;
     private javax.swing.JLabel username_profile;
     private javax.swing.JLabel weight_needs;

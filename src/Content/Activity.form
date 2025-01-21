@@ -83,7 +83,7 @@
                         <Column editable="false" title="Duration" type="java.lang.Object"/>
                         <Column editable="false" title="Sets" type="java.lang.Object"/>
                         <Column editable="false" title="Reps" type="java.lang.Object"/>
-                        <Column editable="true" title="Completed" type="java.lang.Object"/>
+                        <Column editable="true" title="Status" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -186,7 +186,7 @@
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Cascadia Mono" size="12" style="0"/>
+                  <Font name="Cascadia Mono" size="11" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="8">
@@ -282,9 +282,8 @@
                   <Font name="Cascadia Mono" size="11" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
+                  <StringArray count="1">
                     <StringItem index="0" value="--Choose the exercise--"/>
-                    <StringItem index="1" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -384,12 +383,11 @@
                   <Font name="Cascadia Mono" size="11" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="4">
                     <StringItem index="0" value="None"/>
                     <StringItem index="1" value="Hour"/>
                     <StringItem index="2" value="Minute"/>
                     <StringItem index="3" value="Second"/>
-                    <StringItem index="4" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -589,7 +587,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Resources/elements/guide-icon.png"/>
+                  <Image iconType="3" name="/Resources/elements/info-icon.png"/>
                 </Property>
               </Properties>
               <Constraints>

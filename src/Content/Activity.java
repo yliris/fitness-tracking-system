@@ -1,14 +1,24 @@
 package Content;
 
 import Resources.components.DatabaseConnection;
+import Resources.components.ExerciseHistory;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.util.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 public class Activity extends javax.swing.JPanel {
 
@@ -88,6 +98,8 @@ public class Activity extends javax.swing.JPanel {
     private void populateExerciseTable() {
         DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
         model.setRowCount(0);
+        model.setColumnCount(7);
+        model.setColumnIdentifiers(new Object[]{"Day", "Type", "Exercise", "Duration", "Sets", "Reps", "Status"});
 
         String selectQuery = "SELECT day, type, exercise, duration, sets, reps FROM tb_incomplete_exercises WHERE user_id = ?";
 
@@ -107,9 +119,7 @@ public class Activity extends javax.swing.JPanel {
                     reps = (reps == 0) ? -1 : reps;
 
                     model.addRow(new Object[]{
-                        day, type, exercise,
-                        duration, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps
-                    });
+                        day, type, exercise, duration, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps});
                 }
             }
         } catch (SQLException ex) {
@@ -173,7 +183,7 @@ public class Activity extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Day", "Type", "Name", "Duration", "Sets", "Reps", "Completed"
+                "Day", "Type", "Name", "Duration", "Sets", "Reps", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -226,7 +236,7 @@ public class Activity extends javax.swing.JPanel {
         activity_form_panel.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         day_cbox.setBackground(new java.awt.Color(204, 204, 204));
-        day_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        day_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         day_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose the day--", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
         activity_form_panel.add(day_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, -1));
 
@@ -247,7 +257,7 @@ public class Activity extends javax.swing.JPanel {
 
         name_cbox.setBackground(new java.awt.Color(204, 204, 204));
         name_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        name_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose the exercise--", " " }));
+        name_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose the exercise--" }));
         activity_form_panel.add(name_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 300, -1));
         activity_form_panel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, 10));
 
@@ -274,7 +284,7 @@ public class Activity extends javax.swing.JPanel {
 
         duration_cbox.setBackground(new java.awt.Color(204, 204, 204));
         duration_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        duration_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Hour", "Minute", "Second", " " }));
+        duration_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Hour", "Minute", "Second" }));
         activity_form_panel.add(duration_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 140, -1));
 
         label6.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
@@ -362,7 +372,7 @@ public class Activity extends javax.swing.JPanel {
         exeguide_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         guide_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        guide_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon.png"))); // NOI18N
+        guide_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/info-icon.png"))); // NOI18N
         exeguide_btn.add(guide_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
         activity_background.add(exeguide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 40, 40));
@@ -499,7 +509,24 @@ public class Activity extends javax.swing.JPanel {
 
         try {
             DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
-            model.addRow(new Object[]{day, type, exercise, durationStr, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps});
+
+            //CHECK IF THERE'S A DUPLICATE EXERCISE
+            for (int i = 0; i < model.getRowCount(); i++) {
+                String existingDay = (String) model.getValueAt(i, 0);
+                String existingType = (String) model.getValueAt(i, 1);
+                String existingExercise = (String) model.getValueAt(i, 2);
+
+                if (day.equals(existingDay) && type.equals(existingType) && exercise.equals(existingExercise)) {
+                    JOptionPane.showMessageDialog(this, "This exercise already exists for the selected day and type.", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            boolean completed = false;
+            model.addRow(new Object[]{
+                day, type, exercise, durationStr,
+                sets == -1 ? "None" : sets,
+                reps == -1 ? "None" : reps,});
 
             sortTableByDay(model);
 
@@ -635,63 +662,68 @@ public class Activity extends javax.swing.JPanel {
     }//GEN-LAST:event_exercise_tableMouseClicked
 
     private void execomplete_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseClicked
-        
+
     }//GEN-LAST:event_execomplete_btnMouseClicked
 
     private void exehistory_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseClicked
-        
+        java.awt.Window parentFrame = SwingUtilities.getWindowAncestor(this);
+        if (parentFrame != null) {
+            parentFrame.dispose();
+        }
+        ExerciseHistory exerciseHistory = new ExerciseHistory(userId);
+        exerciseHistory.setVisible(true);
     }//GEN-LAST:event_exehistory_btnMouseClicked
 
     private void exeguide_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseClicked
-        
+
     }//GEN-LAST:event_exeguide_btnMouseClicked
 
     private void execomplete_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseEntered
-        // TODO add your handling code here:
+        execomplete_btn.setBackground(new Color(111, 131, 209));
     }//GEN-LAST:event_execomplete_btnMouseEntered
 
     private void execomplete_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseExited
-        // TODO add your handling code here:
+        execomplete_btn.setBackground(new Color(68, 94, 196));
     }//GEN-LAST:event_execomplete_btnMouseExited
 
     private void execomplete_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMousePressed
-        // TODO add your handling code here:
+        execomplete_btn.setBackground(new Color(68, 94, 196));
     }//GEN-LAST:event_execomplete_btnMousePressed
 
     private void execomplete_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseReleased
-        // TODO add your handling code here:
+        execomplete_btn.setBackground(new Color(111, 131, 209));
     }//GEN-LAST:event_execomplete_btnMouseReleased
 
     private void exehistory_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseEntered
-        // TODO add your handling code here:
+        exehistory_btn.setBackground(new Color(127, 127, 127));
     }//GEN-LAST:event_exehistory_btnMouseEntered
 
     private void exehistory_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseExited
-        // TODO add your handling code here:
+        exehistory_btn.setBackground(new Color(89, 89, 89));
     }//GEN-LAST:event_exehistory_btnMouseExited
 
     private void exehistory_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMousePressed
-        // TODO add your handling code here:
+        exehistory_btn.setBackground(new Color(89, 89, 89));
     }//GEN-LAST:event_exehistory_btnMousePressed
 
     private void exehistory_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseReleased
-        // TODO add your handling code here:
+        exehistory_btn.setBackground(new Color(127, 127, 127));
     }//GEN-LAST:event_exehistory_btnMouseReleased
 
     private void exeguide_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseEntered
-        // TODO add your handling code here:
+        exeguide_btn.setBackground(new Color(78, 181, 117));
     }//GEN-LAST:event_exeguide_btnMouseEntered
 
     private void exeguide_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseExited
-        // TODO add your handling code here:
+        exeguide_btn.setBackground(new Color(58, 139, 89));
     }//GEN-LAST:event_exeguide_btnMouseExited
 
     private void exeguide_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMousePressed
-        // TODO add your handling code here:
+        exeguide_btn.setBackground(new Color(58, 139, 89));
     }//GEN-LAST:event_exeguide_btnMousePressed
 
     private void exeguide_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseReleased
-        // TODO add your handling code here:
+        exeguide_btn.setBackground(new Color(78, 181, 117));
     }//GEN-LAST:event_exeguide_btnMouseReleased
 
 

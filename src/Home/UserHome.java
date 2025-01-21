@@ -2,7 +2,6 @@ package Home;
 
 import Account.LoginForm;
 import Content.Activity;
-import Content.Dashboard;
 import Content.Diet;
 import Content.Guide;
 import Content.Home;
@@ -25,7 +24,6 @@ public class UserHome extends javax.swing.JFrame {
     private int userId;
 
     private Home home;
-    private Dashboard dashboard;
     private Activity activity;
     private Diet diet;
     private Guide guide;
@@ -38,12 +36,10 @@ public class UserHome extends javax.swing.JFrame {
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
         home = new Home(this.userId);
-        dashboard = new Dashboard();
         activity = new Activity(this.userId);
         diet = new Diet();
         guide = new Guide();
         body.add(home, "Home");
-        body.add(dashboard, "Dashboard");
         body.add(activity, "Activity");
         body.add(diet, "Diet");
         body.add(guide, "Guide");
@@ -71,6 +67,11 @@ public class UserHome extends javax.swing.JFrame {
         }
     }
 
+    public void showPanel(String panelName) {
+        CardLayout cardLayout = (CardLayout) body.getLayout();
+        cardLayout.show(body, panelName);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,9 +85,6 @@ public class UserHome extends javax.swing.JFrame {
         home_btn = new Resources.components.PanelBorder();
         home_icon = new javax.swing.JLabel();
         home_label = new javax.swing.JLabel();
-        dashboard_btn = new Resources.components.PanelBorder();
-        dashboard_icon = new javax.swing.JLabel();
-        dashboard_label = new javax.swing.JLabel();
         activity_btn = new Resources.components.PanelBorder();
         activity_icon = new javax.swing.JLabel();
         exercise_label = new javax.swing.JLabel();
@@ -163,43 +161,9 @@ public class UserHome extends javax.swing.JFrame {
         home_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         home_label.setText("HOME");
         home_label.setIconTextGap(10);
-        home_btn.add(home_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 50));
+        home_btn.add(home_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 140, 50));
-
-        dashboard_btn.setBackground(new java.awt.Color(142, 167, 233));
-        dashboard_btn.setPreferredSize(new java.awt.Dimension(40, 48));
-        dashboard_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dashboard_btnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashboard_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashboard_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                dashboard_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                dashboard_btnMouseReleased(evt);
-            }
-        });
-        dashboard_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        dashboard_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        dashboard_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/dashboard-icon.png"))); // NOI18N
-        dashboard_btn.add(dashboard_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
-
-        dashboard_label.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        dashboard_label.setForeground(new java.awt.Color(255, 255, 255));
-        dashboard_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        dashboard_label.setText("DASHBOARD");
-        dashboard_label.setIconTextGap(10);
-        dashboard_btn.add(dashboard_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 50));
-
-        header_panel.add(dashboard_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 140, 50));
+        header_panel.add(home_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 160, 50));
 
         activity_btn.setBackground(new java.awt.Color(142, 167, 233));
         activity_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -231,9 +195,9 @@ public class UserHome extends javax.swing.JFrame {
         exercise_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exercise_label.setText("EXERCISE");
         exercise_label.setIconTextGap(10);
-        activity_btn.add(exercise_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 50));
+        activity_btn.add(exercise_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 140, 50));
+        header_panel.add(activity_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 160, 50));
 
         diet_btn.setBackground(new java.awt.Color(142, 167, 233));
         diet_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -265,9 +229,9 @@ public class UserHome extends javax.swing.JFrame {
         diet_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         diet_label.setText("DIET");
         diet_label.setIconTextGap(10);
-        diet_btn.add(diet_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 50));
+        diet_btn.add(diet_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 140, 50));
+        header_panel.add(diet_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 160, 50));
 
         guide_btn.setBackground(new java.awt.Color(142, 167, 233));
         guide_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -299,9 +263,9 @@ public class UserHome extends javax.swing.JFrame {
         guide_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         guide_label.setText("GUIDE");
         guide_label.setIconTextGap(10);
-        guide_btn.add(guide_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 50));
+        guide_btn.add(guide_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 140, 50));
+        header_panel.add(guide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 10, 160, 50));
 
         other_btn.setBackground(new java.awt.Color(142, 167, 233));
         other_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -329,9 +293,9 @@ public class UserHome extends javax.swing.JFrame {
         guide_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         guide_label1.setText("OTHER");
         guide_label1.setIconTextGap(10);
-        other_btn.add(guide_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 110, 50));
+        other_btn.add(guide_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
-        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 130, 50));
+        header_panel.add(other_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 160, 50));
 
         panelBorder1.setBackground(new java.awt.Color(114, 134, 211));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -359,7 +323,7 @@ public class UserHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        panelBorder1.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -384,9 +348,9 @@ public class UserHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        header_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 0, 90, 70));
+        header_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 110, 70));
 
         header_background.add(header_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 6, 1240, 68));
         header_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 6));
@@ -495,27 +459,6 @@ public class UserHome extends javax.swing.JFrame {
         CardLayout cardLayout = (CardLayout) body.getLayout();
         cardLayout.show(body, "Home");
     }//GEN-LAST:event_home_btnMouseClicked
-
-    private void dashboard_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseEntered
-        dashboard_btn.setBackground(new Color(114, 134, 211));
-    }//GEN-LAST:event_dashboard_btnMouseEntered
-
-    private void dashboard_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseExited
-        dashboard_btn.setBackground(new Color(142, 167, 233));
-    }//GEN-LAST:event_dashboard_btnMouseExited
-
-    private void dashboard_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMousePressed
-        dashboard_btn.setBackground(new Color(58, 84, 186));
-    }//GEN-LAST:event_dashboard_btnMousePressed
-
-    private void dashboard_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseReleased
-        dashboard_btn.setBackground(new Color(114, 134, 211));
-    }//GEN-LAST:event_dashboard_btnMouseReleased
-
-    private void dashboard_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboard_btnMouseClicked
-        CardLayout cardLayout = (CardLayout) body.getLayout();
-        cardLayout.show(body, "Dashboard");
-    }//GEN-LAST:event_dashboard_btnMouseClicked
 
     private void activity_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activity_btnMouseEntered
         activity_btn.setBackground(new Color(114, 134, 211));
@@ -641,9 +584,6 @@ public class UserHome extends javax.swing.JFrame {
     private javax.swing.JLabel activity_icon;
     private javax.swing.JLayeredPane body;
     private Resources.components.PanelBorder body_background;
-    private Resources.components.PanelBorder dashboard_btn;
-    private javax.swing.JLabel dashboard_icon;
-    private javax.swing.JLabel dashboard_label;
     private Resources.components.PanelBorder diet_btn;
     private javax.swing.JLabel diet_icon;
     private javax.swing.JLabel diet_icon1;
