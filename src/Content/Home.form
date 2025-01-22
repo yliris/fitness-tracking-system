@@ -457,7 +457,7 @@
                   <Color blue="16" green="16" red="1d" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="11"/>
-                <Property name="text" type="java.lang.String" value="Healthy BMI Range:"/>
+                <Property name="text" type="java.lang.String" value="Healthy Weight Range:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -473,7 +473,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="16" green="16" red="1d" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="(healthy BMI range)"/>
+                <Property name="text" type="java.lang.String" value="(healthy weight range)"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

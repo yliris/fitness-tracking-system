@@ -89,7 +89,10 @@ public class Home extends javax.swing.JPanel {
                     float heightInMeters = (float) (height / 100.0);
                     float minBMI = 18.5f;
                     float maxBMI = 24.9f;
-                    healthy_range.setText(String.format("%.1f", minBMI) + " - " + String.format("%.1f kg", maxBMI));
+                    float minimumWeight = minBMI * heightInMeters * heightInMeters;
+                    float maximumWeight = maxBMI * heightInMeters * heightInMeters;
+
+                    healthy_range.setText(String.format("%.1f kg", minimumWeight) + " - " + String.format("%.1f kg", maximumWeight));
 
                     try {
                         String bmiCleaned = bmi.replaceAll("[^\\d.]", "");
@@ -122,10 +125,12 @@ public class Home extends javax.swing.JPanel {
         }
     }
 
-    public void updateUserDetails(String username, String fullName, String email) {
+    public void updateUserDetails(String username, String fullName, String email, float weight, float height) {
         username_profile.setText("-- " + username + " --");
         name_profile.setText(fullName);
         email_profile.setText(email);
+        weight_profile.setText(String.format("Weight: "+weight));
+        height_profile.setText(String.format("Height: "+height));
     }
 
     public void updateProfileIcon(String sex) {
@@ -171,8 +176,9 @@ public class Home extends javax.swing.JPanel {
         String motivationMessage = messages.get(new Random().nextInt(messages.size()));
 
         motivation_label.setText(motivationMessage);
-        
+
         healthy_range.setText(healthyRange);
+        
         weight_needs.setText(weightNeeds);
     }
 
@@ -434,12 +440,12 @@ public class Home extends javax.swing.JPanel {
         label3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label3.setForeground(new java.awt.Color(29, 22, 22));
         label3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label3.setText("Healthy BMI Range:");
+        label3.setText("Healthy Weight Range:");
         jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 240, 20));
 
         healthy_range.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         healthy_range.setForeground(new java.awt.Color(29, 22, 22));
-        healthy_range.setText("(healthy BMI range)");
+        healthy_range.setText("(healthy weight range)");
         jPanel1.add(healthy_range, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 170, 20));
 
         weight_needs.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
