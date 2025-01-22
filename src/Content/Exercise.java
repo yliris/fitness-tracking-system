@@ -4,6 +4,9 @@ import Resources.components.DatabaseConnection;
 import Resources.components.ExerciseHistory;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,18 +21,33 @@ import java.util.Comparator;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.JTableHeader;
 
 public class Exercise extends javax.swing.JPanel {
 
     private int userId;
+    private Home home;
 
-    public Exercise(int userId) {
+    public Exercise(int userId, Home home) {
         initComponents();
         this.userId = userId;
+        this.home = home;
         setBackground(new Color(0, 0, 0, 0));
         type_cbox.addActionListener(evt -> updateExerciseNames());
         populateExerciseTable();
+        exercise_table.getColumnModel().getColumn(6).setCellRenderer(exercise_table.getDefaultRenderer(Boolean.class));
+        exercise_table.getColumnModel().getColumn(6).setCellEditor(exercise_table.getDefaultEditor(Boolean.class));
+        addModelListener();
+
+        exercise_table.setBackground(Color.WHITE);
+
+        JTableHeader header = exercise_table.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getPreferredSize().width, 30));
+        header.setFont(new Font("Cascadia Mono", Font.BOLD, 11));
+
+        centerTableData();
     }
 
     private void updateExerciseNames() {
@@ -101,7 +119,7 @@ public class Exercise extends javax.swing.JPanel {
         model.setColumnCount(7);
         model.setColumnIdentifiers(new Object[]{"Day", "Type", "Exercise", "Duration", "Sets", "Reps", "Status"});
 
-        String selectQuery = "SELECT day, type, exercise, duration, sets, reps FROM tb_incomplete_exercises WHERE user_id = ?";
+        String selectQuery = "SELECT day, type, exercise, duration, sets, reps, completed FROM tb_incomplete_exercises WHERE user_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
             stmt.setInt(1, userId);
@@ -114,17 +132,37 @@ public class Exercise extends javax.swing.JPanel {
                     String duration = rs.getString("duration") != null ? rs.getString("duration") : "None";
                     int sets = rs.getInt("sets");
                     int reps = rs.getInt("reps");
+                    boolean completed = rs.getBoolean("completed");
 
                     sets = (sets == 0) ? -1 : sets;
                     reps = (reps == 0) ? -1 : reps;
 
                     model.addRow(new Object[]{
-                        day, type, exercise, duration, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps});
+                        day, type, exercise, duration, sets == -1 ? "None" : sets, reps == -1 ? "None" : reps, completed});
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error while loading exercises: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void clearInputFields() {
+        day_cbox.setSelectedIndex(0);
+        type_cbox.setSelectedIndex(0);
+        name_cbox.setSelectedIndex(0);
+        duration_field.setValue(0);
+        duration_cbox.setSelectedIndex(0);
+        sets_field.setValue(0);
+        reps_field.setValue(0);
+    }
+
+    private void centerTableData() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+        for (int i = 0; i < exercise_table.getColumnCount() - 1; i++) {
+            exercise_table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
 
@@ -157,9 +195,8 @@ public class Exercise extends javax.swing.JPanel {
         activity_form_buttons = new Resources.components.PanelBorder();
         exeadd_btn = new javax.swing.JButton();
         exeupd_btn = new javax.swing.JButton();
+        execlear_btn = new javax.swing.JButton();
         exedel_btn = new javax.swing.JButton();
-        exeguide_btn = new Resources.components.PanelBorder();
-        guide_icon = new javax.swing.JLabel();
         exehistory_btn = new Resources.components.PanelBorder();
         history_icon = new javax.swing.JLabel();
         history_label = new javax.swing.JLabel();
@@ -194,10 +231,11 @@ public class Exercise extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        exercise_table.setGridColor(new java.awt.Color(255, 255, 255));
+        exercise_table.setGridColor(new java.awt.Color(234, 234, 234));
         exercise_table.setRowHeight(30);
         exercise_table.setSelectionBackground(new java.awt.Color(137, 229, 137));
         exercise_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        exercise_table.setShowGrid(false);
         exercise_table.setShowHorizontalLines(true);
         exercise_table.getTableHeader().setReorderingAllowed(false);
         exercise_table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,7 +370,20 @@ public class Exercise extends javax.swing.JPanel {
                 exeupd_btnActionPerformed(evt);
             }
         });
-        activity_form_buttons.add(exeupd_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 30));
+        activity_form_buttons.add(exeupd_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 260, 30));
+
+        execlear_btn.setBackground(new java.awt.Color(51, 51, 51));
+        execlear_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        execlear_btn.setForeground(new java.awt.Color(255, 255, 255));
+        execlear_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/clear-icon.png"))); // NOI18N
+        execlear_btn.setText("CLEAR");
+        execlear_btn.setIconTextGap(10);
+        execlear_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                execlear_btnActionPerformed(evt);
+            }
+        });
+        activity_form_buttons.add(execlear_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 120, 30));
 
         exedel_btn.setBackground(new java.awt.Color(173, 20, 20));
         exedel_btn.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
@@ -345,37 +396,11 @@ public class Exercise extends javax.swing.JPanel {
                 exedel_btnActionPerformed(evt);
             }
         });
-        activity_form_buttons.add(exedel_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 120, 30));
+        activity_form_buttons.add(exedel_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
 
-        activity_form_panel.add(activity_form_buttons, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 300, 110));
+        activity_form_panel.add(activity_form_buttons, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 300, 120));
 
         activity_background.add(activity_form_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 350, 460));
-
-        exeguide_btn.setBackground(new java.awt.Color(58, 139, 89));
-        exeguide_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exeguide_btnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exeguide_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exeguide_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exeguide_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exeguide_btnMouseReleased(evt);
-            }
-        });
-        exeguide_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        guide_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        guide_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/info-icon.png"))); // NOI18N
-        exeguide_btn.add(guide_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
-
-        activity_background.add(exeguide_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 40, 40));
 
         exehistory_btn.setBackground(new java.awt.Color(89, 89, 89));
         exehistory_btn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -404,9 +429,9 @@ public class Exercise extends javax.swing.JPanel {
         history_label.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
         history_label.setForeground(new java.awt.Color(255, 255, 255));
         history_label.setText("History");
-        exehistory_btn.add(history_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        exehistory_btn.add(history_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, 40));
 
-        activity_background.add(exehistory_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 510, 100, 40));
+        activity_background.add(exehistory_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 110, 40));
 
         execomplete_btn.setBackground(new java.awt.Color(68, 94, 196));
         execomplete_btn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -526,7 +551,9 @@ public class Exercise extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 day, type, exercise, durationStr,
                 sets == -1 ? "None" : sets,
-                reps == -1 ? "None" : reps,});
+                reps == -1 ? "None" : reps,
+                false
+            });
 
             sortTableByDay(model);
 
@@ -543,13 +570,8 @@ public class Exercise extends javax.swing.JPanel {
                 stmt.executeUpdate();
             }
             JOptionPane.showMessageDialog(this, "Exercise added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            day_cbox.setSelectedIndex(0);
-            type_cbox.setSelectedIndex(0);
-            name_cbox.setSelectedIndex(0);
-            duration_cbox.setSelectedIndex(0);
-            duration_field.setValue(0);
-            sets_field.setValue(0);
-            reps_field.setValue(0);
+            home.updateExerciseCount();
+            clearInputFields();
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error while adding exercise: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -577,7 +599,106 @@ public class Exercise extends javax.swing.JPanel {
     }
 
     private void exeupd_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exeupd_btnActionPerformed
+        int selectedRow = exercise_table.getSelectedRow();
 
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String day = (String) day_cbox.getSelectedItem();
+        String type = (String) type_cbox.getSelectedItem();
+        String exercise = (String) name_cbox.getSelectedItem();
+        int duration = (int) duration_field.getValue();
+        String durationUnit = (String) duration_cbox.getSelectedItem();
+        int sets = (int) sets_field.getValue();
+        int reps = (int) reps_field.getValue();
+
+        //CHECK IF ALL ITEMS ARE INVALID
+        if (day.equals("--Choose the day--")
+                && type.equals("--Choose exercise type--")
+                && exercise.equals("--Choose the exercise--")) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF EACH ITEMS ARE INVALID
+        if (day.equals("--Choose the day--")) {
+            JOptionPane.showMessageDialog(this, "Please choose a day.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (type.equals("--Choose exercise type--")) {
+            JOptionPane.showMessageDialog(this, "Please choose an exercise type.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (exercise.equals("--Choose the exercise--")) {
+            JOptionPane.showMessageDialog(this, "Please choose an exercise.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //CHECK IF DURATION IS EMPTY OR NOT
+        String durationStr;
+        if (duration == 0) {
+            durationStr = "None";
+        } else {
+            if (durationUnit.equals("None")) {
+                JOptionPane.showMessageDialog(this, "Please select a valid time unit.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            durationStr = duration == 1 ? duration + " " + durationUnit : duration + " " + durationUnit + "s";
+        }
+        //CHECK IF SETS AND REPS ARE EMPTY
+        sets = (sets == 0) ? -1 : sets;
+        reps = (reps == 0) ? -1 : reps;
+        //CHECK IF NO CHANGES WERE MADE
+        String oldDay = exercise_table.getValueAt(selectedRow, 0).toString();
+        String oldType = exercise_table.getValueAt(selectedRow, 1).toString();
+        String oldExercise = exercise_table.getValueAt(selectedRow, 2).toString();
+        String oldDurationStr = exercise_table.getValueAt(selectedRow, 3).toString();
+        String oldSetsStr = exercise_table.getValueAt(selectedRow, 4).toString();
+        String oldRepsStr = exercise_table.getValueAt(selectedRow, 5).toString();
+        if (day.equals(oldDay) && type.equals(oldType) && exercise.equals(oldExercise)
+                && durationStr.equals(oldDurationStr)
+                && (sets == -1 ? "None" : String.valueOf(sets)).equals(oldSetsStr)
+                && (reps == -1 ? "None" : String.valueOf(reps)).equals(oldRepsStr)) {
+            JOptionPane.showMessageDialog(this, "No changes were made.", "No Changes", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            String updateQuery = "UPDATE tb_incomplete_exercises SET day = ?, type = ?, exercise = ?, duration = ?, sets = ?, reps = ? "
+                    + "WHERE user_id = ? AND day = ? AND type = ? AND exercise = ?";
+
+            try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+                stmt.setString(1, day);
+                stmt.setString(2, type);
+                stmt.setString(3, exercise);
+                stmt.setString(4, durationStr.equals("None") ? null : durationStr);
+                stmt.setObject(5, sets == -1 ? null : sets);
+                stmt.setObject(6, reps == -1 ? null : reps);
+                stmt.setInt(7, userId);
+                stmt.setString(8, oldDay);
+                stmt.setString(9, oldType);
+                stmt.setString(10, oldExercise);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
+
+                    model.setValueAt(day, selectedRow, 0);
+                    model.setValueAt(type, selectedRow, 1);
+                    model.setValueAt(exercise, selectedRow, 2);
+                    model.setValueAt(durationStr, selectedRow, 3);
+                    model.setValueAt(sets == -1 ? "None" : sets, selectedRow, 4);
+                    model.setValueAt(reps == -1 ? "None" : reps, selectedRow, 5);
+
+                    JOptionPane.showMessageDialog(this, "Exercise updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    clearInputFields();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error while updating exercise: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_exeupd_btnActionPerformed
 
     private void exedel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exedel_btnActionPerformed
@@ -612,13 +733,8 @@ public class Exercise extends javax.swing.JPanel {
                     model.removeRow(selectedRow);
 
                     JOptionPane.showMessageDialog(this, "Exercise deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    day_cbox.setSelectedIndex(0);
-                    type_cbox.setSelectedIndex(0);
-                    name_cbox.setSelectedIndex(0);
-                    duration_cbox.setSelectedIndex(0);
-                    duration_field.setValue(0);
-                    sets_field.setValue(0);
-                    reps_field.setValue(0);
+                    home.updateExerciseCount();
+                    clearInputFields();
                 } else {
                     JOptionPane.showMessageDialog(this, "No matching record found in the database.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -631,6 +747,11 @@ public class Exercise extends javax.swing.JPanel {
 
     private void exercise_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exercise_tableMouseClicked
         int selectedRow = exercise_table.getSelectedRow();
+        int selectedColumn = exercise_table.getSelectedColumn();
+
+        if (selectedColumn == 6) {
+            return;
+        }
 
         if (selectedRow >= 0) {
             String day = exercise_table.getValueAt(selectedRow, 0).toString();
@@ -661,8 +782,126 @@ public class Exercise extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_exercise_tableMouseClicked
 
-    private void execomplete_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseClicked
+    private void addModelListener() {
+        DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
 
+        model.addTableModelListener(e -> {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+
+            // Check if the "Status" column was edited
+            if (column == 6) { // Status column index
+                Boolean status = (Boolean) model.getValueAt(row, column);
+                String exercise = (String) model.getValueAt(row, 2); // Exercise name
+                String day = (String) model.getValueAt(row, 0); // Day for specificity
+
+                String updateStatusQuery = "UPDATE tb_incomplete_exercises SET completed = ? WHERE user_id = ? AND exercise = ? AND day = ?";
+
+                try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(updateStatusQuery)) {
+                    stmt.setBoolean(1, status);
+                    stmt.setInt(2, userId);
+                    stmt.setString(3, exercise);
+                    stmt.setString(4, day);
+                    stmt.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error updating exercise status: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    private void execomplete_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) exercise_table.getModel();
+        int rowCount = model.getRowCount();
+
+        if (rowCount == 0) {
+            JOptionPane.showMessageDialog(this, "There are no exercises to mark as complete.", "No Exercises", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        boolean hasUnchecked = false;
+
+        for (int i = 0; i < rowCount; i++) {
+            Boolean isChecked = (Boolean) model.getValueAt(i, 6);
+            if (isChecked == null || !isChecked) {
+                hasUnchecked = true;
+                break;
+            }
+        }
+
+        int confirmResult;
+        if (hasUnchecked) {
+            confirmResult = JOptionPane.showConfirmDialog(
+                    this,
+                    "There are still incomplete exercises. Are you sure you want to mark them as complete?",
+                    "Confirm Completion",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            confirmResult = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to mark all exercises as complete?",
+                    "Confirm Completion",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+        }
+        if (confirmResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String insertQuery = "INSERT INTO tb_completed_exercises (user_id, day, type, exercise, duration, sets, reps, completed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String deleteQuery = "DELETE FROM tb_incomplete_exercises WHERE user_id = ? AND day = ? AND type = ? AND exercise = ?";
+
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery); PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+
+                for (int i = 0; i < rowCount; i++) {
+                    String day = model.getValueAt(i, 0).toString();
+                    String type = model.getValueAt(i, 1).toString();
+                    String exercise = model.getValueAt(i, 2).toString();
+                    String duration = model.getValueAt(i, 3).toString();
+                    String setsStr = model.getValueAt(i, 4).toString();
+                    String repsStr = model.getValueAt(i, 5).toString();
+                    Boolean isChecked = (Boolean) model.getValueAt(i, 6);
+
+                    int sets = setsStr.equals("None") ? 0 : Integer.parseInt(setsStr);
+                    int reps = repsStr.equals("None") ? 0 : Integer.parseInt(repsStr);
+
+                    insertStmt.setInt(1, userId);
+                    insertStmt.setString(2, day);
+                    insertStmt.setString(3, type);
+                    insertStmt.setString(4, exercise);
+                    insertStmt.setString(5, duration.equals("None") ? null : duration);
+                    insertStmt.setObject(6, sets == 0 ? null : sets);
+                    insertStmt.setObject(7, reps == 0 ? null : reps);
+                    insertStmt.setBoolean(8, isChecked != null && isChecked);
+                    insertStmt.addBatch();
+
+                    deleteStmt.setInt(1, userId);
+                    deleteStmt.setString(2, day);
+                    deleteStmt.setString(3, type);
+                    deleteStmt.setString(4, exercise);
+                    deleteStmt.addBatch();
+                }
+
+                insertStmt.executeBatch();
+                deleteStmt.executeBatch();
+            }
+
+            JOptionPane.showMessageDialog(this, "All added exercises have been marked as complete.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            ExerciseHistory exerciseHistory = new ExerciseHistory(userId, home);
+            exerciseHistory.setVisible(true);
+            Window window = SwingUtilities.windowForComponent(this);
+            if (window != null) {
+                window.dispose();
+            }
+
+            model.setRowCount(0);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error while marking exercises as complete: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_execomplete_btnMouseClicked
 
     private void exehistory_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exehistory_btnMouseClicked
@@ -670,13 +909,9 @@ public class Exercise extends javax.swing.JPanel {
         if (parentFrame != null) {
             parentFrame.dispose();
         }
-        ExerciseHistory exerciseHistory = new ExerciseHistory(userId);
+        ExerciseHistory exerciseHistory = new ExerciseHistory(userId, home);
         exerciseHistory.setVisible(true);
     }//GEN-LAST:event_exehistory_btnMouseClicked
-
-    private void exeguide_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseClicked
-
-    }//GEN-LAST:event_exeguide_btnMouseClicked
 
     private void execomplete_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_execomplete_btnMouseEntered
         execomplete_btn.setBackground(new Color(111, 131, 209));
@@ -710,21 +945,10 @@ public class Exercise extends javax.swing.JPanel {
         exehistory_btn.setBackground(new Color(127, 127, 127));
     }//GEN-LAST:event_exehistory_btnMouseReleased
 
-    private void exeguide_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseEntered
-        exeguide_btn.setBackground(new Color(78, 181, 117));
-    }//GEN-LAST:event_exeguide_btnMouseEntered
-
-    private void exeguide_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseExited
-        exeguide_btn.setBackground(new Color(58, 139, 89));
-    }//GEN-LAST:event_exeguide_btnMouseExited
-
-    private void exeguide_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMousePressed
-        exeguide_btn.setBackground(new Color(58, 139, 89));
-    }//GEN-LAST:event_exeguide_btnMousePressed
-
-    private void exeguide_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exeguide_btnMouseReleased
-        exeguide_btn.setBackground(new Color(78, 181, 117));
-    }//GEN-LAST:event_exeguide_btnMouseReleased
+    private void execlear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_execlear_btnActionPerformed
+        clearInputFields();
+        exercise_table.clearSelection();
+    }//GEN-LAST:event_execlear_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -738,14 +962,13 @@ public class Exercise extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> duration_cbox;
     private javax.swing.JSpinner duration_field;
     private javax.swing.JButton exeadd_btn;
+    private javax.swing.JButton execlear_btn;
     private Resources.components.PanelBorder execomplete_btn;
     private javax.swing.JButton exedel_btn;
-    private Resources.components.PanelBorder exeguide_btn;
     private Resources.components.PanelBorder exehistory_btn;
     private javax.swing.JLabel exercise_element;
     private javax.swing.JTable exercise_table;
     private javax.swing.JButton exeupd_btn;
-    private javax.swing.JLabel guide_icon;
     private javax.swing.JLabel history_icon;
     private javax.swing.JLabel history_label;
     private javax.swing.JSeparator jSeparator1;

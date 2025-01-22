@@ -79,7 +79,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 5, 30, 30));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 20));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 10));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 200));
 

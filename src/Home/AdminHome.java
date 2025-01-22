@@ -27,18 +27,15 @@ public class AdminHome extends javax.swing.JFrame {
         sexRdb.add(male_rdb);
         sexRdb.add(female_rdb);
 
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        user_table.getTableHeader().setDefaultRenderer(headerRenderer);
+        user_table.setBackground(Color.WHITE);
 
         JTableHeader header = user_table.getTableHeader();
         header.setPreferredSize(new Dimension(header.getPreferredSize().width, 30));
-        header.setBackground(new Color(255, 255, 255));
-        header.setForeground(new Color(51, 51, 51));
+        header.setFont(new Font("Cascadia Mono", Font.PLAIN, 9));
 
         centerTableData();
 
-        TableActionEvent event = new TableActionEvent() {
+        TableActionEvent1 event = new TableActionEvent1() {
             @Override
             public void onEdit(int row) {
                 editUser(row);
@@ -49,8 +46,8 @@ public class AdminHome extends javax.swing.JFrame {
                 deleteUser(row);
             }
         };
-        user_table.getColumnModel().getColumn(11).setCellRenderer(new TableActionCellRender());
-        user_table.getColumnModel().getColumn(11).setCellEditor(new TableActionCellEditor(event));
+        user_table.getColumnModel().getColumn(11).setCellRenderer(new TableActionCellRender1());
+        user_table.getColumnModel().getColumn(11).setCellEditor(new TableActionCellEditor1(event));
 
         add_btn.setEnabled(false);
         setupAddButtonListener();
@@ -182,43 +179,64 @@ public class AdminHome extends javax.swing.JFrame {
 
         int userID = (int) model.getValueAt(selectedRow, 0);
 
-        int confirmDelete = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete this user?",
-                "Delete User",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
+        int failedAttempts = 0;
+        String adminPassword;
+        while (true) {
+            adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
 
-        if (confirmDelete == JOptionPane.YES_OPTION) {
-            try {
-                Connection conn = DatabaseConnection.getConnection();
+            if (adminPassword != null && adminPassword.equals("admin123")) {
+                JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
+                int confirmDelete = JOptionPane.showConfirmDialog(this,
+                        "Are you sure you want to delete this user?",
+                        "Delete User",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
 
-                String deleteUserQuery = "DELETE FROM tb_users WHERE user_id = ?";
-                PreparedStatement stmt = conn.prepareStatement(deleteUserQuery);
-                stmt.setInt(1, userID);
+                if (confirmDelete == JOptionPane.YES_OPTION) {
+                    try {
+                        Connection conn = DatabaseConnection.getConnection();
 
-                int rowsAffected = stmt.executeUpdate();
+                        String deleteUserQuery = "DELETE FROM tb_users WHERE user_id = ?";
+                        PreparedStatement stmt = conn.prepareStatement(deleteUserQuery);
+                        stmt.setInt(1, userID);
 
-                if (rowsAffected > 0) {
-                    model.removeRow(selectedRow);
+                        int rowsAffected = stmt.executeUpdate();
 
-                    JOptionPane.showMessageDialog(this, "User deleted successfully!",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                        if (rowsAffected > 0) {
+                            model.removeRow(selectedRow);
+                            JOptionPane.showMessageDialog(this, "User deleted successfully!",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    user_table.clearSelection();
-                    user_table.revalidate();
-                    user_table.repaint();
+                            user_table.clearSelection();
+                            user_table.revalidate();
+                            user_table.repaint();
 
-                    updateTotalUsers();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Failed to delete user.",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            updateTotalUsers();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to delete user.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        stmt.close();
+                        conn.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(this, "Error deleting user: " + ex.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-
-                stmt.close();
-                conn.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error deleting user: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else if (adminPassword == null || adminPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Fill in the Password to continue!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+            } else {
+                failedAttempts++;
+                if (failedAttempts >= 3) {
+                    JOptionPane.showMessageDialog(this, "Incorrect Password! Logging out after 3 failed attempts.", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    dispose();
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect Password!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
     }
@@ -746,7 +764,7 @@ public class AdminHome extends javax.swing.JFrame {
         );
 
         admin_background.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1230, 560));
-        admin_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 20));
+        admin_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 10));
 
         getContentPane().add(admin_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 640));
 

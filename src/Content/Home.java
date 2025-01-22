@@ -22,6 +22,7 @@ public class Home extends javax.swing.JPanel {
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
         setProfileDetails();
+        updateExerciseCount();
     }
 
     private void setProfileDetails() {
@@ -129,8 +130,8 @@ public class Home extends javax.swing.JPanel {
         username_profile.setText("-- " + username + " --");
         name_profile.setText(fullName);
         email_profile.setText(email);
-        weight_profile.setText(String.format("Weight: "+weight));
-        height_profile.setText(String.format("Height: "+height));
+        weight_profile.setText(String.format("Weight: " + weight));
+        height_profile.setText(String.format("Height: " + height));
     }
 
     public void updateProfileIcon(String sex) {
@@ -178,8 +179,42 @@ public class Home extends javax.swing.JPanel {
         motivation_label.setText(motivationMessage);
 
         healthy_range.setText(healthyRange);
-        
+
         weight_needs.setText(weightNeeds);
+    }
+
+    public void updateExerciseCount() {
+        String incompleteCountQuery = "SELECT COUNT(*) FROM tb_incomplete_exercises WHERE user_id = ? AND completed = 0 "
+                + "UNION "
+                + "SELECT COUNT(*) FROM tb_completed_exercises WHERE user_id = ? AND completed = 0";
+        String completedCountQuery = "SELECT COUNT(*) FROM tb_incomplete_exercises WHERE user_id = ? AND completed = 1 "
+                + "UNION "
+                + "SELECT COUNT(*) FROM tb_completed_exercises WHERE user_id = ? AND completed = 1";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmtIncomplete = conn.prepareStatement(incompleteCountQuery); PreparedStatement stmtCompleted = conn.prepareStatement(completedCountQuery)) {
+
+            stmtIncomplete.setInt(1, userId);
+            stmtIncomplete.setInt(2, userId);
+            stmtCompleted.setInt(1, userId);
+            stmtCompleted.setInt(2, userId);
+
+            ResultSet rsIncomplete = stmtIncomplete.executeQuery();
+            int incompleteCount = 0;
+            while (rsIncomplete.next()) {
+                incompleteCount += rsIncomplete.getInt(1);
+            }
+
+            ResultSet rsCompleted = stmtCompleted.executeQuery();
+            int completedCount = 0;
+            while (rsCompleted.next()) {
+                completedCount += rsCompleted.getInt(1);
+            }
+
+            exeincomplete_label.setText(String.valueOf(incompleteCount));
+            execompleted_label.setText(String.valueOf(completedCount));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error fetching exercise counts: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -226,14 +261,14 @@ public class Home extends javax.swing.JPanel {
         complete_note_panel = new Resources.components.PanelBorder();
         incomplete_exercise_panel = new Resources.components.PanelBorder();
         jLabel5 = new javax.swing.JLabel();
+        exeincomplete_label = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        exeincomplete_label = new javax.swing.JLabel();
         incomplete_meal_panel = new Resources.components.PanelBorder();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         mealincomplete_label = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         incomplete_note_panel = new Resources.components.PanelBorder();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -522,20 +557,8 @@ public class Home extends javax.swing.JPanel {
         incomplete_exercise_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/exercise-element-1.png"))); // NOI18N
-        incomplete_exercise_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Incomplete");
-        incomplete_exercise_panel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 100, 30));
-
-        jLabel11.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Exercises");
-        incomplete_exercise_panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 100, 30));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-exercise-icon.png"))); // NOI18N
+        incomplete_exercise_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 20, -1, -1));
 
         exeincomplete_label.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         exeincomplete_label.setForeground(new java.awt.Color(51, 51, 51));
@@ -543,32 +566,44 @@ public class Home extends javax.swing.JPanel {
         exeincomplete_label.setText("(Number)");
         incomplete_exercise_panel.add(exeincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 40));
 
+        jLabel10.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Incomplete");
+        incomplete_exercise_panel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 110, 30));
+
+        jLabel11.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Exercises");
+        incomplete_exercise_panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 110, 30));
+
         home_background.add(incomplete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 190, 140));
 
         incomplete_meal_panel.setBackground(new java.awt.Color(142, 167, 233));
         incomplete_meal_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/meal-element-1.png"))); // NOI18N
-        incomplete_meal_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(246, 246, 246));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Meals");
-        incomplete_meal_panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 100, 30));
-
-        jLabel14.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(246, 246, 246));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Completed");
-        incomplete_meal_panel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 100, 30));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-meal-icon.png"))); // NOI18N
+        incomplete_meal_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 20, -1, -1));
 
         mealincomplete_label.setFont(new java.awt.Font("Cascadia Mono", 1, 18)); // NOI18N
         mealincomplete_label.setForeground(new java.awt.Color(246, 246, 246));
         mealincomplete_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mealincomplete_label.setText("(Number)");
         incomplete_meal_panel.add(mealincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 170, 40));
+
+        jLabel14.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(246, 246, 246));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Incomplete");
+        incomplete_meal_panel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 100, 30));
+
+        jLabel13.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(246, 246, 246));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Meals");
+        incomplete_meal_panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 30));
 
         home_background.add(incomplete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 200, 140));
 

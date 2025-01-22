@@ -105,9 +105,9 @@ public class SignupForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         exit_btn = new javax.swing.JButton();
+        mover = new Resources.components.PanelMover();
         header = new Resources.components.PanelBorder();
         create_account = new javax.swing.JLabel();
-        mover = new Resources.components.PanelMover();
         create_panel = new javax.swing.JTabbedPane();
         step1_panel = new Resources.components.PanelBorder();
         password_check = new javax.swing.JToggleButton();
@@ -205,6 +205,7 @@ public class SignupForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 5, 30, 30));
+        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 10));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -214,7 +215,6 @@ public class SignupForm extends javax.swing.JFrame {
         header.add(create_account, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 50));
-        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 10));
 
         step1_panel.setBackground(new java.awt.Color(255, 255, 255));
         step1_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

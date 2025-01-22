@@ -38,7 +38,7 @@ public class UserHome extends javax.swing.JFrame {
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
         home = new Home(this.userId);
-        activity = new Exercise(this.userId);
+        activity = new Exercise(this.userId, home);
         diet = new Diet();
         achievements = new Achievements();
         guide = new Guide();

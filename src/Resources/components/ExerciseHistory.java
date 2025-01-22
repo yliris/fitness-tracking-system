@@ -2,18 +2,164 @@ package Resources.components;
 
 import Content.Home;
 import Home.UserHome;
-import java.awt.CardLayout;
+import static Resources.components.UtilityMethods.DefaultText2;
+import static Resources.components.UtilityMethods.TransparentField2;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.*;
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ExerciseHistory extends javax.swing.JFrame {
 
     private int userId;
+    private Home home;
 
-    public ExerciseHistory(int userId) {
+    public ExerciseHistory(int userId, Home home) {
         initComponents();
         this.userId = userId;
+        this.home = home;
         setBackground(new Color(0, 0, 0, 0));
+        TransparentField2(exehistory_search);
+        mover.initMoving(ExerciseHistory.this);
+
+        populateExercisesHistoryTable();
+
+        exehistory_table.setBackground(Color.WHITE);
+
+        JTableHeader header = exehistory_table.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getPreferredSize().width, 30));
+        header.setFont(new Font("Cascadia Mono", Font.BOLD, 11));
+
+        centerTableData();
+
+        TableActionEvent2 event = new TableActionEvent2() {
+            @Override
+            public void onDelete(int row) {
+                deleteUser(row);
+            }
+        };
+        exehistory_table.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender2());
+        exehistory_table.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor2(event));
+    }
+
+    private void populateExercisesHistoryTable() {
+        DefaultTableModel model = (DefaultTableModel) exehistory_table.getModel();
+        model.setRowCount(0);
+
+        String query = "SELECT day, type, exercise, duration, sets, reps, completed FROM tb_completed_exercises WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String day = rs.getString("day");
+                    String type = rs.getString("type");
+                    String exercise = rs.getString("exercise");
+                    String duration = rs.getString("duration") != null ? rs.getString("duration") : "None";
+                    int sets = rs.getInt("sets");
+                    int reps = rs.getInt("reps");
+                    int completed = rs.getInt("completed");
+
+                    String status = (completed == 1) ? "Completed" : "Incomplete";
+
+                    model.addRow(new Object[]{
+                        day, type, exercise, duration,
+                        sets == 0 ? "None" : sets,
+                        reps == 0 ? "None" : reps,
+                        status
+                    });
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error while loading completed exercises: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void deleteUser(int row) {
+        int selectedRow = exehistory_table.getSelectedRow();
+
+        if (exehistory_table.isEditing()) {
+            exehistory_table.getCellEditor().stopCellEditing();
+        }
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "No row selected!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) exehistory_table.getModel();
+
+        if (selectedRow >= model.getRowCount()) {
+            JOptionPane.showMessageDialog(this, "Invalid row selected!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String day = (String) exehistory_table.getValueAt(selectedRow, 0);
+        String type = (String) exehistory_table.getValueAt(selectedRow, 1);
+        String exercise = (String) exehistory_table.getValueAt(selectedRow, 2);
+
+        int confirmDelete = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this exercise?",
+                "Delete Exercise",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmDelete == JOptionPane.YES_OPTION) {
+            try {
+                Connection conn = DatabaseConnection.getConnection();
+
+                String deleteUserQuery = "DELETE FROM tb_completed_exercises WHERE user_id = ? AND day = ? AND type = ? AND exercise = ?";
+                PreparedStatement stmt = conn.prepareStatement(deleteUserQuery);
+                stmt.setInt(1, userId);
+                stmt.setString(2, day);
+                stmt.setString(3, type);
+                stmt.setString(4, exercise);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    model.removeRow(selectedRow);
+
+                    JOptionPane.showMessageDialog(this, "Exercise deleted successfully!",
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    exehistory_table.clearSelection();
+                    exehistory_table.revalidate();
+                    exehistory_table.repaint();
+
+                    home.updateExerciseCount();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete exercise.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error deleting exercise: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void centerTableData() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+        for (int i = 0; i < exehistory_table.getColumnCount() - 1; i++) {
+            exehistory_table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -24,7 +170,15 @@ public class ExerciseHistory extends javax.swing.JFrame {
         scrollPaneWin111 = new Resources.components.ScrollPaneWin11();
         exehistory_table = new javax.swing.JTable();
         exit_btn = new javax.swing.JButton();
+        back_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        panelBorder1 = new Resources.components.PanelBorder();
+        exehistory_search = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        exeday_cbox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        type_cbox = new javax.swing.JComboBox<>();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -35,25 +189,28 @@ public class ExerciseHistory extends javax.swing.JFrame {
         exehistory_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exehistory_table.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        exehistory_table.setForeground(new java.awt.Color(51, 51, 51));
         exehistory_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Day", "Type", "Name", "Duration", "Sets", "Reps", "Status", "Completed at"
+                "Day", "Type", "Name", "Duration", "Sets", "Reps", "Status", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        exehistory_table.setGridColor(new java.awt.Color(255, 255, 255));
+        exehistory_table.setRowHeight(40);
+        exehistory_table.setSelectionBackground(new java.awt.Color(137, 229, 137));
+        exehistory_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        exehistory_table.setShowHorizontalLines(true);
         exehistory_table.getTableHeader().setReorderingAllowed(false);
         scrollPaneWin111.setViewportView(exehistory_table);
         if (exehistory_table.getColumnModel().getColumnCount() > 0) {
@@ -75,7 +232,7 @@ public class ExerciseHistory extends javax.swing.JFrame {
             exehistory_table.getColumnModel().getColumn(7).setPreferredWidth(20);
         }
 
-        exehistory_background.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 1150, 440));
+        exehistory_background.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 1190, 500));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -100,29 +257,122 @@ public class ExerciseHistory extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        exehistory_background.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1215, 5, -1, -1));
+        exehistory_background.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 10, -1, -1));
+
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-idle.png"))); // NOI18N
+        back_btn.setBorder(null);
+        back_btn.setBorderPainted(false);
+        back_btn.setContentAreaFilled(false);
+        back_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                back_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                back_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                back_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                back_btnMouseReleased(evt);
+            }
+        });
+        back_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_btnActionPerformed(evt);
+            }
+        });
+        exehistory_background.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1175, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Your Exercise History");
-        exehistory_background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 330, 50));
+        exehistory_background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 330, 50));
 
-        getContentPane().add(exehistory_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
+        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exehistory_search.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        exehistory_search.setForeground(new java.awt.Color(102, 102, 102));
+        exehistory_search.setText("Search");
+        exehistory_search.setBorder(null);
+        exehistory_search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                exehistory_searchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                exehistory_searchFocusLost(evt);
+            }
+        });
+        exehistory_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                exehistory_searchKeyReleased(evt);
+            }
+        });
+        panelBorder1.add(exehistory_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 30));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/search-icon-1.png"))); // NOI18N
+        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        exehistory_background.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 70, 260, 30));
+
+        exeday_cbox.setBackground(new java.awt.Color(204, 204, 204));
+        exeday_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        exeday_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Day --", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        exehistory_background.add(exeday_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, 30));
+
+        jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/filter-icon.png"))); // NOI18N
+        jLabel3.setText(":");
+        exehistory_background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 30));
+
+        type_cbox.setBackground(new java.awt.Color(204, 204, 204));
+        type_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        type_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose exercise type--", "Cardiovascular (Aerobic) Exercise", "Strength (Resistance) Training", "Flexibility Exercise", "Balance Exercise", "High-Intensity Interval Training (HIIT)", "Functional Fitness Training", "Mind-Body Exercises", "Sports and Recreational Activities" }));
+        exehistory_background.add(type_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 300, 30));
+        exehistory_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 10));
+
+        getContentPane().add(exehistory_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 640));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void back_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseEntered
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-hover.png")));
+    }//GEN-LAST:event_back_btnMouseEntered
+
+    private void back_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseExited
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-idle.png")));
+    }//GEN-LAST:event_back_btnMouseExited
+
+    private void back_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMousePressed
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-click.png")));
+    }//GEN-LAST:event_back_btnMousePressed
+
+    private void back_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_btnMouseReleased
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/back-hover.png")));
+    }//GEN-LAST:event_back_btnMouseReleased
+
+    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+        this.dispose();
+        UserHome home = new UserHome(userId);
+        home.setVisible(true);
+        home.showPanel("Activity");
+    }//GEN-LAST:event_back_btnActionPerformed
 
     private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMouseEntered
 
     private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMouseExited
 
     private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
+        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
     }//GEN-LAST:event_exit_btnMousePressed
 
     private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
@@ -130,11 +380,32 @@ public class ExerciseHistory extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        this.dispose();
-        UserHome home = new UserHome(userId);
-        home.setVisible(true);
-        home.showPanel("Activity");
+        int confirmExit = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmExit == JOptionPane.YES_OPTION) {
+            dispose();
+        }
     }//GEN-LAST:event_exit_btnActionPerformed
+
+    private void exehistory_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_exehistory_searchKeyReleased
+        DefaultTableModel model = (DefaultTableModel) exehistory_table.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        exehistory_table.setRowSorter(sorter);
+
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + exehistory_search.getText()));
+    }//GEN-LAST:event_exehistory_searchKeyReleased
+
+    private void exehistory_searchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_exehistory_searchFocusGained
+        DefaultText2(exehistory_search, "Search", UtilityMethods.DefaultFocus.GAINED);
+    }//GEN-LAST:event_exehistory_searchFocusGained
+
+    private void exehistory_searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_exehistory_searchFocusLost
+        DefaultText2(exehistory_search, "Search", UtilityMethods.DefaultFocus.LOST);
+    }//GEN-LAST:event_exehistory_searchFocusLost
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -160,19 +431,27 @@ public class ExerciseHistory extends javax.swing.JFrame {
         //</editor-fold>
 
         int userId = 1;
-
+        Home home = new Home(userId);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExerciseHistory(userId).setVisible(true);
+                new ExerciseHistory(userId, home).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back_btn;
+    private javax.swing.JComboBox<String> exeday_cbox;
     private Resources.components.PanelBorder exehistory_background;
+    private javax.swing.JTextField exehistory_search;
     private javax.swing.JTable exehistory_table;
     private javax.swing.JButton exit_btn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private Resources.components.PanelMover mover;
+    private Resources.components.PanelBorder panelBorder1;
     private Resources.components.ScrollPaneWin11 scrollPaneWin111;
+    private javax.swing.JComboBox<String> type_cbox;
     // End of variables declaration//GEN-END:variables
 }

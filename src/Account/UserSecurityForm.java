@@ -20,6 +20,7 @@ public class UserSecurityForm extends javax.swing.JFrame {
         initComponents();
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
+        mover.initMoving(UserSecurityForm.this);
         populateSecurityDetails(userId);
     }
 
@@ -67,6 +68,7 @@ public class UserSecurityForm extends javax.swing.JFrame {
         security_save_btn = new javax.swing.JButton();
         exit_btn = new javax.swing.JButton();
         security_element = new javax.swing.JLabel();
+        mover = new Resources.components.PanelMover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -156,6 +158,7 @@ public class UserSecurityForm extends javax.swing.JFrame {
 
         security_element.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/user-security-element.png"))); // NOI18N
         panelBorder1.add(security_element, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 10));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 320));
 
@@ -296,6 +299,7 @@ public class UserSecurityForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exit_btn;
     private javax.swing.JLabel label2;
+    private Resources.components.PanelMover mover;
     private Resources.components.PanelBorder panelBorder1;
     private javax.swing.JToggleButton password_check;
     private javax.swing.JTextField profile_answer_field;

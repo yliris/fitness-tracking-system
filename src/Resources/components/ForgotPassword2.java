@@ -103,7 +103,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         question.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         question.setText("Validation Question:");
         panelBorder1.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 600, -1));
-        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 20));
+        panelBorder1.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 10));
 
         getContentPane().add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 200));
 

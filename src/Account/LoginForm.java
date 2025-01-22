@@ -307,7 +307,7 @@ public class LoginForm extends javax.swing.JFrame {
         panelBorder2.setBackground(new java.awt.Color(153, 153, 255));
         panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 480));
-        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 20));
+        getContentPane().add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 10));
 
         pack();
         setLocationRelativeTo(null);

@@ -1,6 +1,6 @@
 package Resources.components;
 
-public interface TableActionEvent {
+public interface TableActionEvent1 {
 
     public void onEdit(int row);
 
