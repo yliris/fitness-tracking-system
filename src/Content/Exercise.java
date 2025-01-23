@@ -232,7 +232,7 @@ public class Exercise extends javax.swing.JPanel {
             }
         });
         exercise_table.setGridColor(new java.awt.Color(234, 234, 234));
-        exercise_table.setRowHeight(30);
+        exercise_table.setRowHeight(50);
         exercise_table.setSelectionBackground(new java.awt.Color(137, 229, 137));
         exercise_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
         exercise_table.setShowGrid(false);
