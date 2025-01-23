@@ -39,7 +39,7 @@ public class UserHome extends javax.swing.JFrame {
         this.setIconImage(icon);
         home = new Home(this.userId);
         activity = new Exercise(this.userId, home);
-        diet = new Diet();
+        diet = new Diet(this.userId, home);
         achievements = new Achievements();
         guide = new Guide();
         body.add(home, "Home");

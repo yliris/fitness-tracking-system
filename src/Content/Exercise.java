@@ -232,7 +232,7 @@ public class Exercise extends javax.swing.JPanel {
             }
         });
         exercise_table.setGridColor(new java.awt.Color(234, 234, 234));
-        exercise_table.setRowHeight(50);
+        exercise_table.setRowHeight(30);
         exercise_table.setSelectionBackground(new java.awt.Color(137, 229, 137));
         exercise_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
         exercise_table.setShowGrid(false);
@@ -709,7 +709,7 @@ public class Exercise extends javax.swing.JPanel {
             return;
         }
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this exercise?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this exercise?", "Confirm Remove", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
             return;
         }

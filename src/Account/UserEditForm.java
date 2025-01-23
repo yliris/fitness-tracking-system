@@ -45,7 +45,6 @@ public class UserEditForm extends javax.swing.JFrame {
                     originalSex = rs.getString("sex");
                     originalWeight = rs.getFloat("weight");
                     originalHeight = rs.getFloat("height");
-
                     firstname_field.setText(originalFirstname);
                     lastname_field.setText(originalLastname);
                     email_field.setText(originalEmail);
@@ -58,8 +57,8 @@ public class UserEditForm extends javax.swing.JFrame {
                         female_rdb.setSelected(true);
                     }
 
-                    weight_field.setText(String.valueOf(originalWeight));
-                    height_field.setText(String.valueOf(originalHeight));
+                    weight_field.setText(String.format("%.1f", originalWeight));
+                    height_field.setText(String.format("%.1f", originalHeight));
                 } else {
                     JOptionPane.showMessageDialog(this, "No user found with ID: " + userId, "Info", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -356,11 +355,11 @@ public class UserEditForm extends javax.swing.JFrame {
             if (age >= 20) {
                 if (bmiValue < 18.5) {
                     classification = "Underweight";
-                } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+                } else if (bmiValue >= 18.5 && bmiValue <= 25) {
                     classification = "Normal Weight";
-                } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+                } else if (bmiValue >= 26 && bmiValue <= 30) {
                     classification = "Overweight";
-                } else if (bmiValue >= 30) {
+                } else if (bmiValue >= 31) {
                     classification = "Obese";
                 } else {
                     classification = "BMI out of valid range";
@@ -382,7 +381,7 @@ public class UserEditForm extends javax.swing.JFrame {
             }
 
             float minBMI = 18.5f;
-            float maxBMI = 24.9f;
+            float maxBMI = 25f;
             healthyRange = String.format("%.1f", minBMI * meterHeight * meterHeight) + " - "
                     + String.format("%.1f", maxBMI * meterHeight * meterHeight) + " kg";
 
@@ -402,12 +401,42 @@ public class UserEditForm extends javax.swing.JFrame {
 
         PreparedStatement ps;
         ResultSet rs;
-        String checkNameQuery = "SELECT * FROM tb_users WHERE first_name = ? AND last_name = ?";
-        String checkEmailQuery = "SELECT * FROM tb_users WHERE email = ?";
-        String checkUsernameQuery = "SELECT * FROM tb_users WHERE username = ?";
 
         try {
             Connection conn = DatabaseConnection.getConnection();
+
+            //CHECK IF FIRST AND LAST NAME ALREADY EXIST
+            String checkNameQuery = "SELECT * FROM tb_users WHERE first_name = ? AND last_name = ? AND user_id != ?";
+            PreparedStatement psCheckName = conn.prepareStatement(checkNameQuery);
+            psCheckName.setString(1, firstname);
+            psCheckName.setString(2, lastname);
+            psCheckName.setInt(3, userId);
+            ResultSet rsCheckName = psCheckName.executeQuery();
+            if (rsCheckName.next()) {
+                JOptionPane.showMessageDialog(this, "First and last name already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //CHECK IF EMAIL ALREADY EXIST
+            String checkEmailQuery = "SELECT * FROM tb_users WHERE email = ? AND user_id != ?";
+            PreparedStatement psCheckEmail = conn.prepareStatement(checkEmailQuery);
+            psCheckEmail.setString(1, email);
+            psCheckEmail.setInt(2, userId);
+            ResultSet rsCheckEmail = psCheckEmail.executeQuery();
+            if (rsCheckEmail.next()) {
+                JOptionPane.showMessageDialog(this, "Email already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //CHECK IF USERNAME ALREADY EXIST
+            String checkUsernameQuery = "SELECT * FROM tb_users WHERE username = ? AND user_id != ?";
+            PreparedStatement psCheckUsername = conn.prepareStatement(checkUsernameQuery);
+            psCheckUsername.setString(1, username);
+            psCheckUsername.setInt(2, userId);
+            ResultSet rsCheckUsername = psCheckUsername.executeQuery();
+            if (rsCheckUsername.next()) {
+                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ?, age = ?, sex = ?, weight = ?, height = ?, bmi = ?, classification = ? WHERE user_id = ?";
             ps = conn.prepareStatement(updateQuery);
             ps.setString(1, firstname);

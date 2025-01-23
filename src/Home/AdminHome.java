@@ -76,8 +76,8 @@ public class AdminHome extends javax.swing.JFrame {
                 String sex = rs.getString("sex");
                 Float getWeight = rs.getObject("weight", Float.class);
                 Float getHeight = rs.getObject("height", Float.class);
-                String weight = getWeight + " kg";
-                String height = getHeight + " cm";
+                String weight = String.format("%.1f kg", getWeight);
+                String height = String.format("%.1f cm", getHeight);
                 String BMI = "N/A";
                 String classification = "N/A";
 

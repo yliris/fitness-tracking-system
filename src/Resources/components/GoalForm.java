@@ -210,12 +210,7 @@ public class GoalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseReleased
 
     private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?",
-                "Confirm Cancel?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            dispose();
-        }
+        dispose();
     }//GEN-LAST:event_exit_btnActionPerformed
 
     private void setgoal_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setgoal_btnActionPerformed
