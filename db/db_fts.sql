@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2025 at 06:07 PM
+-- Generation Time: Jan 23, 2025 at 02:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,8 +36,19 @@ CREATE TABLE `tb_completed_exercises` (
   `duration` varchar(50) DEFAULT NULL,
   `sets` int(11) DEFAULT NULL,
   `reps` int(11) DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT 0,
   `completion_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_completed_exercises`
+--
+
+INSERT INTO `tb_completed_exercises` (`id`, `user_id`, `day`, `type`, `exercise`, `duration`, `sets`, `reps`, `completed`, `completion_date`) VALUES
+(25, 24, 'Monday', 'Strength (Resistance) Training', 'Bench Press', NULL, NULL, NULL, 1, '2025-01-22 17:50:50'),
+(27, 24, 'Thursday', 'Cardiovascular (Aerobic) Exercise', 'Running', NULL, NULL, NULL, 1, '2025-01-22 17:50:50'),
+(28, 24, 'Saturday', 'Strength (Resistance) Training', 'Bench Press', NULL, NULL, NULL, 1, '2025-01-22 17:50:50'),
+(29, 24, 'Monday', 'Cardiovascular (Aerobic) Exercise', 'Running', NULL, NULL, NULL, 1, '2025-01-22 17:55:31');
 
 -- --------------------------------------------------------
 
@@ -87,10 +98,8 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`, `bmi`, `classification`, `goal`) VALUES
-(24, 'test', 'user', 'test@gmail.com', 'testUser', 21, 'Female', 71.00, 177.40, 'testPassword', 't', 't', '22.6 kg/m²', 'Normal Weight', 'Lose Weight'),
-(32, 'Miko', 'Miano', 'mik041126@gmail.com', 'yliris', 20, 'Male', 58.27, 177.40, 'ylirispercy26', 'What is my favorite car?', 'Honda NSX', '18.5 kg/m²', 'Normal Weight', 'Maintain Weight'),
-(33, 'Ayrton', 'Senna', 'ayrtonsenna@gmail.com', 'senna123', 42, 'Male', 51.00, 180.20, 'senna12345', 'What?', 'Yes', '15.7 kg/m²', 'Underweight', NULL),
-(35, 'Mikoo', 'Miano', 'mik@gmail.com', 'mik', 20, 'Male', 56.70, 177.40, '12345678', 'w', 'w', '18.0 kg/m²', 'Underweight', NULL);
+(24, 'test', 'user', 'test@gmail.com', 'testUser', 21, 'Female', 50.99, 166.00, 'testPassword', 't', 't', '18.5 kg/m²', 'Normal Weight', 'Maintain Weight'),
+(36, 'Miko', 'Miano', 'mik041126@gmail.com', 'yliris', 20, 'Male', 56.70, 177.80, 'ylirispercy26', 'What is your favorite car?', 'Honda NSX', '17.9 kg/m²', 'Underweight', 'Gain Weight');
 
 --
 -- Indexes for dumped tables
@@ -126,19 +135,19 @@ ALTER TABLE `tb_users`
 -- AUTO_INCREMENT for table `tb_completed_exercises`
 --
 ALTER TABLE `tb_completed_exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tb_incomplete_exercises`
 --
 ALTER TABLE `tb_incomplete_exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
