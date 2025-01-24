@@ -127,14 +127,14 @@ public class UserHome extends javax.swing.JFrame {
 
         fits_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fits_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-small-icon.png"))); // NOI18N
-        profile_btn.add(fits_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 40, 58));
+        profile_btn.add(fits_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 70));
 
         greetings.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
         greetings.setForeground(new java.awt.Color(255, 242, 242));
         greetings.setText("Hi, (name)");
-        profile_btn.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 6, 186, 58));
+        profile_btn.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 186, 70));
 
-        header_panel.add(profile_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 70));
+        header_panel.add(profile_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 260, 80));
 
         home_btn.setBackground(new java.awt.Color(142, 167, 233));
         home_btn.setPreferredSize(new java.awt.Dimension(40, 48));
@@ -332,7 +332,7 @@ public class UserHome extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        exit_panel.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        exit_panel.add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
         exit_btn.setBorder(null);
@@ -357,9 +357,9 @@ public class UserHome extends javax.swing.JFrame {
                 exit_btnActionPerformed(evt);
             }
         });
-        exit_panel.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        exit_panel.add(exit_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        header_panel.add(exit_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 110, 70));
+        header_panel.add(exit_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, -10, 120, 80));
 
         header_background.add(header_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 6, 1240, 68));
         header_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 6));

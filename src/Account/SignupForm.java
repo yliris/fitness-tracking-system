@@ -560,8 +560,8 @@ public class SignupForm extends javax.swing.JFrame {
             return;
         }
         //CHECK IF AGE IS A POSITIVE INTEGER
-        if (!age.matches("^\\d+$") || Integer.parseInt(age) <= 0) {
-            JOptionPane.showMessageDialog(null, "Age must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (!age.matches("^\\d+$") || Integer.parseInt(age) < 2 || Integer.parseInt(age) > 120) {
+            JOptionPane.showMessageDialog(null, "Please provide an age between 2 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //CHECK IF WEIGHT AND HEIGHT ARE POSITIVE NUMBERS
@@ -594,8 +594,8 @@ public class SignupForm extends javax.swing.JFrame {
         float weightValue, heightValue;
         try {
             ageValue = Integer.parseInt(age);
-            if (ageValue <= 0) {
-                JOptionPane.showMessageDialog(null, "Age must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            if (ageValue < 2 || ageValue > 120) {
+                JOptionPane.showMessageDialog(null, "Please provide an age between 2 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException e) {

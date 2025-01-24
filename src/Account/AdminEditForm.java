@@ -20,8 +20,8 @@ public class AdminEditForm extends javax.swing.JFrame {
     private AdminHome adminHome;
 
     public AdminEditForm(AdminHome adminHome, int editUserId, String editFirstName, String editLastName, String editEmail, String editUsername, int editAge, String editSex, float editWeight, float editHeight) {
-        this.adminHome = adminHome;
         initComponents();
+        this.adminHome = adminHome;
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(AdminEditForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
@@ -176,8 +176,8 @@ public class AdminEditForm extends javax.swing.JFrame {
         //CHECK IF AGE IS A VALID NUMBER
         try {
             int ageValue = Integer.parseInt(updatedAge);
-            if (ageValue <= 0 || ageValue > 150) {
-                JOptionPane.showMessageDialog(this, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            if (ageValue < 2 || ageValue > 120) {
+                JOptionPane.showMessageDialog(this, "Please provide an age between 2 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException e) {
@@ -199,10 +199,53 @@ public class AdminEditForm extends javax.swing.JFrame {
             return;
         }
 
+        float weight;
+        float height;
+        try {
+            weight = Float.parseFloat(updatedWeight);
+            height = Float.parseFloat(updatedHeight) / 100;
+            if (weight <= 0 || weight > 300 || height <= 0 || height > 2.5) {
+                JOptionPane.showMessageDialog(this, "Invalid weight or height values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Weight and height must be valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        float bmi = weight / (height * height);
+        String classification;
+
+        int age = Integer.parseInt(updatedAge);
+        if (age >= 20) {
+            if (bmi < 18.5) {
+                classification = "Underweight";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                classification = "Normal Weight";
+            } else if (bmi >= 25 && bmi < 30) {
+                classification = "Overweight";
+            } else {
+                classification = "Obese";
+            }
+        } else if (age >= 2 && age < 20) {
+            if (bmi < 5) {
+                classification = "Underweight";
+            } else if (bmi >= 5 && bmi < 85) {
+                classification = "Healthy Weight";
+            } else if (bmi >= 85 && bmi < 95) {
+                classification = "Risk of Overweight";
+            } else {
+                classification = "Overweight";
+            }
+        } else {
+            classification = "N/A";
+        }
+        System.out.println("Classification: " + classification);
+
         try {
             Connection conn = DatabaseConnection.getConnection();
             String updateQuery = "UPDATE tb_users SET first_name = ?, last_name = ?, email = ?, username = ?"
-                    + ", age = ?, sex = ?, weight = ?, height = ?  WHERE user_id = ?";
+                    + ", age = ?, sex = ?, weight = ?, height = ?, bmi = ?, classification = ?  WHERE user_id = ?";
             PreparedStatement stmt = conn.prepareStatement(updateQuery);
 
             stmt.setString(1, updatedFirstName);
@@ -211,9 +254,11 @@ public class AdminEditForm extends javax.swing.JFrame {
             stmt.setString(4, updatedUsername);
             stmt.setInt(5, Integer.parseInt(updatedAge));
             stmt.setString(6, updatedSex);
-            stmt.setFloat(7, Float.parseFloat(updatedWeight));
-            stmt.setFloat(8, Float.parseFloat(updatedHeight));
-            stmt.setInt(9, userId);
+            stmt.setFloat(7, weight);
+            stmt.setFloat(8, height * 100);
+            stmt.setFloat(9, bmi);
+            stmt.setString(10, classification);
+            stmt.setInt(11, userId);
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {

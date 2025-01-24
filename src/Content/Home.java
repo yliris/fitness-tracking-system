@@ -210,6 +210,14 @@ public class Home extends javax.swing.JPanel {
                 completedCount += rsCompleted.getInt(1);
             }
 
+            if (completedCount > incompleteCount) {
+                compare_exercises.setText("Completed Exercises > Incomplete Exercises");
+            } else if (completedCount < incompleteCount) {
+                compare_exercises.setText("Completed Exercises < Incomplete Exercises");
+            } else {
+                compare_exercises.setText("Completed Exercises = Incomplete Exercises");
+            }
+
             exeincomplete_label.setText(String.valueOf(incompleteCount));
             execompleted_label.setText(String.valueOf(completedCount));
         } catch (SQLException ex) {
@@ -242,6 +250,14 @@ public class Home extends javax.swing.JPanel {
             int completedCount = 0;
             while (rsCompleted.next()) {
                 completedCount += rsCompleted.getInt(1);
+            }
+
+            if (completedCount > incompleteCount) {
+                compare_meals.setText("Completed Meals > Incomplete Meals");
+            } else if (completedCount < incompleteCount) {
+                compare_meals.setText("Completed Meals < Incomplete Meals");
+            } else {
+                compare_meals.setText("Completed Meals = Incomplete Meals");
             }
 
             mealincomplete_label.setText(String.valueOf(incompleteCount));
@@ -285,16 +301,18 @@ public class Home extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         complete_exercise_panel = new Resources.components.PanelBorder();
         complete_exercise_icon = new javax.swing.JLabel();
-        exe_label1 = new javax.swing.JLabel();
         exe_label2 = new javax.swing.JLabel();
         execompleted_label = new javax.swing.JLabel();
+        exe_label3 = new javax.swing.JLabel();
         complete_meal_panel = new Resources.components.PanelBorder();
         exeincomplete_label = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         message_panel = new Resources.components.PanelBorder();
         complete_note_panel = new Resources.components.PanelBorder();
+        compare_exercises = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         incomplete_exercise_panel = new Resources.components.PanelBorder();
         meal_label1 = new javax.swing.JLabel();
         meal_label2 = new javax.swing.JLabel();
@@ -306,6 +324,12 @@ public class Home extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         incomplete_note_panel = new Resources.components.PanelBorder();
+        compare_meals = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        message_diet = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        message_exercise = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -538,12 +562,6 @@ public class Home extends javax.swing.JPanel {
         complete_exercise_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/exercise-element-1.png"))); // NOI18N
         complete_exercise_panel.add(complete_exercise_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        exe_label1.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        exe_label1.setForeground(new java.awt.Color(255, 255, 255));
-        exe_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exe_label1.setText("Completed");
-        complete_exercise_panel.add(exe_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 100, 30));
-
         exe_label2.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
         exe_label2.setForeground(new java.awt.Color(255, 255, 255));
         exe_label2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -556,7 +574,13 @@ public class Home extends javax.swing.JPanel {
         execompleted_label.setText("(Number)");
         complete_exercise_panel.add(execompleted_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 40));
 
-        home_background.add(complete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 190, 130));
+        exe_label3.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        exe_label3.setForeground(new java.awt.Color(255, 255, 255));
+        exe_label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exe_label3.setText("Completed");
+        complete_exercise_panel.add(exe_label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 100, 30));
+
+        home_background.add(complete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 190, 130));
 
         complete_meal_panel.setBackground(new java.awt.Color(142, 167, 233));
         complete_meal_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -566,12 +590,6 @@ public class Home extends javax.swing.JPanel {
         exeincomplete_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exeincomplete_label.setText("(Number)");
         complete_meal_panel.add(exeincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 40));
-
-        jLabel10.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Incomplete");
-        complete_meal_panel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 120, 30));
 
         jLabel11.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(242, 242, 242));
@@ -583,7 +601,13 @@ public class Home extends javax.swing.JPanel {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-exercise-icon.png"))); // NOI18N
         complete_meal_panel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        home_background.add(complete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 200, 130));
+        jLabel12.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Incomplete");
+        complete_meal_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 120, 30));
+
+        home_background.add(complete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 200, 130));
 
         message_panel.setBackground(new java.awt.Color(114, 134, 211));
         message_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -591,7 +615,19 @@ public class Home extends javax.swing.JPanel {
 
         complete_note_panel.setBackground(new java.awt.Color(190, 205, 242));
         complete_note_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        home_background.add(complete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 180, 130));
+
+        compare_exercises.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        compare_exercises.setForeground(new java.awt.Color(102, 102, 102));
+        compare_exercises.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        compare_exercises.setText("(result)");
+        complete_note_panel.add(compare_exercises, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, -1));
+
+        jLabel19.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel19.setText("Result");
+        complete_note_panel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 280, 20));
+
+        home_background.add(complete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 330, 130));
 
         incomplete_exercise_panel.setBackground(new java.awt.Color(190, 205, 242));
         incomplete_exercise_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -618,7 +654,7 @@ public class Home extends javax.swing.JPanel {
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/meal-element1.png"))); // NOI18N
         incomplete_exercise_panel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
-        home_background.add(incomplete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 190, 130));
+        home_background.add(incomplete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 190, 130));
 
         incomplete_meal_panel.setBackground(new java.awt.Color(142, 167, 233));
         incomplete_meal_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -645,11 +681,47 @@ public class Home extends javax.swing.JPanel {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-meal-icon.png"))); // NOI18N
         incomplete_meal_panel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 10, -1, -1));
 
-        home_background.add(incomplete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 200, 130));
+        home_background.add(incomplete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 200, 130));
 
         incomplete_note_panel.setBackground(new java.awt.Color(114, 134, 211));
         incomplete_note_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        home_background.add(incomplete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 180, 130));
+
+        compare_meals.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        compare_meals.setForeground(new java.awt.Color(255, 255, 255));
+        compare_meals.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        compare_meals.setText("(Result)");
+        incomplete_note_panel.add(compare_meals, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, -1));
+
+        jLabel20.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Result");
+        incomplete_note_panel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 300, 20));
+
+        home_background.add(incomplete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, 330, 130));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        message_diet.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        message_diet.setForeground(new java.awt.Color(102, 102, 102));
+        message_diet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        message_diet.setText("(message)");
+        jPanel4.add(message_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 680, 30));
+
+        home_background.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 680, 40));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        message_exercise.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        message_exercise.setForeground(new java.awt.Color(102, 102, 102));
+        message_exercise.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        message_exercise.setText("(message)");
+        jPanel3.add(message_exercise, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 30));
+
+        home_background.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 680, 40));
 
         add(home_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
     }// </editor-fold>//GEN-END:initComponents
@@ -749,13 +821,15 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel bmi_result;
     private javax.swing.JLabel classification_profile;
     private javax.swing.JLabel classification_result;
+    private javax.swing.JLabel compare_exercises;
+    private javax.swing.JLabel compare_meals;
     private javax.swing.JLabel complete_exercise_icon;
     private Resources.components.PanelBorder complete_exercise_panel;
     private Resources.components.PanelBorder complete_meal_panel;
     private Resources.components.PanelBorder complete_note_panel;
     private javax.swing.JLabel email_profile;
-    private javax.swing.JLabel exe_label1;
     private javax.swing.JLabel exe_label2;
+    private javax.swing.JLabel exe_label3;
     private javax.swing.JLabel execompleted_label;
     private javax.swing.JLabel exeincomplete_label;
     private javax.swing.JButton goal_btn;
@@ -765,15 +839,19 @@ public class Home extends javax.swing.JPanel {
     private Resources.components.PanelBorder incomplete_exercise_panel;
     private Resources.components.PanelBorder incomplete_meal_panel;
     private Resources.components.PanelBorder incomplete_note_panel;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
@@ -781,6 +859,8 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel meal_label2;
     private javax.swing.JLabel mealcompleted_label;
     private javax.swing.JLabel mealincomplete_label;
+    private javax.swing.JLabel message_diet;
+    private javax.swing.JLabel message_exercise;
     private Resources.components.PanelBorder message_panel;
     private javax.swing.JLabel motivation_label;
     private Resources.components.PanelBorder motivation_panel;

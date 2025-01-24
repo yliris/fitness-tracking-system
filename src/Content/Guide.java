@@ -38,15 +38,18 @@ public class Guide extends javax.swing.JPanel {
         panelBorder9 = new Resources.components.PanelBorder();
         jSeparator2 = new javax.swing.JSeparator();
         or = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         or1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jLabel13 = new javax.swing.JLabel();
+        panelBorder14 = new Resources.components.PanelBorder();
         jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         panelBorder2 = new Resources.components.PanelBorder();
         panelBorder4 = new Resources.components.PanelBorder();
         panelBorder5 = new Resources.components.PanelBorder();
@@ -76,7 +79,7 @@ public class Guide extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("progress analysis through graphs, FiTS empowers you to stay on top of your fitness journey.");
+        jLabel4.setText("progress analysis through results, FiTS empowers you to stay on top of your fitness journey.");
         panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 680, 30));
 
         guide_home_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
@@ -91,11 +94,11 @@ public class Guide extends javax.swing.JPanel {
 
         panelBorder13.setBackground(new java.awt.Color(190, 205, 242));
         panelBorder13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(panelBorder13, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 420, 460, 120));
+        guide_home_panel.add(panelBorder13, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 440, 120));
 
         panelBorder12.setBackground(new java.awt.Color(190, 205, 242));
         panelBorder12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(panelBorder12, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 460, 120));
+        guide_home_panel.add(panelBorder12, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, 440, 120));
 
         panelBorder6.setBackground(new java.awt.Color(190, 205, 242));
         panelBorder6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,20 +162,6 @@ public class Guide extends javax.swing.JPanel {
         or.setText("Food Recommendations");
         guide_home_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 265, 140, -1));
 
-        jLabel7.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("or");
-        guide_home_panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 30, -1));
-
-        jLabel10.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
-        jLabel10.setText("Body Mass Index");
-        guide_home_panel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText(", is a measure used to determine whether a person has a healthy body weight for their height");
-        guide_home_panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 580, -1));
-
         or1.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         or1.setForeground(new java.awt.Color(153, 153, 153));
         or1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -181,17 +170,43 @@ public class Guide extends javax.swing.JPanel {
         guide_home_panel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 720, 10));
         guide_home_panel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 70, 10));
 
-        jLabel13.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        jLabel13.setText("It is calculated using the formula:");
-        guide_home_panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, 30));
+        panelBorder14.setBackground(new java.awt.Color(204, 204, 204));
+        panelBorder14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
         jLabel12.setText("BMI");
-        guide_home_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+        panelBorder14.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("or");
+        panelBorder14.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 30, -1));
+
+        jLabel10.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
+        jLabel10.setText("Body Mass Index");
+        panelBorder14.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("- is a measure used to determine whether a person has a healthy body weight for their height.");
+        panelBorder14.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 640, -1));
+
+        jLabel13.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel13.setText("It is calculated using the formula:");
+        panelBorder14.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 680, -1, 30));
 
         jLabel19.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel19.setText("BMI = Weight (kg) / Height (m)²");
-        guide_home_panel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 270, 30));
+        panelBorder14.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 270, 30));
+
+        jLabel20.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel20.setText("It is calculated using the formula:");
+        panelBorder14.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/bmi-icon-small.png"))); // NOI18N
+        panelBorder14.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        guide_home_panel.add(panelBorder14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 728, -1));
 
         guide_panels.addTab("tab1", guide_home_panel);
 
@@ -205,7 +220,7 @@ public class Guide extends javax.swing.JPanel {
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
 
         guide_panels.addTab("tab2", panelBorder2);
@@ -218,7 +233,7 @@ public class Guide extends javax.swing.JPanel {
         );
         panelBorder4Layout.setVerticalGroup(
             panelBorder4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
 
         guide_panels.addTab("tab3", panelBorder4);
@@ -231,12 +246,12 @@ public class Guide extends javax.swing.JPanel {
         );
         panelBorder5Layout.setVerticalGroup(
             panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
 
         guide_panels.addTab("tab4", panelBorder5);
 
-        add(guide_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1250, 590));
+        add(guide_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1250, 1280));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -255,8 +270,10 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -270,6 +287,7 @@ public class Guide extends javax.swing.JPanel {
     private Resources.components.PanelBorder panelBorder11;
     private Resources.components.PanelBorder panelBorder12;
     private Resources.components.PanelBorder panelBorder13;
+    private Resources.components.PanelBorder panelBorder14;
     private Resources.components.PanelBorder panelBorder2;
     private Resources.components.PanelBorder panelBorder3;
     private Resources.components.PanelBorder panelBorder4;

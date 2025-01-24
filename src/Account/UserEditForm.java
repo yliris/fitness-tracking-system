@@ -306,8 +306,8 @@ public class UserEditForm extends javax.swing.JFrame {
         int age = 0;
         try {
             age = Integer.parseInt(ageText);
-            if (age <= 0) {
-                JOptionPane.showMessageDialog(this, "Age must be a positive number.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (age < 2 && age > 120) {
+                JOptionPane.showMessageDialog(this, "Please provide an age between 2 and 120.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException e) {

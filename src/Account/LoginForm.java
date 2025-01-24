@@ -457,8 +457,8 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_btnMouseEntered
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String testUser = "testUser";
-        String testPassword = "testPassword";
+        String testUser = "test";
+        String testPassword = "testpass";
         PreparedStatement ps;
         ResultSet rs;
         String checkLoginQuery = "SELECT * FROM `tb_users` WHERE (`email` = ? OR `username` = ?) AND `password` = ?";

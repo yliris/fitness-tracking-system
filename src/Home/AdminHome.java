@@ -95,26 +95,25 @@ public class AdminHome extends javax.swing.JFrame {
                             classification = "Overweight";
                         } else if (bmiValue >= 31) {
                             classification = "Obese";
-                        } else if (getAge >= 2 && getAge < 20) {
-                            if (bmiValue < 5) {
-                                classification = "Underweight";
-                            } else if (bmiValue >= 5 && bmiValue < 85) {
-                                classification = "Healthy Weight";
-                            } else if (bmiValue >= 85 && bmiValue < 95) {
-                                classification = "Risk of Overweight";
-                            } else if (bmiValue >= 95) {
-                                classification = "Overweight";
-                            }
-                        } else {
-                            classification = "Invalid age for BMI calculation";
                         }
-
-                        updateStmt.setString(1, BMI);
-                        updateStmt.setString(2, classification);
-                        updateStmt.setInt(3, userId);
-                        updateStmt.executeUpdate();
+                    } else if (getAge >= 2 && getAge < 20) {
+                        if (bmiValue < 5) {
+                            classification = "Underweight";
+                        } else if (bmiValue >= 5 && bmiValue < 85) {
+                            classification = "Healthy Weight";
+                        } else if (bmiValue >= 85 && bmiValue < 95) {
+                            classification = "Risk of Overweight";
+                        } else if (bmiValue >= 95) {
+                            classification = "Overweight";
+                        }
+                    } else {
+                        classification = "Invalid age for BMI calculation";
                     }
 
+                    updateStmt.setString(1, BMI);
+                    updateStmt.setString(2, classification);
+                    updateStmt.setInt(3, userId);
+                    updateStmt.executeUpdate();
                 }
 
                 model.addRow(new Object[]{userId, firstName, lastName, email, username, age, sex, weight, height, BMI, classification});
@@ -225,8 +224,11 @@ public class AdminHome extends javax.swing.JFrame {
                     }
                 }
                 return;
-            } else if (adminPassword == null || adminPassword.isEmpty()) {
+            } else if (adminPassword == null) {
+                return;
+            } else if (adminPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fill in the Password to continue!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                return;
             } else {
                 failedAttempts++;
                 if (failedAttempts >= 3) {
@@ -278,13 +280,16 @@ public class AdminHome extends javax.swing.JFrame {
         String adminPassword;
         do {
             adminPassword = JOptionPane.showInputDialog(this, "Enter admin security password:");
-            if (adminPassword.equals("admin123")) {
+            if (adminPassword != null && adminPassword.equals("admin123")) {
                 JOptionPane.showMessageDialog(this, "Correct Input! Proceeding...");
                 AdminEditForm editForm = new AdminEditForm(this, editUserId, editFirstName, editLastName, editEmail, editUsername, editAge, editSex, editWeight, editHeight);
                 editForm.setVisible(true);
                 return;
+            } else if (adminPassword == null) {
+                return;
             } else if (adminPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fill in the Password to continue!", "Invalid Admin Credentials", JOptionPane.WARNING_MESSAGE);
+                return;
             } else {
                 failedAttempts++;
                 if (failedAttempts >= 3) {
@@ -925,6 +930,65 @@ public class AdminHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Fields cannot contain HTML tags.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        int ageValue;
+        float weightValue, heightValue;
+        try {
+            ageValue = Integer.parseInt(age);
+            if (ageValue < 2 || ageValue > 120) {
+                JOptionPane.showMessageDialog(null, "Please provide an age between 2 and 120.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            weightValue = Float.parseFloat(weight);
+            heightValue = Float.parseFloat(height);
+            if (weightValue <= 0) {
+                JOptionPane.showMessageDialog(null, "Weight must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (heightValue <= 0) {
+                JOptionPane.showMessageDialog(null, "Height must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Weight and height must be valid numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String bmi = "";
+        String classification = "";
+        if (weightValue > 0 && heightValue > 0) {
+            float meterHeight = heightValue / 100;
+            float bmiValue = weightValue / (meterHeight * meterHeight);
+            bmi = String.format("%.1f", bmiValue) + " kg/m²";
+
+            if (ageValue >= 20) {
+                if (bmiValue < 18.5) {
+                    classification = "Underweight";
+                } else if (bmiValue >= 18.5 && bmiValue <= 25) {
+                    classification = "Normal Weight";
+                } else if (bmiValue >= 26 && bmiValue <= 30) {
+                    classification = "Overweight";
+                } else if (bmiValue >= 31) {
+                    classification = "Obese";
+                }
+            } else if (ageValue >= 2 && ageValue < 20) {
+                if (bmiValue < 5) {
+                    classification = "Underweight";
+                } else if (bmiValue >= 5 && bmiValue < 85) {
+                    classification = "Healthy Weight";
+                } else if (bmiValue >= 85 && bmiValue < 95) {
+                    classification = "Risk of Overweight";
+                } else {
+                    classification = "Overweight";
+                }
+            } else {
+                classification = "Invalid age for BMI calculation";
+            }
+        }
 
         PreparedStatement ps;
         ResultSet rs;
@@ -962,8 +1026,8 @@ public class AdminHome extends javax.swing.JFrame {
 
             //INSERT NEW USER TO DATABASE
             String insertQuery = "INSERT INTO `tb_users`"
-                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "(`first_name`, `last_name`, `email`, `username`, `age`, `sex`, `weight`, `height`, `password`, `sec_question`, `sec_answer`, `bmi`, `classification`)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = DatabaseConnection.getConnection().prepareStatement(insertQuery);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
@@ -976,6 +1040,8 @@ public class AdminHome extends javax.swing.JFrame {
             ps.setString(9, password);
             ps.setString(10, sec_question);
             ps.setString(11, sec_answer);
+            ps.setString(12, bmi);
+            ps.setString(13, classification);
 
             if (ps.executeUpdate() > 0) {
                 loadDataToTable();
