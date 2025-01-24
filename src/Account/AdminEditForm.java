@@ -240,7 +240,6 @@ public class AdminEditForm extends javax.swing.JFrame {
         } else {
             classification = "N/A";
         }
-        System.out.println("Classification: " + classification);
 
         try {
             Connection conn = DatabaseConnection.getConnection();

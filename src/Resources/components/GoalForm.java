@@ -1,5 +1,6 @@
 package Resources.components;
 
+import Content.Home;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -11,10 +12,12 @@ import java.sql.SQLException;
 public class GoalForm extends javax.swing.JFrame {
 
     private int userId;
+    private Home home;
 
-    public GoalForm(int userId) {
+    public GoalForm(int userId, Home home) {
         initComponents();
         this.userId = userId;
+        this.home = home;
         setBackground(new Color(0, 0, 0, 0));
         mover.initMoving(GoalForm.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
@@ -251,6 +254,7 @@ public class GoalForm extends javax.swing.JFrame {
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Goal set successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 label1.setText("Change Your Goal:");
+                home.exerciseResult();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to set goal. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -290,7 +294,8 @@ public class GoalForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 int userId = 1;
-                new GoalForm(userId).setVisible(true);
+                Home home = new Home(userId);
+                new GoalForm(userId, home).setVisible(true);
             }
         });
     }

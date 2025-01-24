@@ -381,16 +381,16 @@ public class UserEditForm extends javax.swing.JFrame {
             }
 
             float minBMI = 18.5f;
-            float maxBMI = 25f;
-            healthyRange = String.format("%.1f", minBMI * meterHeight * meterHeight) + " - "
+            float maxBMI = 24.9f;
+            healthyRange = String.format("%.1f", minBMI * meterHeight * meterHeight) + " kg" + " - "
                     + String.format("%.1f", maxBMI * meterHeight * meterHeight) + " kg";
 
-            if (bmiValue < minBMI) {
+            if (bmiValue < minBMI - 0.01f) {
                 float weightToGain = minBMI * meterHeight * meterHeight - weight;
-                weightNeeds = "Recommendation: Gain " + String.format("%.2f", weightToGain) + " kg to reach a healthy weight.";
-            } else if (bmiValue > maxBMI) {
+                weightNeeds = "Recommendation: Gain " + String.format("%.1f", weightToGain) + " kg to reach a healthy weight.";
+            } else if (bmiValue > maxBMI + 0.02f) {
                 float weightToLose = weight - maxBMI * meterHeight * meterHeight;
-                weightNeeds = "Recommendation: Lose " + String.format("%.2f", weightToLose) + " kg to reach a healthy weight.";
+                weightNeeds = "Recommendation: Lose " + String.format("%.1f", weightToLose) + " kg to reach a healthy weight.";
             } else {
                 weightNeeds = "Your weight is within the healthy range!";
             }
@@ -459,6 +459,7 @@ public class UserEditForm extends javax.swing.JFrame {
                 home.updateUserDetails(username, fullName, email, weight, height);
                 home.updateProfileIcon(sex);
                 home.updateUserBMI(BMI, classification, healthyRange, weightNeeds);
+                home.exerciseResult();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Update failed. User not found.", "Error", JOptionPane.ERROR_MESSAGE);
