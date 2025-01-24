@@ -460,6 +460,7 @@ public class UserEditForm extends javax.swing.JFrame {
                 home.updateProfileIcon(sex);
                 home.updateUserBMI(BMI, classification, healthyRange, weightNeeds);
                 home.exerciseResult();
+                home.mealResult();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Update failed. User not found.", "Error", JOptionPane.ERROR_MESSAGE);

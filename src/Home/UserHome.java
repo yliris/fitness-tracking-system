@@ -60,7 +60,7 @@ public class UserHome extends javax.swing.JFrame {
             stmt.setInt(1, this.userId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    greetings.setText("Hi, " + rs.getString("username"));
+                    greetings.setText("Hi, " + rs.getString("username") + "!");
                 }
             }
         } catch (SQLException e) {

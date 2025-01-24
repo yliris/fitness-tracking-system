@@ -25,6 +25,7 @@ public class Home extends javax.swing.JPanel {
         updateExerciseCount();
         updateMealCount();
         exerciseResult();
+        mealResult();
     }
 
     private void setProfileDetails() {
@@ -273,72 +274,201 @@ public class Home extends javax.swing.JPanel {
 
         float bmi = Float.parseFloat(bmiStr.split(" ")[0]);
         String exercise_label = "";
-        String recommendation1 = "";
-        String recommendation2 = "";
-        String recommendation3 = "";
-        String message1 = "";
+        String exerecommendation1 = "";
+        String exerecommendation2 = "";
+        String exerecommendation3 = "";
+        String exemotivation = "";
         if (goal == null || goal.isEmpty()) {
             exercise_label = "Welcome, You should set a goal first!";
-            recommendation1 = "";
-            recommendation2 = "";
-            recommendation3 = "";
+            exerecommendation1 = "";
+            exerecommendation2 = "";
+            exerecommendation3 = "";
+            exemotivation = "Start your fitness journey with us for a healthier you!";
         } else if (goal.equals("Gain Weight")) {
+            exercise_label = "Recommended exercises:";
             if (bmi < 18.5) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Strength (Resistance) Training, High-Intensity Interval Training (HIIT),";
-                recommendation2 = "Functional Fitness Training, and Sports and Recreational Activities.";
-                recommendation3 = "Exercise at least 4-5 times a week to build muscle and boost metabolism.";
-            } else if (bmi < 24.9) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Strength (Resistance) Training, Cardiovascular (Aerobic) Exercise,";
-                recommendation2 = "Functional Fitness Training, and Flexibility Exercise.";
-                recommendation3 = "Exercise at least 3-4 times a week to balance muscle growth and fitness.";
+                exerecommendation1 = "Strength (Resistance) Training, High-Intensity Interval Training (HIIT),";
+                exerecommendation2 = "Functional Fitness Training, and Sports and Recreational Activities.";
+                exerecommendation3 = "Exercise at least 4-5 times a week to build muscle and boost metabolism.";
+                exemotivation = "Every rep builds your strength—stay consistent and stay focused!";
+            } else if (bmi < 25) {
+                exerecommendation1 = "Strength (Resistance) Training, Cardiovascular (Aerobic) Exercise,";
+                exerecommendation2 = "Functional Fitness Training, and Flexibility Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to balance muscle growth and fitness.";
+                exemotivation = "Your strength is your power—build balance and keep progressing!";
+            } else if (bmi < 30) {
+                exerecommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
+                exerecommendation2 = "Mind-Body Exercises, and Balance Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to maintain strength and improve mobility.";
+                exemotivation = "Keep moving forward—strength and mobility are the key to wellness!";
             } else {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
-                recommendation2 = "Mind-Body Exercises, and Balance Exercise.";
-                recommendation3 = "Exercise at least 3-4 times a week to maintain strength and improve mobility.";
+                exerecommendation1 = "Strength (Resistance) Training, Low-Impact Aerobic Exercise,";
+                exerecommendation2 = "Functional Fitness Training, and Balance Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to improve mobility and prevent injury.";
+                exemotivation = "Small steps make a big difference—focus on building strength and stability!";
             }
         } else if (goal.equals("Lose Weight")) {
+            exercise_label = "Recommended exercises:";
             if (bmi < 18.5) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
-                recommendation2 = "Mind-Body Exercises, and Flexibility Exercise.";
-                recommendation3 = "Exercise at least 3-4 times a week to prevent further weight loss and stay active.";
-            } else if (bmi < 24.9) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "High-Intensity Interval Training (HIIT), Cardiovascular (Aerobic) Exercise,";
-                recommendation2 = "Sports and Recreational Activities, and Flexibility Exercise.";
-                recommendation3 = "Exercise at least 4-5 times a week to maximize fat burning and improve fitness.";
+                exerecommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
+                exerecommendation2 = "Mind-Body Exercises, and Flexibility Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to prevent further weight loss and stay active.";
+                exemotivation = "Stay strong—find balance and keep yourself energized every step of the way!";
+            } else if (bmi < 25) {
+                exerecommendation1 = "High-Intensity Interval Training (HIIT), Cardiovascular (Aerobic) Exercise,";
+                exerecommendation2 = "Sports and Recreational Activities, and Flexibility Exercise.";
+                exerecommendation3 = "Exercise at least 4-5 times a week to maximize fat burning and improve fitness.";
+                exemotivation = "Push your limits—burn calories, stay active, and achieve your goals!";
+            } else if (bmi < 30) {
+                exerecommendation1 = "High-Intensity Interval Training (HIIT), Strength (Resistance) Training,";
+                exerecommendation2 = "Cardiovascular (Aerobic) Exercise, and Functional Fitness Training.";
+                exerecommendation3 = "Exercise at least 4-6 times a week for optimal fat burning and muscle retention.";
+                exemotivation = "Stay disciplined—every workout brings you closer to your ideal weight!";
             } else {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "High-Intensity Interval Training (HIIT), Strength (Resistance) Training,";
-                recommendation2 = "Cardiovascular (Aerobic) Exercise, and Functional Fitness Training.";
-                recommendation3 = "Exercise at least 4-6 times a week for optimal fat burning and muscle retention.";
+                exerecommendation1 = "Low-Impact Cardio (e.g., walking, swimming), Strength Training,";
+                exerecommendation2 = "Functional Fitness Training, and Flexibility Exercises.";
+                exerecommendation3 = "Exercise at least 4 times a week to support weight loss and improve mobility.";
+                exemotivation = "Take it step by step—consistency leads to remarkable progress!";
             }
         } else if (goal.equals("Maintain Weight")) {
+            exercise_label = "Recommended exercises:";
             if (bmi < 18.5) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
-                recommendation2 = "Mind-Body Exercises, and Flexibility Exercise.";
-                recommendation3 = "Exercise at least 3 times a week to maintain muscle and mobility.";
-            } else if (bmi < 24.9) {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Cardiovascular (Aerobic) Exercise, Sports and Recreational Activities,";
-                recommendation2 = "Flexibility Exercise, and Balance Exercise.";
-                recommendation3 = "Exercise at least 3-4 times a week to stay active and maintain balance.";
+                exerecommendation1 = "Strength (Resistance) Training, Functional Fitness Training,";
+                exerecommendation2 = "Mind-Body Exercises, and Flexibility Exercise.";
+                exerecommendation3 = "Exercise at least 3 times a week to maintain muscle and mobility.";
+                exemotivation = "Consistency is key—stay active and maintain your strength for life!";
+            } else if (bmi < 25) {
+                exerecommendation1 = "Cardiovascular (Aerobic) Exercise, Sports and Recreational Activities,";
+                exerecommendation2 = "Flexibility Exercise, and Balance Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to stay active and maintain balance.";
+                exemotivation = "Stay active, stay balanced—your health is your greatest asset!";
+            } else if (bmi < 30) {
+                exerecommendation1 = "Cardiovascular (Aerobic) Exercise, Flexibility Exercise,";
+                exerecommendation2 = "Mind-Body Exercises, and Balance Exercise.";
+                exerecommendation3 = "Exercise at least 3-4 times a week to improve mobility and overall wellness.";
+                exemotivation = "Wellness starts with you—improve mobility and live your best life!";
             } else {
-                exercise_label = "Recommended for you:";
-                recommendation1 = "Cardiovascular (Aerobic) Exercise, Flexibility Exercise,";
-                recommendation2 = "Mind-Body Exercises, and Balance Exercise.";
-                recommendation3 = "Exercise at least 3-4 times a week to improve mobility and overall wellness.";
+                exerecommendation1 = "Low-Impact Cardio, Functional Fitness Training,";
+                exerecommendation2 = "Flexibility Exercises, and Balance Exercises.";
+                exerecommendation3 = "Exercise at least 3 times a week to enhance mobility and maintain overall health.";
+                exemotivation = "Every step towards movement is a step towards a better you!";
             }
         }
 
         label_exercise.setText(exercise_label);
-        exercise_recommendation1.setText(recommendation1);
-        exercise_recommendation2.setText(recommendation2);
-        exercise_recommendation3.setText(recommendation3);
+        exercise_recommendation1.setText(exerecommendation1);
+        exercise_recommendation2.setText(exerecommendation2);
+        exercise_recommendation.setText(exerecommendation3);
+        motivation_exercise.setText(exemotivation);
+    }
+
+    public void mealResult() {
+        String userQuery = "SELECT bmi, goal FROM tb_users WHERE user_id = ?";
+        String bmiStr = "";
+        String goal = "";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(userQuery)) {
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                bmiStr = rs.getString("bmi");
+                goal = rs.getString("goal");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error fetching data: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        float bmi = Float.parseFloat(bmiStr.split(" ")[0]);
+        String diet_label = "";
+        String dietrecommendation1 = "";
+        String dietrecommendation2 = "";
+        String dietrecommendation3 = "";
+        String dietmotivation = "";
+
+        if (goal == null || goal.isEmpty()) {
+            diet_label = "";
+            dietrecommendation1 = "";
+            dietrecommendation2 = "";
+            dietrecommendation3 = "";
+            dietmotivation = "";
+        } else if (goal.equals("Gain Weight")) {
+            diet_label = "Recommended diet:";
+            if (bmi < 18.5) {
+                dietrecommendation1 = "Calories: 2,300–3,000, Protein: 70–120 g, Carbs: 300–400 g, Fat: 70–100 g.";
+                dietrecommendation2 = "Include calorie-dense foods like nuts, dairy, lean meats, and whole grains.";
+                dietrecommendation3 = "Eat high-calorie meals with avocados, peanut butter, and full-fat yogurt.";
+                dietmotivation = "Fuel your body with energy-rich, healthy meals consistently!";
+            } else if (bmi < 25) {
+                dietrecommendation1 = "Calories: 2,500–3,200, Protein: 80–130 g, Carbs: 350–450 g, Fat: 80–110 g.";
+                dietrecommendation2 = "Add protein shakes, whole grains, and healthy oils to your meals.";
+                dietrecommendation3 = "Eat balanced meals with chicken, quinoa, and olive oil.";
+                dietmotivation = "Build strength by nourishing your body with the right foods!";
+            } else if (bmi < 30) {
+                dietrecommendation1 = "Calories: 2,200–2,800, Protein: 90–140 g, Carbs: 250–350 g, Fat: 70–90 g.";
+                dietrecommendation2 = "Focus on nutrient-dense foods and moderate portion sizes.";
+                dietrecommendation3 = "Eat meals with fish, vegetables, and brown rice.";
+                dietmotivation = "Focus on controlled calorie intake to support steady progress!";
+            } else {
+                dietrecommendation1 = "Calories: 2,000–2,500, Protein: 100–150 g, Carbs: 200–300 g, Fat: 60–80 g.";
+                dietrecommendation2 = "Prioritize lean proteins, low-glycemic carbs, and healthy fats.";
+                dietrecommendation3 = "Choose meals like baked salmon, steamed broccoli, and lentils.";
+                dietmotivation = "Every meal is an opportunity to nourish your body wisely!";
+            }
+        } else if (goal.equals("Lose Weight")) {
+            diet_label = "Recommended diet:";
+            if (bmi < 18.5) {
+                dietrecommendation1 = "Calories: 1,600–2,000, Protein: 60–90 g, Carbs: 200–250 g, Fat: 50–70 g.";
+                dietrecommendation2 = "Focus on nutrient-rich foods like eggs, dairy, and nuts.";
+                dietrecommendation3 = "Eat meals with boiled eggs, oatmeal, and almond butter.";
+                dietmotivation = "Energize yourself while maintaining a steady calorie intake!";
+            } else if (bmi < 25) {
+                dietrecommendation1 = "Calories: 1,500–2,000, Protein: 80–100 g, Carbs: 150–200 g, Fat: 50–60 g.";
+                dietrecommendation2 = "Incorporate high-fiber and low-calorie foods into your diet.";
+                dietrecommendation3 = "Opt for meals like grilled chicken, sweet potatoes, and spinach.";
+                dietmotivation = "Stay committed to your goal with disciplined eating!";
+            } else if (bmi < 30) {
+                dietrecommendation1 = "Calories: 1,200–1,800, Protein: 90–110 g, Carbs: 100–150 g, Fat: 40–60 g.";
+                dietrecommendation2 = "Limit processed foods and sugary drinks; focus on whole foods.";
+                dietrecommendation3 = "Try meals like steamed fish, quinoa, and mixed greens.";
+                dietmotivation = "Discipline ensures success—stick to your plan and see results!";
+            } else {
+                dietrecommendation1 = "Calories: 1,200–1,600, Protein: 100–120 g, Carbs: 100–130 g, Fat: 30–50 g.";
+                dietrecommendation2 = "Eat low-carb, high-protein meals with lots of vegetables.";
+                dietrecommendation3 = "Choose meals like turkey patties, kale, and roasted zucchini.";
+                dietmotivation = "Your dedication will bring the transformation you aim for!";
+            }
+        } else if (goal.equals("Maintain Weight")) {
+            diet_label = "Recommended diet:";
+            if (bmi < 18.5) {
+                dietrecommendation1 = "Calories: 2,000–2,300, Protein: 60–100 g, Carbs: 250–300 g, Fat: 60–80 g.";
+                dietrecommendation2 = "Eat nutrient-dense meals with a focus on healthy fats and carbs.";
+                dietrecommendation3 = "Try meals with salmon, avocado, and brown rice.";
+                dietmotivation = "Consistency is the key to maintaining a healthy lifestyle!";
+            } else if (bmi < 25) {
+                dietrecommendation1 = "Calories: 2,000–2,500, Protein: 70–110 g, Carbs: 250–350 g, Fat: 60–90 g.";
+                dietrecommendation2 = "Focus on balance: lean protein, whole grains, and vegetables.";
+                dietrecommendation3 = "Opt for meals like grilled chicken, couscous, and green beans.";
+                dietmotivation = "Keep your habits steady and enjoy long-term well-being!";
+            } else if (bmi < 30) {
+                dietrecommendation1 = "Calories: 1,800–2,300, Protein: 80–120 g, Carbs: 200–300 g, Fat: 50–80 g.";
+                dietrecommendation2 = "Include moderate portions of lean proteins and low-glycemic carbs.";
+                dietrecommendation3 = "Eat meals like roasted turkey, quinoa, and mixed greens.";
+                dietmotivation = "Healthy choices ensure you maintain balance and vitality!";
+            } else {
+                dietrecommendation1 = "Calories: 1,600–2,200, Protein: 90–130 g, Carbs: 150–250 g, Fat: 40–70 g.";
+                dietrecommendation2 = "Focus on whole foods, avoiding excess fats and sugars.";
+                dietrecommendation3 = "Choose meals like stir-fried tofu, broccoli, and brown rice.";
+                dietmotivation = "Mindful eating keeps you on track for maintaining wellness!";
+            }
+        }
+
+        label_diet.setText(diet_label);
+        meal_recommendation1.setText(dietrecommendation1);
+        meal_recommendation2.setText(dietrecommendation2);
+        meal_recommendation.setText(dietrecommendation3);
+        motivation_diet.setText(dietmotivation);
     }
 
     @SuppressWarnings("unchecked")
@@ -384,7 +514,7 @@ public class Home extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         complete_note_panel = new Resources.components.PanelBorder();
         exercise_recommendation1 = new javax.swing.JLabel();
-        exercise_recommendation3 = new javax.swing.JLabel();
+        exercise_recommendation = new javax.swing.JLabel();
         exercise_recommendation2 = new javax.swing.JLabel();
         label_exercise = new javax.swing.JLabel();
         incomplete_exercise_panel = new Resources.components.PanelBorder();
@@ -401,7 +531,7 @@ public class Home extends javax.swing.JPanel {
         label_diet = new javax.swing.JLabel();
         meal_recommendation1 = new javax.swing.JLabel();
         meal_recommendation2 = new javax.swing.JLabel();
-        meal_explanation = new javax.swing.JLabel();
+        meal_recommendation = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         motivation_diet = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -693,11 +823,11 @@ public class Home extends javax.swing.JPanel {
         exercise_recommendation1.setText("(recommendation)");
         complete_note_panel.add(exercise_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 470, -1));
 
-        exercise_recommendation3.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
-        exercise_recommendation3.setForeground(new java.awt.Color(51, 51, 51));
-        exercise_recommendation3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exercise_recommendation3.setText("(recommendation)");
-        complete_note_panel.add(exercise_recommendation3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 520, 40));
+        exercise_recommendation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        exercise_recommendation.setForeground(new java.awt.Color(51, 51, 51));
+        exercise_recommendation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exercise_recommendation.setText("(recommendation)");
+        complete_note_panel.add(exercise_recommendation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 520, 40));
 
         exercise_recommendation2.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         exercise_recommendation2.setForeground(new java.awt.Color(102, 102, 102));
@@ -771,23 +901,23 @@ public class Home extends javax.swing.JPanel {
         label_diet.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label_diet.setForeground(new java.awt.Color(255, 255, 255));
         label_diet.setText("Recommended for you:");
-        incomplete_note_panel.add(label_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 150, 20));
+        incomplete_note_panel.add(label_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, 500, 20));
 
         meal_recommendation1.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         meal_recommendation1.setForeground(new java.awt.Color(255, 255, 255));
         meal_recommendation1.setText("(recommendation)");
-        incomplete_note_panel.add(meal_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 55, 490, -1));
+        incomplete_note_panel.add(meal_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 470, -1));
 
         meal_recommendation2.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         meal_recommendation2.setForeground(new java.awt.Color(255, 255, 255));
         meal_recommendation2.setText("(recommendation)");
-        incomplete_note_panel.add(meal_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 75, 490, -1));
+        incomplete_note_panel.add(meal_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 470, -1));
 
-        meal_explanation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
-        meal_explanation.setForeground(new java.awt.Color(255, 255, 255));
-        meal_explanation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        meal_explanation.setText("(explanation)");
-        incomplete_note_panel.add(meal_explanation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 520, 30));
+        meal_recommendation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        meal_recommendation.setForeground(new java.awt.Color(255, 255, 255));
+        meal_recommendation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        meal_recommendation.setText("(recommendation)");
+        incomplete_note_panel.add(meal_recommendation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 520, 40));
 
         home_background.add(incomplete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 530, 100));
 
@@ -922,9 +1052,9 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel exe_label3;
     private javax.swing.JLabel execompleted_label;
     private javax.swing.JLabel exeincomplete_label;
+    private javax.swing.JLabel exercise_recommendation;
     private javax.swing.JLabel exercise_recommendation1;
     private javax.swing.JLabel exercise_recommendation2;
-    private javax.swing.JLabel exercise_recommendation3;
     private javax.swing.JButton goal_btn;
     private javax.swing.JLabel healthy_range;
     private javax.swing.JLabel height_profile;
@@ -948,9 +1078,9 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label_diet;
     private javax.swing.JLabel label_exercise;
-    private javax.swing.JLabel meal_explanation;
     private javax.swing.JLabel meal_label1;
     private javax.swing.JLabel meal_label2;
+    private javax.swing.JLabel meal_recommendation;
     private javax.swing.JLabel meal_recommendation1;
     private javax.swing.JLabel meal_recommendation2;
     private javax.swing.JLabel mealcompleted_label;
