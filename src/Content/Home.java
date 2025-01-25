@@ -720,34 +720,34 @@ public class Home extends javax.swing.JPanel {
         label1.setForeground(new java.awt.Color(29, 22, 22));
         label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label1.setText("Body Mass Index (BMI):");
-        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 20));
+        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 20));
 
         label2.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label2.setForeground(new java.awt.Color(29, 22, 22));
         label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label2.setText("Classification:");
-        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 240, 20));
+        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 170, 20));
 
         bmi_result.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         bmi_result.setForeground(new java.awt.Color(29, 22, 22));
         bmi_result.setText("(BMI)");
-        jPanel1.add(bmi_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 170, 20));
+        jPanel1.add(bmi_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 30, 170, 20));
 
         classification_result.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         classification_result.setForeground(new java.awt.Color(29, 22, 22));
         classification_result.setText("(classification)");
-        jPanel1.add(classification_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 170, 20));
+        jPanel1.add(classification_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 60, 170, 20));
 
         label3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label3.setForeground(new java.awt.Color(29, 22, 22));
         label3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label3.setText("Healthy Weight Range:");
-        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 240, 20));
+        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 20));
 
         healthy_range.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         healthy_range.setForeground(new java.awt.Color(29, 22, 22));
         healthy_range.setText("(healthy weight range)");
-        jPanel1.add(healthy_range, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 170, 20));
+        jPanel1.add(healthy_range, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 90, 170, 20));
 
         weight_needs.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         weight_needs.setForeground(new java.awt.Color(29, 22, 22));

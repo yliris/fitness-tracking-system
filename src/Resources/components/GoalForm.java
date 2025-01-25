@@ -255,6 +255,7 @@ public class GoalForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Goal set successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 label1.setText("Change Your Goal:");
                 home.exerciseResult();
+                home.mealResult();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to set goal. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
