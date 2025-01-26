@@ -1,9 +1,15 @@
 package Resources.components;
 
 import Account.*;
+import Resources.components.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;
+import java.util.Arrays;
 
 public class AchievementFrame extends javax.swing.JFrame {
 
@@ -13,80 +19,175 @@ public class AchievementFrame extends javax.swing.JFrame {
         initComponents();
         this.userId = userId;
         setBackground(new Color(0, 0, 0, 0));
-        mover.initMoving(AchievementFrame.this);
         Image icon = new ImageIcon(this.getClass().getResource("/Resources/elements/fts-icon.png")).getImage();
         this.setIconImage(icon);
+    }
+
+    public int countCompletedExercise() {
+        int count = 0;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT COUNT(*) FROM tb_completed_exercises WHERE user_id = ? AND completed = 1";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public void checkExerciseAchievements(int completedCount) {
+        AchievementClass[] exerciseAchievements = {
+            new AchievementClass("\"First Step!\"", "You completed your first five exercises! Keep going!", 1),
+            new AchievementClass("\"Building Momentum!\"", "You’ve completed 10 exercises! Keep pushing yourself!", 20),
+            new AchievementClass("\"Fitness Fanatic!\"", "20 exercises done! You’re making great progress!", 40),
+            new AchievementClass("\"Energized Achiever!\"", "30 exercises completed! You’re unstoppable!", 60),
+            new AchievementClass("\"Strength Pioneer!\"", "40 exercises done! Amazing commitment!", 80),
+            new AchievementClass("\"Half-Century Strong!\"", "50 exercises completed! You’re a fitness pro!", 100),
+            new AchievementClass("\"Trailblazer!\"", "60 exercises done! Keep leading the way!", 120),
+            new AchievementClass("\"Relentless Warrior!\"", "70 exercises completed! Outstanding perseverance!", 140),
+            new AchievementClass("\"Power Performer!\"", "80 exercises! Only 20 more to 100! Keep at it!", 160),
+            new AchievementClass("\"Excellence Embodied!\"", "90 exercises completed! One more push to 100!", 180),
+            new AchievementClass("\"Ultimate Legend!\"", "100 exercises done! You’re a true fitness legend!", 200)
+        };
+
+        for (AchievementClass achievement : exerciseAchievements) {
+            if (completedCount >= achievement.getMilestone() && !isAchievementSaved(achievement.getTitle(), "Exercise")) {
+                showAchievementPopup(achievement);
+                saveAchievement(achievement, "Exercise");
+                break;
+            }
+        }
+    }
+
+    public int countCompletedMeals() {
+        int count = 0;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT COUNT(*) FROM tb_completed_meals WHERE user_id = ? AND completed = 1";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public void checkMealAchievements(int completedCount) {
+        AchievementClass[] mealAchievements = {
+            new AchievementClass("\"Fueling Up!\"", "You completed your first five meals! Keep going!", 1),
+            new AchievementClass("\"Nourishment Master!\"", "You’ve completed 10 meals! Stay consistent!", 20),
+            new AchievementClass("\"Healthy Habits!\"", "20 meals completed! Amazing dedication!", 40),
+            new AchievementClass("\"Energy Enthusiast!\"", "30 meals done! You’re on the right track!", 60),
+            new AchievementClass("\"Balanced Pro!\"", "40 meals completed! Excellent progress!", 80),
+            new AchievementClass("\"Nutrition Expert!\"", "50 meals logged! You’re becoming a pro!", 100),
+            new AchievementClass("\"Sustenance Champion!\"", "60 meals tracked! Incredible work!", 120),
+            new AchievementClass("\"Calorie Commander!\"", "70 meals completed! Keep the streak alive!", 140),
+            new AchievementClass("\"Macro Master!\"", "80 meals finished! 20 more to 100!", 160),
+            new AchievementClass("\"Meal Time Hero!\"", "90 meals logged! Almost at the top!", 180),
+            new AchievementClass("\"Ultimate Foodie!\"", "100 meals completed! You’re unstoppable!", 200)
+        };
+
+        for (AchievementClass achievement : mealAchievements) {
+            if (completedCount >= achievement.getMilestone() && !isAchievementSaved(achievement.getTitle(), "Diet")) {
+                showAchievementPopup(achievement);
+                saveAchievement(achievement, "Diet");
+                break;
+            }
+        }
+    }
+
+    private void showAchievementPopup(AchievementClass achievement) {
+        achievement_title.setText(achievement.getTitle());
+        achievement_description.setText(achievement.getDescription());
+        this.setVisible(true);
+    }
+
+    private void saveAchievement(AchievementClass achievement, String type) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "INSERT INTO tb_achievements (user_id, achievement_title, achievement_description, achievement_type, date_achieved) VALUES (?, ?, ?, ?, NOW())";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            stmt.setString(2, achievement.getTitle());
+            stmt.setString(3, achievement.getDescription());
+            stmt.setString(4, type);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isAchievementSaved(String title, String type) {
+        boolean exists = false;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT COUNT(*) FROM tb_achievements WHERE user_id = ? AND achievement_title = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            stmt.setString(2, title);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exists;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        exit_btn = new javax.swing.JButton();
-        achievement_background = new Resources.components.PanelBorder();
-        mover = new Resources.components.PanelMover();
+        jPanel1 = new javax.swing.JPanel();
+        achievement_title = new javax.swing.JLabel();
+        achievement_description = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png"))); // NOI18N
-        exit_btn.setBorder(null);
-        exit_btn.setBorderPainted(false);
-        exit_btn.setContentAreaFilled(false);
-        exit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exit_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exit_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exit_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                exit_btnMouseReleased(evt);
-            }
-        });
-        exit_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exit_btnActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        achievement_background.setBackground(new java.awt.Color(102, 102, 102));
-        achievement_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        achievement_background.add(mover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 10));
+        jPanel1.setOpaque(false);
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 520, 290));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/achievement-icon.png"))); // NOI18N
-        achievement_background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        achievement_title.setFont(new java.awt.Font("Cascadia Mono", 3, 24)); // NOI18N
+        achievement_title.setForeground(new java.awt.Color(76, 101, 199));
+        achievement_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        achievement_title.setText("\"Title\"");
+        getContentPane().add(achievement_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 500, 30));
 
-        getContentPane().add(achievement_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 110));
+        achievement_description.setFont(new java.awt.Font("Cascadia Mono", 2, 14)); // NOI18N
+        achievement_description.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        achievement_description.setText("\"Description\"");
+        getContentPane().add(achievement_description, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 500, -1));
+
+        jLabel4.setFont(new java.awt.Font("Cascadia Mono", 1, 20)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Achievement Accomplished!");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 500, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/achievement-element.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 470));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exit_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseEntered
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseEntered
-
-    private void exit_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseExited
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-idle.png")));
-    }//GEN-LAST:event_exit_btnMouseExited
-
-    private void exit_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMousePressed
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-click.png")));
-    }//GEN-LAST:event_exit_btnMousePressed
-
-    private void exit_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exit_btnMouseReleased
-        exit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buttons/exit-hover.png")));
-    }//GEN-LAST:event_exit_btnMouseReleased
-
-    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         dispose();
-    }//GEN-LAST:event_exit_btnActionPerformed
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -120,10 +221,10 @@ public class AchievementFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Resources.components.PanelBorder achievement_background;
-    private javax.swing.JButton exit_btn;
+    private javax.swing.JLabel achievement_description;
+    private javax.swing.JLabel achievement_title;
     private javax.swing.JLabel jLabel1;
-    private Resources.components.PanelMover mover;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
 }

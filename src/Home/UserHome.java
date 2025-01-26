@@ -40,7 +40,7 @@ public class UserHome extends javax.swing.JFrame {
         home = new Home(this.userId);
         activity = new Exercise(this.userId, home);
         diet = new Diet(this.userId, home);
-        achievements = new Achievements();
+        achievements = new Achievements(this.userId);
         guide = new Guide();
         body.add(home, "Home");
         body.add(activity, "Activity");
@@ -126,13 +126,13 @@ public class UserHome extends javax.swing.JFrame {
         profile_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fits_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fits_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-small-icon.png"))); // NOI18N
-        profile_btn.add(fits_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 70));
+        fits_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-icon.png"))); // NOI18N
+        profile_btn.add(fits_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 70));
 
         greetings.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
         greetings.setForeground(new java.awt.Color(255, 242, 242));
         greetings.setText("Hi, (name)");
-        profile_btn.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 186, 70));
+        profile_btn.add(greetings, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 10, 160, 70));
 
         header_panel.add(profile_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 260, 80));
 

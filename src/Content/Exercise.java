@@ -1,5 +1,6 @@
 package Content;
 
+import Resources.components.AchievementFrame;
 import Resources.components.DatabaseConnection;
 import Resources.components.ExerciseHistory;
 import java.awt.Color;
@@ -236,7 +237,7 @@ public class Exercise extends javax.swing.JPanel {
         });
         exercise_table.setGridColor(new java.awt.Color(234, 234, 234));
         exercise_table.setRowHeight(30);
-        exercise_table.setSelectionBackground(new java.awt.Color(137, 229, 137));
+        exercise_table.setSelectionBackground(new java.awt.Color(96, 220, 96));
         exercise_table.setSelectionForeground(new java.awt.Color(255, 255, 255));
         exercise_table.setShowGrid(false);
         exercise_table.setShowHorizontalLines(true);
@@ -462,7 +463,7 @@ public class Exercise extends javax.swing.JPanel {
 
         complete_label.setFont(new java.awt.Font("Cascadia Mono", 1, 11)); // NOI18N
         complete_label.setForeground(new java.awt.Color(255, 255, 255));
-        complete_label.setText("Mark as Complete");
+        complete_label.setText("Mark as Done");
         execomplete_btn.add(complete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 120, 40));
 
         activity_background.add(execomplete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 510, 170, 40));
@@ -819,7 +820,7 @@ public class Exercise extends javax.swing.JPanel {
         int rowCount = model.getRowCount();
 
         if (rowCount == 0) {
-            JOptionPane.showMessageDialog(this, "There are no exercises to mark as complete.", "No Exercises", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "There are no exercises to mark as done.", "No Exercises", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -837,14 +838,14 @@ public class Exercise extends javax.swing.JPanel {
         if (hasUnchecked) {
             confirmResult = JOptionPane.showConfirmDialog(
                     this,
-                    "There are still incomplete exercises. Are you sure you want to mark them as complete?",
+                    "There are still incomplete exercises. Are you sure you want to mark them as done?",
                     "Confirm Completion",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE);
         } else {
             confirmResult = JOptionPane.showConfirmDialog(
                     this,
-                    "Are you sure you want to mark all exercises as complete?",
+                    "Are you sure you want to mark all exercises as done?",
                     "Confirm Completion",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
@@ -891,19 +892,23 @@ public class Exercise extends javax.swing.JPanel {
                 insertStmt.executeBatch();
                 deleteStmt.executeBatch();
             }
-
-            JOptionPane.showMessageDialog(this, "All added exercises have been marked as complete.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "All added exercises have been marked as done.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            model.setRowCount(0);
             ExerciseHistory exerciseHistory = new ExerciseHistory(userId, home);
             exerciseHistory.setVisible(true);
             Window window = SwingUtilities.windowForComponent(this);
             if (window != null) {
                 window.dispose();
             }
-
-            model.setRowCount(0);
+            AchievementFrame achievementFrame = new AchievementFrame(userId);
+            int completedCount = achievementFrame.countCompletedExercise();
+            achievementFrame.checkExerciseAchievements(completedCount);
+            Achievements achievement = new Achievements(userId);
+            achievement.loadAchievements();
+            achievement.countAchievements();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error while marking exercises as complete: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error while marking exercises as done: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_execomplete_btnMouseClicked
 

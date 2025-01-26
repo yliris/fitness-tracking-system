@@ -13,15 +13,14 @@ public class Guide extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        guide_panels = new javax.swing.JTabbedPane();
         guide_home_panel = new Resources.components.PanelBorder();
         panelBorder1 = new Resources.components.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel199 = new javax.swing.JLabel();
         panelBorder3 = new Resources.components.PanelBorder();
-        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         panelBorder10 = new Resources.components.PanelBorder();
         jLabel161 = new javax.swing.JLabel();
         panelBorder7 = new Resources.components.PanelBorder();
@@ -232,11 +231,54 @@ public class Guide extends javax.swing.JPanel {
         jLabel167 = new javax.swing.JLabel();
         jLabel168 = new javax.swing.JLabel();
         jLabel169 = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
+        jLabel174 = new javax.swing.JLabel();
+        jLabel175 = new javax.swing.JLabel();
+        jLabel176 = new javax.swing.JLabel();
+        jLabel177 = new javax.swing.JLabel();
+        jLabel178 = new javax.swing.JLabel();
+        jLabel179 = new javax.swing.JLabel();
+        jLabel180 = new javax.swing.JLabel();
+        jLabel181 = new javax.swing.JLabel();
+        jLabel182 = new javax.swing.JLabel();
+        jLabel183 = new javax.swing.JLabel();
+        jLabel184 = new javax.swing.JLabel();
+        jLabel185 = new javax.swing.JLabel();
+        jLabel186 = new javax.swing.JLabel();
+        jLabel187 = new javax.swing.JLabel();
+        jLabel188 = new javax.swing.JLabel();
+        jLabel189 = new javax.swing.JLabel();
+        jLabel190 = new javax.swing.JLabel();
+        jLabel191 = new javax.swing.JLabel();
+        jLabel192 = new javax.swing.JLabel();
+        jLabel193 = new javax.swing.JLabel();
+        jLabel194 = new javax.swing.JLabel();
+        jLabel195 = new javax.swing.JLabel();
+        jLabel196 = new javax.swing.JLabel();
+        jSeparator13 = new javax.swing.JSeparator();
+        panelBorder34 = new Resources.components.PanelBorder();
+        jLabel211 = new javax.swing.JLabel();
+        panelBorder25 = new Resources.components.PanelBorder();
+        jLabel213 = new javax.swing.JLabel();
+        jLabel198 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel200 = new javax.swing.JLabel();
+        jLabel201 = new javax.swing.JLabel();
+        jLabel202 = new javax.swing.JLabel();
+        jLabel203 = new javax.swing.JLabel();
+        jLabel204 = new javax.swing.JLabel();
+        jLabel205 = new javax.swing.JLabel();
+        jLabel207 = new javax.swing.JLabel();
+        jLabel208 = new javax.swing.JLabel();
+        jLabel209 = new javax.swing.JLabel();
+        jLabel197 = new javax.swing.JLabel();
+        jLabel206 = new javax.swing.JLabel();
+        jLabel210 = new javax.swing.JLabel();
+        jLabel212 = new javax.swing.JLabel();
         panelBorder14 = new Resources.components.PanelBorder();
         jLabel173 = new javax.swing.JLabel();
-        panelBorder2 = new Resources.components.PanelBorder();
-        panelBorder4 = new Resources.components.PanelBorder();
-        panelBorder5 = new Resources.components.PanelBorder();
+        foodgain_btn = new Resources.components.PanelBorder();
+        foodloss_btn = new Resources.components.PanelBorder();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -251,11 +293,6 @@ public class Guide extends javax.swing.JPanel {
         jLabel1.setText("Stay motivated and reach your fitness milestones with ease!");
         panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 680, 30));
 
-        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("FiTS is a user-friendly fitness tracking app designed to help you achieve your health goals");
-        panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 680, 30));
-
         jLabel3.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("efficiently. With features like personalized diet and exercise planners and BMI tracking, and");
@@ -266,23 +303,18 @@ public class Guide extends javax.swing.JPanel {
         jLabel4.setText("progress analysis through results, FiTS empowers you to stay on top of your fitness journey.");
         panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 680, 30));
 
+        jLabel199.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        jLabel199.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel199.setText("FiTS is a user-friendly fitness tracking app designed to help you achieve your health goals");
+        panelBorder1.add(jLabel199, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 680, 30));
+
         guide_home_panel.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
-        panelBorder3.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder3.setBackground(new java.awt.Color(142, 167, 233));
         panelBorder3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-        );
-
-        panelBorder3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 170));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/devs-gif.gif"))); // NOI18N
+        panelBorder3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         guide_home_panel.add(panelBorder3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 270, 190));
 
@@ -313,7 +345,7 @@ public class Guide extends javax.swing.JPanel {
 
         guide_home_panel.add(panelBorder8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 120, 80));
 
-        panelBorder11.setBackground(new java.awt.Color(142, 167, 233));
+        panelBorder11.setBackground(new java.awt.Color(114, 134, 211));
         panelBorder11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
@@ -324,7 +356,7 @@ public class Guide extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Mendoza, Mark Jason");
-        panelBorder11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 210, 20));
+        panelBorder11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 125, 210, 20));
 
         jLabel15.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -344,7 +376,7 @@ public class Guide extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Mendoza, Ralph Chrysler John");
-        panelBorder11.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 210, 30));
+        panelBorder11.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 145, 210, 30));
 
         guide_home_panel.add(panelBorder11, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 30, 250, 180));
 
@@ -994,8 +1026,9 @@ public class Guide extends javax.swing.JPanel {
 
         jLabel79.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(61, 157, 98));
-        jLabel79.setText("BENEFITS OF EXERCISING:");
-        jPanel1.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 200, 40));
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel79.setText("Benefits");
+        jPanel1.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 2250, 400, 40));
 
         jLabel126.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         jLabel126.setText("SNACKS -");
@@ -1004,8 +1037,8 @@ public class Guide extends javax.swing.JPanel {
         jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
         jPanel1.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1550, -1, 30));
 
-        jLabel125.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
-        jPanel1.add(jLabel125, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1460, -1, 30));
+        jLabel125.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-sub.png"))); // NOI18N
+        jPanel1.add(jLabel125, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2590, -1, 30));
 
         jLabel127.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
         jPanel1.add(jLabel127, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1490, -1, 30));
@@ -1158,7 +1191,9 @@ public class Guide extends javax.swing.JPanel {
         panelBorder13.add(jLabel149, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 310, 30));
 
         jPanel1.add(panelBorder13, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 1870, 400, 160));
-        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1850, 820, 10));
+
+        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 2250, 20, 200));
 
         jLabel96.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
         jLabel96.setForeground(new java.awt.Color(102, 102, 102));
@@ -1198,8 +1233,8 @@ public class Guide extends javax.swing.JPanel {
         jPanel1.add(jLabel163, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1750, 80, 30));
 
         jLabel164.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
-        jLabel164.setText("BREAKFAST -");
-        jPanel1.add(jLabel164, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1650, 90, 30));
+        jLabel164.setText("Improves Sleep");
+        jPanel1.add(jLabel164, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 2420, 140, 30));
 
         jLabel165.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         jLabel165.setForeground(new java.awt.Color(51, 51, 51));
@@ -1225,10 +1260,176 @@ public class Guide extends javax.swing.JPanel {
         jLabel169.setForeground(new java.awt.Color(51, 51, 51));
         jLabel169.setText("Is a meal taken in the night, this meal offers completion and the feeling of fulfilment.");
         jPanel1.add(jLabel169, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 1750, 640, 30));
+        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2480, 820, 10));
+
+        jLabel174.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel174.setForeground(new java.awt.Color(61, 157, 98));
+        jLabel174.setText("BENEFITS OF EXERCISING:");
+        jPanel1.add(jLabel174, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 200, 40));
+
+        jLabel175.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel175.setForeground(new java.awt.Color(61, 157, 98));
+        jLabel175.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel175.setText("HEALTH AND FITNESS");
+        jPanel1.add(jLabel175, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2210, 810, 40));
+
+        jLabel176.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        jLabel176.setForeground(new java.awt.Color(114, 134, 211));
+        jLabel176.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel176.setText("Why FiTS?");
+        jPanel1.add(jLabel176, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 2510, 690, 60));
+
+        jLabel177.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel177, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1460, -1, 30));
+
+        jLabel178.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel178, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2300, -1, 30));
+
+        jLabel179.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel179, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2330, -1, 30));
+
+        jLabel180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel180, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2360, -1, 30));
+
+        jLabel181.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel181, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2390, -1, 30));
+
+        jLabel182.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel182, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 2300, -1, 30));
+
+        jLabel183.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel183, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 2330, -1, 30));
+
+        jLabel184.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel184, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 2360, -1, 30));
+
+        jLabel185.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel185, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 2390, -1, 30));
+
+        jLabel186.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel186, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 2420, -1, 30));
+
+        jLabel187.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel187.setText("BREAKFAST -");
+        jPanel1.add(jLabel187, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1650, 90, 30));
+
+        jLabel188.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel188.setText("Heart Health");
+        jPanel1.add(jLabel188, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2300, 90, 30));
+
+        jLabel189.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel189.setText("Bone Health");
+        jPanel1.add(jLabel189, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2330, 90, 30));
+
+        jLabel190.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel190.setText("Weight Management");
+        jPanel1.add(jLabel190, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2360, 140, 30));
+
+        jLabel191.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel191.setText("Improves Mood");
+        jPanel1.add(jLabel191, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2390, 140, 30));
+
+        jLabel192.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel192.setText("Reduce Depression");
+        jPanel1.add(jLabel192, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2420, 140, 30));
+
+        jLabel193.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel193.setText("Live Longer");
+        jPanel1.add(jLabel193, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 2300, 140, 30));
+
+        jLabel194.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel194.setText("Reduce Health Risks");
+        jPanel1.add(jLabel194, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 2330, 140, 30));
+
+        jLabel195.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel195.setText("Manage Weight");
+        jPanel1.add(jLabel195, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 2360, 140, 30));
+
+        jLabel196.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel196.setText("Better Sleep");
+        jPanel1.add(jLabel196, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 2390, 140, 30));
+        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1850, 820, 10));
+
+        panelBorder34.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder34.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel211.setFont(new java.awt.Font("Cascadia Mono", 0, 36)); // NOI18N
+        jLabel211.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel211.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-icon.png"))); // NOI18N
+        jLabel211.setIconTextGap(20);
+        panelBorder34.add(jLabel211, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 70));
+
+        jPanel1.add(panelBorder34, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 2800, 710, 70));
+
+        panelBorder25.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel213.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel213.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-icon.png"))); // NOI18N
+        panelBorder25.add(jLabel213, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 250));
+
+        jPanel1.add(panelBorder25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2530, 80, 250));
+
+        jLabel198.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel198.setForeground(new java.awt.Color(61, 157, 98));
+        jLabel198.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel198.setText("Importance");
+        jPanel1.add(jLabel198, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2250, 400, 40));
+
+        jLabel2.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel2.setText("with your fitness goals.");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 2610, 650, 30));
+
+        jLabel200.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel200, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2420, -1, 30));
+
+        jLabel201.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel201.setText("Exercise Planner");
+        jPanel1.add(jLabel201, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2560, 150, 30));
+
+        jLabel202.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-blue-icon.png"))); // NOI18N
+        jPanel1.add(jLabel202, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2560, -1, 30));
+
+        jLabel203.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-blue-icon.png"))); // NOI18N
+        jPanel1.add(jLabel203, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2640, -1, 30));
+
+        jLabel204.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel204.setText("Diet Planner");
+        jPanel1.add(jLabel204, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2640, 150, 30));
+
+        jLabel205.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-sub.png"))); // NOI18N
+        jPanel1.add(jLabel205, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2670, -1, 30));
+
+        jLabel207.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-blue-icon.png"))); // NOI18N
+        jPanel1.add(jLabel207, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 2710, -1, 30));
+
+        jLabel208.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel208.setText("Results and Recommendations");
+        jPanel1.add(jLabel208, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2710, 210, 30));
+
+        jLabel209.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/arrow-sub.png"))); // NOI18N
+        jPanel1.add(jLabel209, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2740, -1, 30));
+
+        jLabel197.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel197.setText("personalized suggestions to keep you on track.");
+        jPanel1.add(jLabel197, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 2760, 650, 30));
+
+        jLabel206.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel206.setText("Plan and organize your weekly workout routines, complete with sets and reps, to stay consistent");
+        jPanel1.add(jLabel206, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 2590, 650, 30));
+
+        jLabel210.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel210.setText("Track your meals daily and visualize your nutritional intake through easy-to-understand pie charts.");
+        jPanel1.add(jLabel210, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 2670, 650, 30));
+
+        jLabel212.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel212.setText("Analyze your progress with detailed results, monitor calorie and nutrient breakdowns, and receive");
+        jPanel1.add(jLabel212, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 2740, 650, 30));
 
         scrollPaneWin111.setViewportView(jPanel1);
 
-        guide_home_panel.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 870, 2290));
+        guide_home_panel.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 870, 280));
 
         panelBorder14.setBackground(new java.awt.Color(161, 183, 236));
         panelBorder14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1239,56 +1440,96 @@ public class Guide extends javax.swing.JPanel {
 
         guide_home_panel.add(panelBorder14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 120, 70));
 
-        guide_panels.addTab("tab1", guide_home_panel);
+        foodgain_btn.setBackground(new java.awt.Color(142, 167, 233));
+        foodgain_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                foodgain_btnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                foodgain_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                foodgain_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                foodgain_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                foodgain_btnMouseReleased(evt);
+            }
+        });
+        foodgain_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        guide_home_panel.add(foodgain_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 270, 280, 90));
 
-        panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
+        foodloss_btn.setBackground(new java.awt.Color(142, 167, 233));
+        foodloss_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                foodloss_btnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                foodloss_btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                foodloss_btnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                foodloss_btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                foodloss_btnMouseReleased(evt);
+            }
+        });
+        foodloss_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        guide_home_panel.add(foodloss_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 400, 280, 80));
 
-        javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
-        panelBorder2.setLayout(panelBorder2Layout);
-        panelBorder2Layout.setHorizontalGroup(
-            panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1250, Short.MAX_VALUE)
-        );
-        panelBorder2Layout.setVerticalGroup(
-            panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3555, Short.MAX_VALUE)
-        );
-
-        guide_panels.addTab("tab2", panelBorder2);
-
-        javax.swing.GroupLayout panelBorder4Layout = new javax.swing.GroupLayout(panelBorder4);
-        panelBorder4.setLayout(panelBorder4Layout);
-        panelBorder4Layout.setHorizontalGroup(
-            panelBorder4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1250, Short.MAX_VALUE)
-        );
-        panelBorder4Layout.setVerticalGroup(
-            panelBorder4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3555, Short.MAX_VALUE)
-        );
-
-        guide_panels.addTab("tab3", panelBorder4);
-
-        javax.swing.GroupLayout panelBorder5Layout = new javax.swing.GroupLayout(panelBorder5);
-        panelBorder5.setLayout(panelBorder5Layout);
-        panelBorder5Layout.setHorizontalGroup(
-            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1250, Short.MAX_VALUE)
-        );
-        panelBorder5Layout.setVerticalGroup(
-            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3555, Short.MAX_VALUE)
-        );
-
-        guide_panels.addTab("tab4", panelBorder5);
-
-        add(guide_panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1250, 3590));
+        add(guide_home_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void foodgain_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseClicked
+        new Food().setVisible(true);
+    }//GEN-LAST:event_foodgain_btnMouseClicked
+
+    private void foodgain_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodgain_btnMouseEntered
+
+    private void foodgain_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodgain_btnMouseExited
+
+    private void foodgain_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodgain_btnMousePressed
+
+    private void foodgain_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodgain_btnMouseReleased
+
+    private void foodloss_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodloss_btnMouseClicked
+
+    private void foodloss_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodloss_btnMouseEntered
+
+    private void foodloss_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodloss_btnMouseExited
+
+    private void foodloss_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodloss_btnMousePressed
+
+    private void foodloss_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodloss_btnMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Resources.components.PanelBorder foodgain_btn;
+    private Resources.components.PanelBorder foodloss_btn;
     private Resources.components.PanelBorder guide_home_panel;
-    private javax.swing.JTabbedPane guide_panels;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -1372,11 +1613,51 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel171;
     private javax.swing.JLabel jLabel172;
     private javax.swing.JLabel jLabel173;
+    private javax.swing.JLabel jLabel174;
+    private javax.swing.JLabel jLabel175;
+    private javax.swing.JLabel jLabel176;
+    private javax.swing.JLabel jLabel177;
+    private javax.swing.JLabel jLabel178;
+    private javax.swing.JLabel jLabel179;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel180;
+    private javax.swing.JLabel jLabel181;
+    private javax.swing.JLabel jLabel182;
+    private javax.swing.JLabel jLabel183;
+    private javax.swing.JLabel jLabel184;
+    private javax.swing.JLabel jLabel185;
+    private javax.swing.JLabel jLabel186;
+    private javax.swing.JLabel jLabel187;
+    private javax.swing.JLabel jLabel188;
+    private javax.swing.JLabel jLabel189;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel190;
+    private javax.swing.JLabel jLabel191;
+    private javax.swing.JLabel jLabel192;
+    private javax.swing.JLabel jLabel193;
+    private javax.swing.JLabel jLabel194;
+    private javax.swing.JLabel jLabel195;
+    private javax.swing.JLabel jLabel196;
+    private javax.swing.JLabel jLabel197;
+    private javax.swing.JLabel jLabel198;
+    private javax.swing.JLabel jLabel199;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel200;
+    private javax.swing.JLabel jLabel201;
+    private javax.swing.JLabel jLabel202;
+    private javax.swing.JLabel jLabel203;
+    private javax.swing.JLabel jLabel204;
+    private javax.swing.JLabel jLabel205;
+    private javax.swing.JLabel jLabel206;
+    private javax.swing.JLabel jLabel207;
+    private javax.swing.JLabel jLabel208;
+    private javax.swing.JLabel jLabel209;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel210;
+    private javax.swing.JLabel jLabel211;
+    private javax.swing.JLabel jLabel212;
+    private javax.swing.JLabel jLabel213;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1418,6 +1699,7 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -1463,9 +1745,10 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1486,12 +1769,12 @@ public class Guide extends javax.swing.JPanel {
     private Resources.components.PanelBorder panelBorder17;
     private Resources.components.PanelBorder panelBorder18;
     private Resources.components.PanelBorder panelBorder19;
-    private Resources.components.PanelBorder panelBorder2;
     private Resources.components.PanelBorder panelBorder20;
     private Resources.components.PanelBorder panelBorder21;
     private Resources.components.PanelBorder panelBorder22;
     private Resources.components.PanelBorder panelBorder23;
     private Resources.components.PanelBorder panelBorder24;
+    private Resources.components.PanelBorder panelBorder25;
     private Resources.components.PanelBorder panelBorder26;
     private Resources.components.PanelBorder panelBorder27;
     private Resources.components.PanelBorder panelBorder28;
@@ -1501,10 +1784,9 @@ public class Guide extends javax.swing.JPanel {
     private Resources.components.PanelBorder panelBorder31;
     private Resources.components.PanelBorder panelBorder32;
     private Resources.components.PanelBorder panelBorder33;
+    private Resources.components.PanelBorder panelBorder34;
     private Resources.components.PanelBorder panelBorder35;
     private Resources.components.PanelBorder panelBorder36;
-    private Resources.components.PanelBorder panelBorder4;
-    private Resources.components.PanelBorder panelBorder5;
     private Resources.components.PanelBorder panelBorder6;
     private Resources.components.PanelBorder panelBorder7;
     private Resources.components.PanelBorder panelBorder8;

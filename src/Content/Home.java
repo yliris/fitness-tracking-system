@@ -7,6 +7,7 @@ import Account.UserEditForm;
 import Resources.components.GoalForm;
 import Resources.components.ModelPieChart;
 import Resources.components.PasswordForm;
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,12 @@ public class Home extends javax.swing.JPanel {
         exerciseResult();
         mealResult();
         populateWeeks();
-        weeks_cbox.addActionListener(e -> showData());
+        showData();
+        weeks_cbox.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                showData();
+            }
+        });
     }
 
     private void setProfileDetails() {
@@ -387,17 +393,23 @@ public class Home extends javax.swing.JPanel {
 
         float bmi = Float.parseFloat(bmiStr.split(" ")[0]);
         String diet_label = "";
+        String daily = "";
+        String weekly = "";
         String dietrecommendation1 = "";
         String dietrecommendation2 = "";
         String dietrecommendation3 = "";
 
         if (goal == null || goal.isEmpty()) {
             diet_label = "";
+            daily = "";
+            weekly = "";
             dietrecommendation1 = "";
             dietrecommendation2 = "";
             dietrecommendation3 = "";
         } else if (goal.equals("Gain Weight")) {
             diet_label = "Recommended Diet:";
+            daily = "Daily:";
+            weekly = "Weekly:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 2,300–3,000, Protein: 70–120 g, Carbs: 300–400 g, Fat: 70–100 g.";
                 dietrecommendation3 = "Include calorie-dense foods like nuts, dairy, lean meats, and whole grains.";
@@ -417,6 +429,8 @@ public class Home extends javax.swing.JPanel {
             }
         } else if (goal.equals("Lose Weight")) {
             diet_label = "Recommended Diet:";
+            daily = "Daily:";
+            weekly = "Weekly:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 1,600–2,000, Protein: 60–90 g, Carbs: 200–250 g, Fat: 50–70 g.";
                 dietrecommendation3 = "Focus on nutrient-rich foods like eggs, dairy, and nuts.";
@@ -436,6 +450,8 @@ public class Home extends javax.swing.JPanel {
             }
         } else if (goal.equals("Maintain Weight")) {
             diet_label = "Recommended Diet:";
+            daily = "Daily:";
+            weekly = "Weekly:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 2,000–2,300, Protein: 60–100 g, Carbs: 250–300 g, Fat: 60–80 g.";
                 dietrecommendation3 = "Eat nutrient-dense meals with a focus on healthy fats and carbs.";
@@ -456,6 +472,8 @@ public class Home extends javax.swing.JPanel {
         }
 
         label_diet.setText(diet_label);
+        label_diet2.setText(daily);
+        label_diet1.setText(weekly);
         meal_recommendation1.setText(dietrecommendation1);
         meal_recommendation2.setText(dietrecommendation2);
         meal_recommendation.setText(dietrecommendation3);
@@ -481,6 +499,10 @@ public class Home extends javax.swing.JPanel {
         for (String range : weeklyRanges) {
             weeks_cbox.addItem(range);
         }
+
+        if (!weeklyRanges.isEmpty()) {
+            weeks_cbox.setSelectedIndex(weeklyRanges.size() - 1);
+        }
     }
 
     private void showData() {
@@ -497,7 +519,7 @@ public class Home extends javax.swing.JPanel {
             pieChart1.addData(new ModelPieChart("Calories", calories, new Color(83, 87, 166)));
             pieChart1.addData(new ModelPieChart("Protein", protein, new Color(126, 148, 191)));
             pieChart1.addData(new ModelPieChart("Carbs", carbohydrates, new Color(167, 203, 217)));
-            pieChart1.addData(new ModelPieChart("Fat", fat, new Color(216,225,229)));
+            pieChart1.addData(new ModelPieChart("Fat", fat, new Color(216, 225, 229)));
         }
         pieChart1.repaint();
     }
@@ -993,7 +1015,7 @@ public class Home extends javax.swing.JPanel {
         piechart_panel.add(weeks_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, -1));
 
         pieChart1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
-        piechart_panel.add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 310, 260));
+        piechart_panel.add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 320, 260));
 
         home_background.add(piechart_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 340, 310));
 
