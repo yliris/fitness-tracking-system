@@ -78,9 +78,14 @@ public class MealHistory extends javax.swing.JFrame {
 
                     String status = (completed == 1) ? "Completed" : "Incomplete";
 
+                    String caloriesStr = (calories == 0) ? "None" : calories + " kcal";
+                    String proteinStr = (protein == 0) ? "None" : protein + " g";
+                    String carbohydratesStr = (carbohydrates == 0) ? "None" : carbohydrates + " g";
+                    String fatStr = (fat == 0) ? "None" : fat + " g";
+
                     model.addRow(new Object[]{
                         day, mealCategory, mealName, description,
-                        calories, protein, carbohydrates, fat,
+                        caloriesStr, proteinStr, carbohydratesStr, fatStr,
                         status
                     });
                 }

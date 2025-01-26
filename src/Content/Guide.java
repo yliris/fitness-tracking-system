@@ -21,12 +21,13 @@ public class Guide extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         panelBorder3 = new Resources.components.PanelBorder();
-        jLabel6 = new javax.swing.JLabel();
-        panelBorder13 = new Resources.components.PanelBorder();
-        panelBorder12 = new Resources.components.PanelBorder();
+        jPanel3 = new javax.swing.JPanel();
         panelBorder10 = new Resources.components.PanelBorder();
+        jLabel161 = new javax.swing.JLabel();
         panelBorder7 = new Resources.components.PanelBorder();
+        jLabel171 = new javax.swing.JLabel();
         panelBorder8 = new Resources.components.PanelBorder();
+        jLabel170 = new javax.swing.JLabel();
         panelBorder11 = new Resources.components.PanelBorder();
         jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -35,6 +36,7 @@ public class Guide extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         panelBorder9 = new Resources.components.PanelBorder();
+        jLabel172 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         or = new javax.swing.JLabel();
         or1 = new javax.swing.JLabel();
@@ -67,7 +69,6 @@ public class Guide extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
         jLabel51 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
@@ -108,7 +109,6 @@ public class Guide extends javax.swing.JPanel {
         jLabel75 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
-        jLabel78 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         scrollPaneWin112 = new Resources.components.ScrollPaneWin11();
@@ -166,9 +166,8 @@ public class Guide extends javax.swing.JPanel {
         panelBorder17 = new Resources.components.PanelBorder();
         jLabel63 = new javax.swing.JLabel();
         panelBorder16 = new Resources.components.PanelBorder();
-        jLabel96 = new javax.swing.JLabel();
+        jLabel135 = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
         jLabel99 = new javax.swing.JLabel();
         jLabel100 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
@@ -176,7 +175,65 @@ public class Guide extends javax.swing.JPanel {
         jLabel120 = new javax.swing.JLabel();
         jLabel121 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
+        jLabel122 = new javax.swing.JLabel();
+        jLabel123 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel126 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel125 = new javax.swing.JLabel();
+        jLabel127 = new javax.swing.JLabel();
+        jLabel128 = new javax.swing.JLabel();
+        jLabel129 = new javax.swing.JLabel();
+        jLabel130 = new javax.swing.JLabel();
+        jLabel131 = new javax.swing.JLabel();
+        jLabel132 = new javax.swing.JLabel();
+        jLabel133 = new javax.swing.JLabel();
+        panelBorder12 = new Resources.components.PanelBorder();
+        jLabel136 = new javax.swing.JLabel();
+        jLabel139 = new javax.swing.JLabel();
+        jLabel124 = new javax.swing.JLabel();
+        jLabel144 = new javax.swing.JLabel();
+        jLabel145 = new javax.swing.JLabel();
+        jLabel146 = new javax.swing.JLabel();
+        jLabel147 = new javax.swing.JLabel();
+        panelBorder36 = new Resources.components.PanelBorder();
+        jLabel155 = new javax.swing.JLabel();
+        jLabel156 = new javax.swing.JLabel();
+        jLabel157 = new javax.swing.JLabel();
+        jLabel158 = new javax.swing.JLabel();
+        jLabel159 = new javax.swing.JLabel();
+        panelBorder35 = new Resources.components.PanelBorder();
+        jLabel150 = new javax.swing.JLabel();
+        jLabel151 = new javax.swing.JLabel();
+        jLabel152 = new javax.swing.JLabel();
+        jLabel153 = new javax.swing.JLabel();
+        jLabel154 = new javax.swing.JLabel();
+        panelBorder13 = new Resources.components.PanelBorder();
+        jLabel137 = new javax.swing.JLabel();
+        jLabel141 = new javax.swing.JLabel();
+        jLabel143 = new javax.swing.JLabel();
+        jLabel148 = new javax.swing.JLabel();
+        jLabel149 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        jLabel96 = new javax.swing.JLabel();
+        jLabel142 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel134 = new javax.swing.JLabel();
+        jLabel138 = new javax.swing.JLabel();
+        jLabel140 = new javax.swing.JLabel();
+        jLabel160 = new javax.swing.JLabel();
+        jSeparator10 = new javax.swing.JSeparator();
+        jSeparator11 = new javax.swing.JSeparator();
+        jLabel162 = new javax.swing.JLabel();
+        jLabel163 = new javax.swing.JLabel();
+        jLabel164 = new javax.swing.JLabel();
+        jLabel165 = new javax.swing.JLabel();
+        jLabel166 = new javax.swing.JLabel();
+        jLabel167 = new javax.swing.JLabel();
+        jLabel168 = new javax.swing.JLabel();
+        jLabel169 = new javax.swing.JLabel();
         panelBorder14 = new Resources.components.PanelBorder();
+        jLabel173 = new javax.swing.JLabel();
         panelBorder2 = new Resources.components.PanelBorder();
         panelBorder4 = new Resources.components.PanelBorder();
         panelBorder5 = new Resources.components.PanelBorder();
@@ -214,30 +271,47 @@ public class Guide extends javax.swing.JPanel {
         panelBorder3.setBackground(new java.awt.Color(114, 134, 211));
         panelBorder3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setText("ELEMENT");
-        panelBorder3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 170, Short.MAX_VALUE)
+        );
+
+        panelBorder3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 170));
 
         guide_home_panel.add(panelBorder3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 270, 190));
 
-        panelBorder13.setBackground(new java.awt.Color(190, 205, 242));
-        panelBorder13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(panelBorder13, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 380, 300, 120));
-
-        panelBorder12.setBackground(new java.awt.Color(190, 205, 242));
-        panelBorder12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(panelBorder12, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 250, 300, 120));
-
-        panelBorder10.setBackground(new java.awt.Color(190, 205, 242));
+        panelBorder10.setBackground(new java.awt.Color(161, 183, 236));
         panelBorder10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel161.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel161.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-27.png"))); // NOI18N
+        panelBorder10.add(jLabel161, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 70));
+
         guide_home_panel.add(panelBorder10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 120, 70));
 
-        panelBorder7.setBackground(new java.awt.Color(142, 167, 233));
+        panelBorder7.setBackground(new java.awt.Color(122, 151, 229));
         panelBorder7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel171.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel171.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-24.png"))); // NOI18N
+        panelBorder7.add(jLabel171, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 70));
+
         guide_home_panel.add(panelBorder7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 120, 70));
 
         panelBorder8.setBackground(new java.awt.Color(114, 134, 211));
         panelBorder8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(panelBorder8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 120, 70));
+
+        jLabel170.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel170.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fts-icon.png"))); // NOI18N
+        panelBorder8.add(jLabel170, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 80));
+
+        guide_home_panel.add(panelBorder8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 120, 80));
 
         panelBorder11.setBackground(new java.awt.Color(142, 167, 233));
         panelBorder11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -274,15 +348,20 @@ public class Guide extends javax.swing.JPanel {
 
         guide_home_panel.add(panelBorder11, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 30, 250, 180));
 
-        panelBorder9.setBackground(new java.awt.Color(142, 167, 233));
+        panelBorder9.setBackground(new java.awt.Color(122, 151, 229));
         panelBorder9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel172.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel172.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-25.png"))); // NOI18N
+        panelBorder9.add(jLabel172, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 70));
+
         guide_home_panel.add(panelBorder9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 120, 70));
         guide_home_panel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 230, 70, 10));
 
         or.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         or.setForeground(new java.awt.Color(153, 153, 153));
         or.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        or.setText("Food Recommendations");
+        or.setText("Meal Recommendations");
         guide_home_panel.add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 225, 140, -1));
 
         or1.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
@@ -401,7 +480,6 @@ public class Guide extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/bmi-icon-small.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 550, 10));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1310, 820, 10));
 
         jLabel51.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -526,7 +604,7 @@ public class Guide extends javax.swing.JPanel {
 
         jLabel28.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel28.setText("EXERCISE");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 70, 50));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, 70, 50));
 
         jLabel64.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         jLabel64.setForeground(new java.awt.Color(45, 65, 143));
@@ -591,17 +669,12 @@ public class Guide extends javax.swing.JPanel {
         jPanel1.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 890, -1, -1));
         jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 560, 10));
 
-        jLabel78.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(61, 157, 98));
-        jLabel78.setText("BENEFITS OF EXERCISING:");
-        jPanel1.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 200, 40));
-
         jLabel80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-14.png"))); // NOI18N
         jPanel1.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 890, -1, -1));
 
         jLabel81.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel81.setText(" is an activity in which a person moves his/her body to burn fats and create stronger or flexible muscles.");
-        jPanel1.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 630, 760, 30));
+        jPanel1.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 630, 760, 30));
 
         scrollPaneWin112.setBackground(new java.awt.Color(255, 255, 255));
         scrollPaneWin112.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -867,26 +940,21 @@ public class Guide extends javax.swing.JPanel {
         panelBorder16.setBackground(new java.awt.Color(190, 205, 242));
         panelBorder16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel96.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/duration-icon.png"))); // NOI18N
-        panelBorder16.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 130));
+        jLabel135.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel135.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/duration-icon.png"))); // NOI18N
+        panelBorder16.add(jLabel135, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 130));
 
-        jPanel1.add(panelBorder16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1150, 90, 130));
+        jPanel1.add(panelBorder16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 1150, 90, 130));
 
         jLabel86.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         jLabel86.setForeground(new java.awt.Color(102, 102, 102));
         jLabel86.setText("consecutively before taking a short rest.");
         jPanel1.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1180, 350, 40));
 
-        jLabel85.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        jLabel85.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel85.setText("Repetition/Reps");
-        jPanel1.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1220, 290, 30));
-
         jLabel99.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel99.setForeground(new java.awt.Color(102, 102, 102));
         jLabel99.setText("Duration");
-        jPanel1.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 1180, 290, 40));
+        jPanel1.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 1180, 290, 40));
 
         jLabel100.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel100.setForeground(new java.awt.Color(102, 102, 102));
@@ -897,17 +965,16 @@ public class Guide extends javax.swing.JPanel {
         jLabel101.setForeground(new java.awt.Color(102, 102, 102));
         jLabel101.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel101.setText("- This is how long an exercise or activity last.");
-        jPanel1.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 1200, 290, 70));
+        jPanel1.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 1200, 290, 70));
 
         jLabel119.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         jLabel119.setForeground(new java.awt.Color(102, 102, 102));
         jLabel119.setText("A group of repetitions (reps) of an exercise performed");
         jPanel1.add(jLabel119, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1170, 350, 30));
 
-        jLabel120.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
-        jLabel120.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel120.setText("The number of times you perform a specific exercise");
-        jPanel1.add(jLabel120, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1240, 350, 30));
+        jLabel120.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel120.setText("Improve mental health.");
+        jPanel1.add(jLabel120, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1555, 460, 20));
 
         jLabel121.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         jLabel121.setForeground(new java.awt.Color(102, 102, 102));
@@ -915,12 +982,261 @@ public class Guide extends javax.swing.JPanel {
         jPanel1.add(jLabel121, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1250, 350, 40));
         jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 870, 810, 10));
 
+        jLabel122.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel122.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel122.setText("Repetition/Reps");
+        jPanel1.add(jLabel122, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1220, 290, 30));
+
+        jLabel123.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel123.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel123.setText("The number of times you perform a specific exercise");
+        jPanel1.add(jLabel123, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1240, 350, 30));
+
+        jLabel79.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel79.setForeground(new java.awt.Color(61, 157, 98));
+        jLabel79.setText("BENEFITS OF EXERCISING:");
+        jPanel1.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 200, 40));
+
+        jLabel126.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel126.setText("SNACKS -");
+        jPanel1.add(jLabel126, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1800, 80, 30));
+
+        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1550, -1, 30));
+
+        jLabel125.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel125, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1460, -1, 30));
+
+        jLabel127.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel127, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1490, -1, 30));
+
+        jLabel128.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/right-bullet-icon.png"))); // NOI18N
+        jPanel1.add(jLabel128, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1520, -1, 30));
+
+        jLabel129.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel129.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel129.setText("plenty of water. It provides your body with the nutrients it needs to function properly.");
+        jPanel1.add(jLabel129, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 1390, 550, 30));
+
+        jLabel130.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel130.setText("Improve immune system.");
+        jPanel1.add(jLabel130, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1465, 460, 20));
+
+        jLabel131.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel131.setText("Stronger bones and teeth.");
+        jPanel1.add(jLabel131, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1495, 460, 20));
+
+        jLabel132.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel132.setText("Better brain function.");
+        jPanel1.add(jLabel132, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1525, 460, 20));
+
+        jLabel133.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-23.png"))); // NOI18N
+        jPanel1.add(jLabel133, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 1330, -1, -1));
+
+        panelBorder12.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel136.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel136.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/cal-icon.png"))); // NOI18N
+        panelBorder12.add(jLabel136, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 160));
+
+        jLabel139.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel139.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel139.setText("CALORIES");
+        panelBorder12.add(jLabel139, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 320, 40));
+
+        jLabel124.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel124.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel124.setText("eating or drinking food.");
+        panelBorder12.add(jLabel124, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 310, 30));
+
+        jLabel144.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel144.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel144.setText("needed to raise the temperature of water by a");
+        panelBorder12.add(jLabel144, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 310, 30));
+
+        jLabel145.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel145.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel145.setText("certain amount. In nutrition, calories are used to");
+        panelBorder12.add(jLabel145, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 310, 30));
+
+        jLabel146.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel146.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel146.setText("describe how much energy a person can get from");
+        panelBorder12.add(jLabel146, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 310, 30));
+
+        jLabel147.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel147.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel147.setText("Is a unit of energy that measures how much heat is");
+        panelBorder12.add(jLabel147, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 310, 30));
+
+        jPanel1.add(panelBorder12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1870, 400, 160));
+
+        panelBorder36.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder36.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel155.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel155.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/fat-icon.png"))); // NOI18N
+        panelBorder36.add(jLabel155, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 160));
+
+        jLabel156.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel156.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel156.setText("FAT");
+        panelBorder36.add(jLabel156, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 320, 40));
+
+        jLabel157.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel157.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel157.setText("organs.");
+        panelBorder36.add(jLabel157, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 310, 30));
+
+        jLabel158.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel158.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel158.setText("Is a form of body tissue on animals. it's a");
+        panelBorder36.add(jLabel158, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 310, 30));
+
+        jLabel159.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel159.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel159.setText("squishy layer that stores energy and protects");
+        panelBorder36.add(jLabel159, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 310, 30));
+
+        jPanel1.add(panelBorder36, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 2040, 400, 160));
+
+        panelBorder35.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder35.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel150.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel150.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/carbs-icon.png"))); // NOI18N
+        panelBorder35.add(jLabel150, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 160));
+
+        jLabel151.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel151.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel151.setText("CARBOHYDRATES");
+        panelBorder35.add(jLabel151, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 320, 40));
+
+        jLabel152.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel152.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel152.setText("sugars.");
+        panelBorder35.add(jLabel152, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 310, 30));
+
+        jLabel153.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel153.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel153.setText("Are the body's main fuel source. During digestion,");
+        panelBorder35.add(jLabel153, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 310, 30));
+
+        jLabel154.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel154.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel154.setText("sugars and starches are broken down into simple");
+        panelBorder35.add(jLabel154, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 310, 30));
+
+        jPanel1.add(panelBorder35, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2040, 400, 160));
+
+        panelBorder13.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel137.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/protein-icon.png"))); // NOI18N
+        panelBorder13.add(jLabel137, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 160));
+
+        jLabel141.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel141.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel141.setText("PROTEIN");
+        panelBorder13.add(jLabel141, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 320, 40));
+
+        jLabel143.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel143.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel143.setText("muscles and bones and to make hormones and enzymes.");
+        panelBorder13.add(jLabel143, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 310, 30));
+
+        jLabel148.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel148.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel148.setText("Are made up of chemical 'building blocks' called");
+        panelBorder13.add(jLabel148, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 310, 30));
+
+        jLabel149.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
+        jLabel149.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel149.setText("Your body uses amino acids to build and repair ");
+        panelBorder13.add(jLabel149, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 310, 30));
+
+        jPanel1.add(panelBorder13, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 1870, 400, 160));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1850, 820, 10));
+
+        jLabel96.setFont(new java.awt.Font("Cascadia Mono", 1, 16)); // NOI18N
+        jLabel96.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel96.setText("BALANCED DIET");
+        jPanel1.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 1340, 290, 30));
+
+        jLabel142.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel142.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel142.setText("This includes a variety of foods from different food groups, in the right amounts, and with");
+        jPanel1.add(jLabel142, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 1370, 550, 30));
+
+        jLabel85.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/snack-icon.png"))); // NOI18N
+        jPanel1.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1800, -1, -1));
+
+        jLabel134.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/breakfast-icon.png"))); // NOI18N
+        jPanel1.add(jLabel134, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1650, -1, -1));
+
+        jLabel138.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/lunch-icon.png"))); // NOI18N
+        jPanel1.add(jLabel138, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1700, -1, -1));
+
+        jLabel140.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/dinner-icon.png"))); // NOI18N
+        jPanel1.add(jLabel140, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1750, -1, -1));
+
+        jLabel160.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel160.setForeground(new java.awt.Color(61, 157, 98));
+        jLabel160.setText("BENEFITS OF BALANCED DIET:");
+        jPanel1.add(jLabel160, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1420, 200, 40));
+        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1310, 820, 10));
+        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1620, 820, 10));
+
+        jLabel162.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel162.setText("LUNCH - ");
+        jPanel1.add(jLabel162, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1700, 80, 30));
+
+        jLabel163.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel163.setText("DINNER - ");
+        jPanel1.add(jLabel163, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1750, 80, 30));
+
+        jLabel164.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel164.setText("BREAKFAST -");
+        jPanel1.add(jLabel164, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 1650, 90, 30));
+
+        jLabel165.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel165.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel165.setText("both provide energy for the day.");
+        jPanel1.add(jLabel165, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 1670, 650, 20));
+
+        jLabel166.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel166.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel166.setText("Is the most important meal of the day, it usually includes bread or rice depending on the country but it");
+        jPanel1.add(jLabel166, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 1650, 650, 30));
+
+        jLabel167.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel167.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel167.setText("Are foods usually light that are eaten in between meals.");
+        jPanel1.add(jLabel167, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 1800, 640, 30));
+
+        jLabel168.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel168.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel168.setText("Is a meal taken in the middle of the day, this is to supplement the nutrition that the breakfast offers.");
+        jPanel1.add(jLabel168, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 1700, 650, 30));
+
+        jLabel169.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        jLabel169.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel169.setText("Is a meal taken in the night, this meal offers completion and the feeling of fulfilment.");
+        jPanel1.add(jLabel169, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 1750, 640, 30));
+
         scrollPaneWin111.setViewportView(jPanel1);
 
         guide_home_panel.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 870, 2290));
 
-        panelBorder14.setBackground(new java.awt.Color(190, 205, 242));
+        panelBorder14.setBackground(new java.awt.Color(161, 183, 236));
         panelBorder14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel173.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel173.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/guide-icon-26.png"))); // NOI18N
+        panelBorder14.add(jLabel173, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 70));
+
         guide_home_panel.add(panelBorder14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 120, 70));
 
         guide_panels.addTab("tab1", guide_home_panel);
@@ -999,11 +1315,63 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel120;
     private javax.swing.JLabel jLabel121;
+    private javax.swing.JLabel jLabel122;
+    private javax.swing.JLabel jLabel123;
+    private javax.swing.JLabel jLabel124;
+    private javax.swing.JLabel jLabel125;
+    private javax.swing.JLabel jLabel126;
+    private javax.swing.JLabel jLabel127;
+    private javax.swing.JLabel jLabel128;
+    private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel130;
+    private javax.swing.JLabel jLabel131;
+    private javax.swing.JLabel jLabel132;
+    private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel134;
+    private javax.swing.JLabel jLabel135;
+    private javax.swing.JLabel jLabel136;
+    private javax.swing.JLabel jLabel137;
+    private javax.swing.JLabel jLabel138;
+    private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel jLabel141;
+    private javax.swing.JLabel jLabel142;
+    private javax.swing.JLabel jLabel143;
+    private javax.swing.JLabel jLabel144;
+    private javax.swing.JLabel jLabel145;
+    private javax.swing.JLabel jLabel146;
+    private javax.swing.JLabel jLabel147;
+    private javax.swing.JLabel jLabel148;
+    private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
+    private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel160;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
+    private javax.swing.JLabel jLabel164;
+    private javax.swing.JLabel jLabel165;
+    private javax.swing.JLabel jLabel166;
+    private javax.swing.JLabel jLabel167;
+    private javax.swing.JLabel jLabel168;
+    private javax.swing.JLabel jLabel169;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel170;
+    private javax.swing.JLabel jLabel171;
+    private javax.swing.JLabel jLabel172;
+    private javax.swing.JLabel jLabel173;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1050,7 +1418,6 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -1071,6 +1438,7 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
@@ -1095,13 +1463,16 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel or;
     private javax.swing.JLabel or1;
     private Resources.components.PanelBorder panelBorder1;
@@ -1130,6 +1501,8 @@ public class Guide extends javax.swing.JPanel {
     private Resources.components.PanelBorder panelBorder31;
     private Resources.components.PanelBorder panelBorder32;
     private Resources.components.PanelBorder panelBorder33;
+    private Resources.components.PanelBorder panelBorder35;
+    private Resources.components.PanelBorder panelBorder36;
     private Resources.components.PanelBorder panelBorder4;
     private Resources.components.PanelBorder panelBorder5;
     private Resources.components.PanelBorder panelBorder6;

@@ -5,11 +5,14 @@ import Resources.components.DatabaseConnection;
 import Account.DeleteForm;
 import Account.UserEditForm;
 import Resources.components.GoalForm;
+import Resources.components.ModelPieChart;
 import Resources.components.PasswordForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.JOptionPane;
 
@@ -26,6 +29,8 @@ public class Home extends javax.swing.JPanel {
         updateMealCount();
         exerciseResult();
         mealResult();
+        populateWeeks();
+        weeks_cbox.addActionListener(e -> showData());
     }
 
     private void setProfileDetails() {
@@ -385,82 +390,68 @@ public class Home extends javax.swing.JPanel {
         String dietrecommendation1 = "";
         String dietrecommendation2 = "";
         String dietrecommendation3 = "";
-        String dietmotivation = "";
 
         if (goal == null || goal.isEmpty()) {
             diet_label = "";
             dietrecommendation1 = "";
             dietrecommendation2 = "";
             dietrecommendation3 = "";
-            dietmotivation = "";
         } else if (goal.equals("Gain Weight")) {
-            diet_label = "Recommended diet:";
+            diet_label = "Recommended Diet:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 2,300–3,000, Protein: 70–120 g, Carbs: 300–400 g, Fat: 70–100 g.";
-                dietrecommendation2 = "Include calorie-dense foods like nuts, dairy, lean meats, and whole grains.";
-                dietrecommendation3 = "Eat high-calorie meals with avocados, peanut butter, and full-fat yogurt.";
-                dietmotivation = "Fuel your body with energy-rich, healthy meals consistently!";
+                dietrecommendation3 = "Include calorie-dense foods like nuts, dairy, lean meats, and whole grains.";
+                dietrecommendation2 = "Calories: 16,100–21,000, Protein: 490–840 g, Carbs: 2,100–2,800 g, Fat: 490–700 g.";
             } else if (bmi < 25) {
                 dietrecommendation1 = "Calories: 2,500–3,200, Protein: 80–130 g, Carbs: 350–450 g, Fat: 80–110 g.";
-                dietrecommendation2 = "Add protein shakes, whole grains, and healthy oils to your meals.";
-                dietrecommendation3 = "Eat balanced meals with chicken, quinoa, and olive oil.";
-                dietmotivation = "Build strength by nourishing your body with the right foods!";
+                dietrecommendation3 = "Add protein shakes, whole grains, and healthy oils to your meals.";
+                dietrecommendation2 = "Calories: 17,500–22,400, Protein: 560–910 g, Carbs: 2,450–3,150 g, Fat: 560–770 g.";
             } else if (bmi < 30) {
                 dietrecommendation1 = "Calories: 2,200–2,800, Protein: 90–140 g, Carbs: 250–350 g, Fat: 70–90 g.";
-                dietrecommendation2 = "Focus on nutrient-dense foods and moderate portion sizes.";
-                dietrecommendation3 = "Eat meals with fish, vegetables, and brown rice.";
-                dietmotivation = "Focus on controlled calorie intake to support steady progress!";
+                dietrecommendation3 = "Focus on nutrient-dense foods and moderate portion sizes.";
+                dietrecommendation2 = "Calories: 15,400–19,600, Protein: 630–980 g, Carbs: 1,750–2,450 g, Fat: 490–630 g.";
             } else {
                 dietrecommendation1 = "Calories: 2,000–2,500, Protein: 100–150 g, Carbs: 200–300 g, Fat: 60–80 g.";
-                dietrecommendation2 = "Prioritize lean proteins, low-glycemic carbs, and healthy fats.";
-                dietrecommendation3 = "Choose meals like baked salmon, steamed broccoli, and lentils.";
-                dietmotivation = "Every meal is an opportunity to nourish your body wisely!";
+                dietrecommendation3 = "Prioritize lean proteins, low-glycemic carbs, and healthy fats.";
+                dietrecommendation2 = "Calories: 14,000–17,500, Protein: 700–1,050 g, Carbs: 1,400–2,100 g, Fat: 420–560 g.";
             }
         } else if (goal.equals("Lose Weight")) {
-            diet_label = "Recommended diet:";
+            diet_label = "Recommended Diet:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 1,600–2,000, Protein: 60–90 g, Carbs: 200–250 g, Fat: 50–70 g.";
-                dietrecommendation2 = "Focus on nutrient-rich foods like eggs, dairy, and nuts.";
-                dietrecommendation3 = "Eat meals with boiled eggs, oatmeal, and almond butter.";
-                dietmotivation = "Energize yourself while maintaining a steady calorie intake!";
+                dietrecommendation3 = "Focus on nutrient-rich foods like eggs, dairy, and nuts.";
+                dietrecommendation2 = "Calories: 11,200–14,000, Protein: 420–630 g, Carbs: 1,400–1,750 g, Fat: 350–490 g.";
             } else if (bmi < 25) {
                 dietrecommendation1 = "Calories: 1,500–2,000, Protein: 80–100 g, Carbs: 150–200 g, Fat: 50–60 g.";
-                dietrecommendation2 = "Incorporate high-fiber and low-calorie foods into your diet.";
-                dietrecommendation3 = "Opt for meals like grilled chicken, sweet potatoes, and spinach.";
-                dietmotivation = "Stay committed to your goal with disciplined eating!";
+                dietrecommendation3 = "Incorporate high-fiber and low-calorie foods into your diet.";
+                dietrecommendation2 = "Calories: 10,500–14,000, Protein: 560–700 g, Carbs: 1,050–1,400 g, Fat: 350–420 g.";
             } else if (bmi < 30) {
-                dietrecommendation1 = "Calories: 1,200–1,800, Protein: 90–110 g, Carbs: 100–150 g, Fat: 40–60 g.";
-                dietrecommendation2 = "Limit processed foods and sugary drinks; focus on whole foods.";
-                dietrecommendation3 = "Try meals like steamed fish, quinoa, and mixed greens.";
-                dietmotivation = "Discipline ensures success—stick to your plan and see results!";
+                dietrecommendation1 = "Daily: Calories: 1,200–1,800, Protein: 90–110 g, Carbs: 100–150 g, Fat: 40–60 g.";
+                dietrecommendation3 = "Limit processed foods and sugary drinks; focus on whole foods.";
+                dietrecommendation2 = "Weekly: Calories: 8,400–12,600, Protein: 630–770 g, Carbs: 700–1,050 g, Fat: 280–420 g.";
             } else {
                 dietrecommendation1 = "Calories: 1,200–1,600, Protein: 100–120 g, Carbs: 100–130 g, Fat: 30–50 g.";
-                dietrecommendation2 = "Eat low-carb, high-protein meals with lots of vegetables.";
-                dietrecommendation3 = "Choose meals like turkey patties, kale, and roasted zucchini.";
-                dietmotivation = "Your dedication will bring the transformation you aim for!";
+                dietrecommendation3 = "Eat low-carb, high-protein meals with lots of vegetables.";
+                dietrecommendation2 = "Calories: 8,400–11,200, Protein: 700–840 g, Carbs: 700–910 g, Fat: 210–350 g.";
             }
         } else if (goal.equals("Maintain Weight")) {
-            diet_label = "Recommended diet:";
+            diet_label = "Recommended Diet:";
             if (bmi < 18.5) {
                 dietrecommendation1 = "Calories: 2,000–2,300, Protein: 60–100 g, Carbs: 250–300 g, Fat: 60–80 g.";
-                dietrecommendation2 = "Eat nutrient-dense meals with a focus on healthy fats and carbs.";
-                dietrecommendation3 = "Try meals with salmon, avocado, and brown rice.";
-                dietmotivation = "Consistency is the key to maintaining a healthy lifestyle!";
+                dietrecommendation3 = "Eat nutrient-dense meals with a focus on healthy fats and carbs.";
+                dietrecommendation2 = "Calories: 14,000–16,100, Protein: 420–700 g, Carbs: 1,750–2,100 g, Fat: 420–560 g.";
             } else if (bmi < 25) {
                 dietrecommendation1 = "Calories: 2,000–2,500, Protein: 70–110 g, Carbs: 250–350 g, Fat: 60–90 g.";
-                dietrecommendation2 = "Focus on balance: lean protein, whole grains, and vegetables.";
-                dietrecommendation3 = "Opt for meals like grilled chicken, couscous, and green beans.";
-                dietmotivation = "Keep your habits steady and enjoy long-term well-being!";
+                dietrecommendation3 = "Focus on balance: lean protein, whole grains, and vegetables.";
+                dietrecommendation2 = "Calories: 14,000–17,500, Protein: 490–770 g, Carbs: 1,750–2,450 g, Fat: 420–630 g.";
             } else if (bmi < 30) {
                 dietrecommendation1 = "Calories: 1,800–2,300, Protein: 80–120 g, Carbs: 200–300 g, Fat: 50–80 g.";
-                dietrecommendation2 = "Include moderate portions of lean proteins and low-glycemic carbs.";
-                dietrecommendation3 = "Eat meals like roasted turkey, quinoa, and mixed greens.";
-                dietmotivation = "Healthy choices ensure you maintain balance and vitality!";
+                dietrecommendation3 = "Include moderate portions of lean proteins and low-glycemic carbs.";
+                dietrecommendation2 = "Calories: 12,600–16,100, Protein: 560–840 g, Carbs: 1,400–2,100 g, Fat: 350–560 g.";
             } else {
                 dietrecommendation1 = "Calories: 1,600–2,200, Protein: 90–130 g, Carbs: 150–250 g, Fat: 40–70 g.";
-                dietrecommendation2 = "Focus on whole foods, avoiding excess fats and sugars.";
-                dietrecommendation3 = "Choose meals like stir-fried tofu, broccoli, and brown rice.";
-                dietmotivation = "Mindful eating keeps you on track for maintaining wellness!";
+                dietrecommendation3 = "Focus on whole foods, avoiding excess fats and sugars.";
+                dietrecommendation2 = "Calories: 11,200–15,400, Protein: 630–910 g, Carbs: 1,050–1,750 g, Fat: 280–490 g.";
             }
         }
 
@@ -468,7 +459,47 @@ public class Home extends javax.swing.JPanel {
         meal_recommendation1.setText(dietrecommendation1);
         meal_recommendation2.setText(dietrecommendation2);
         meal_recommendation.setText(dietrecommendation3);
-        motivation_diet.setText(dietmotivation);
+    }
+
+    private void populateWeeks() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = LocalDate.of(2024, 12, 1);
+
+        ArrayList<String> weeklyRanges = new ArrayList<>();
+
+        while (startDate.isBefore(endDate)) {
+            LocalDate weekEnd = startDate.plusDays(6);
+            if (weekEnd.isAfter(endDate)) {
+                weekEnd = endDate;
+            }
+            String range = startDate.format(formatter) + " to " + weekEnd.format(formatter);
+            weeklyRanges.add(range);
+            startDate = startDate.plusWeeks(1);
+        }
+
+        for (String range : weeklyRanges) {
+            weeks_cbox.addItem(range);
+        }
+    }
+
+    private void showData() {
+        pieChart1.clearData();
+
+        String selectedWeek = (String) weeks_cbox.getSelectedItem();
+
+        if (selectedWeek != null) {
+            double calories = Math.random() * 15000 + 3500;
+            double protein = Math.random() * 400 + 600;
+            double carbohydrates = Math.random() * 1500 + 1000;
+            double fat = Math.random() * 400 + 200;
+
+            pieChart1.addData(new ModelPieChart("Calories", calories, new Color(83, 87, 166)));
+            pieChart1.addData(new ModelPieChart("Protein", protein, new Color(126, 148, 191)));
+            pieChart1.addData(new ModelPieChart("Carbs", carbohydrates, new Color(167, 203, 217)));
+            pieChart1.addData(new ModelPieChart("Fat", fat, new Color(216,225,229)));
+        }
+        pieChart1.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -531,11 +562,16 @@ public class Home extends javax.swing.JPanel {
         label_diet = new javax.swing.JLabel();
         meal_recommendation1 = new javax.swing.JLabel();
         meal_recommendation2 = new javax.swing.JLabel();
-        meal_recommendation = new javax.swing.JLabel();
+        label_diet1 = new javax.swing.JLabel();
+        label_diet2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        motivation_diet = new javax.swing.JLabel();
+        meal_recommendation = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         motivation_exercise = new javax.swing.JLabel();
+        piechart_panel = new Resources.components.PanelBorder();
+        weeks_cbox = new javax.swing.JComboBox<>();
+        pieChart1 = new Resources.components.PieChart();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -720,34 +756,34 @@ public class Home extends javax.swing.JPanel {
         label1.setForeground(new java.awt.Color(29, 22, 22));
         label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label1.setText("Body Mass Index (BMI):");
-        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 20));
+        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 170, 20));
 
         label2.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label2.setForeground(new java.awt.Color(29, 22, 22));
         label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label2.setText("Classification:");
-        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 170, 20));
+        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 170, 20));
 
         bmi_result.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         bmi_result.setForeground(new java.awt.Color(29, 22, 22));
         bmi_result.setText("(BMI)");
-        jPanel1.add(bmi_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 30, 170, 20));
+        jPanel1.add(bmi_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 170, 20));
 
         classification_result.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         classification_result.setForeground(new java.awt.Color(29, 22, 22));
         classification_result.setText("(classification)");
-        jPanel1.add(classification_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 60, 170, 20));
+        jPanel1.add(classification_result, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 170, 20));
 
         label3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label3.setForeground(new java.awt.Color(29, 22, 22));
         label3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label3.setText("Healthy Weight Range:");
-        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 20));
+        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 170, 20));
 
         healthy_range.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         healthy_range.setForeground(new java.awt.Color(29, 22, 22));
         healthy_range.setText("(healthy weight range)");
-        jPanel1.add(healthy_range, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 90, 170, 20));
+        jPanel1.add(healthy_range, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 170, 20));
 
         weight_needs.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         weight_needs.setForeground(new java.awt.Color(29, 22, 22));
@@ -766,27 +802,27 @@ public class Home extends javax.swing.JPanel {
 
         complete_exercise_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         complete_exercise_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/exercise-element-1.png"))); // NOI18N
-        complete_exercise_panel.add(complete_exercise_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        complete_exercise_panel.add(complete_exercise_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         exe_label2.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         exe_label2.setForeground(new java.awt.Color(255, 255, 255));
         exe_label2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exe_label2.setText("Exercises");
-        complete_exercise_panel.add(exe_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 90, 30));
+        complete_exercise_panel.add(exe_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 90, 30));
 
         execompleted_label.setFont(new java.awt.Font("Cascadia Mono", 1, 28)); // NOI18N
         execompleted_label.setForeground(new java.awt.Color(255, 255, 255));
         execompleted_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         execompleted_label.setText("(Number)");
-        complete_exercise_panel.add(execompleted_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 150, 40));
+        complete_exercise_panel.add(execompleted_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 150, 60));
 
         exe_label3.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         exe_label3.setForeground(new java.awt.Color(255, 255, 255));
         exe_label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exe_label3.setText("Completed");
-        complete_exercise_panel.add(exe_label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 90, 30));
+        complete_exercise_panel.add(exe_label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 90, 30));
 
-        home_background.add(complete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, 130));
+        home_background.add(complete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, 160));
 
         complete_meal_panel.setBackground(new java.awt.Color(142, 167, 233));
         complete_meal_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -795,25 +831,25 @@ public class Home extends javax.swing.JPanel {
         exeincomplete_label.setForeground(new java.awt.Color(242, 242, 242));
         exeincomplete_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exeincomplete_label.setText("(Number)");
-        complete_meal_panel.add(exeincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 150, 40));
+        complete_meal_panel.add(exeincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 150, 60));
 
         jLabel11.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(242, 242, 242));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Exercises");
-        complete_meal_panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 100, 30));
+        complete_meal_panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 100, 30));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-exercise-icon.png"))); // NOI18N
-        complete_meal_panel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        complete_meal_panel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(242, 242, 242));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Incomplete");
-        complete_meal_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 100, 30));
+        complete_meal_panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 100, 30));
 
-        home_background.add(complete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 180, 130));
+        home_background.add(complete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 180, 160));
 
         complete_note_panel.setBackground(new java.awt.Color(190, 205, 242));
         complete_note_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -821,7 +857,7 @@ public class Home extends javax.swing.JPanel {
         exercise_recommendation1.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         exercise_recommendation1.setForeground(new java.awt.Color(102, 102, 102));
         exercise_recommendation1.setText("(recommendation)");
-        complete_note_panel.add(exercise_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 470, -1));
+        complete_note_panel.add(exercise_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 470, -1));
 
         exercise_recommendation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
         exercise_recommendation.setForeground(new java.awt.Color(51, 51, 51));
@@ -832,14 +868,14 @@ public class Home extends javax.swing.JPanel {
         exercise_recommendation2.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
         exercise_recommendation2.setForeground(new java.awt.Color(102, 102, 102));
         exercise_recommendation2.setText("(recommendation)");
-        complete_note_panel.add(exercise_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 470, -1));
+        complete_note_panel.add(exercise_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 470, -1));
 
         label_exercise.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label_exercise.setForeground(new java.awt.Color(51, 51, 51));
-        label_exercise.setText("Recommended for you:");
-        complete_note_panel.add(label_exercise, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, 500, 20));
+        label_exercise.setText("Recommendations:");
+        complete_note_panel.add(label_exercise, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 500, 20));
 
-        home_background.add(complete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 530, 100));
+        home_background.add(complete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 530, 130));
 
         incomplete_exercise_panel.setBackground(new java.awt.Color(190, 205, 242));
         incomplete_exercise_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -848,25 +884,25 @@ public class Home extends javax.swing.JPanel {
         meal_label1.setForeground(new java.awt.Color(102, 102, 102));
         meal_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         meal_label1.setText("Completed");
-        incomplete_exercise_panel.add(meal_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 30));
+        incomplete_exercise_panel.add(meal_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 80, 30));
 
         meal_label2.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         meal_label2.setForeground(new java.awt.Color(102, 102, 102));
         meal_label2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         meal_label2.setText("Meals");
-        incomplete_exercise_panel.add(meal_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 30));
+        incomplete_exercise_panel.add(meal_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 80, 30));
 
         mealcompleted_label.setFont(new java.awt.Font("Cascadia Mono", 1, 28)); // NOI18N
         mealcompleted_label.setForeground(new java.awt.Color(102, 102, 102));
         mealcompleted_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mealcompleted_label.setText("(Number)");
-        incomplete_exercise_panel.add(mealcompleted_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 150, 40));
+        incomplete_exercise_panel.add(mealcompleted_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 150, 60));
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/meal-element1.png"))); // NOI18N
-        incomplete_exercise_panel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+        incomplete_exercise_panel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
 
-        home_background.add(incomplete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 170, 130));
+        home_background.add(incomplete_exercise_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 170, 160));
 
         incomplete_meal_panel.setBackground(new java.awt.Color(142, 167, 233));
         incomplete_meal_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -875,63 +911,67 @@ public class Home extends javax.swing.JPanel {
         mealincomplete_label.setForeground(new java.awt.Color(246, 246, 246));
         mealincomplete_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mealincomplete_label.setText("(Number)");
-        incomplete_meal_panel.add(mealincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 150, 50));
+        incomplete_meal_panel.add(mealincomplete_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 150, 60));
 
         jLabel14.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(246, 246, 246));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Incomplete");
-        incomplete_meal_panel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
+        incomplete_meal_panel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
         jLabel13.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(246, 246, 246));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Meals");
-        incomplete_meal_panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 30));
+        incomplete_meal_panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 80, 30));
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/incomplete-meal-icon.png"))); // NOI18N
-        incomplete_meal_panel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        incomplete_meal_panel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
-        home_background.add(incomplete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 180, 130));
+        home_background.add(incomplete_meal_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 180, 160));
 
         incomplete_note_panel.setBackground(new java.awt.Color(114, 134, 211));
         incomplete_note_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         label_diet.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         label_diet.setForeground(new java.awt.Color(255, 255, 255));
-        label_diet.setText("Recommended for you:");
-        incomplete_note_panel.add(label_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, 500, 20));
+        label_diet.setText("Recommendations:");
+        incomplete_note_panel.add(label_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 500, 20));
 
-        meal_recommendation1.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        meal_recommendation1.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         meal_recommendation1.setForeground(new java.awt.Color(255, 255, 255));
         meal_recommendation1.setText("(recommendation)");
-        incomplete_note_panel.add(meal_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 470, -1));
+        incomplete_note_panel.add(meal_recommendation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 50, 500, 30));
 
-        meal_recommendation2.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        meal_recommendation2.setFont(new java.awt.Font("Cascadia Mono", 0, 10)); // NOI18N
         meal_recommendation2.setForeground(new java.awt.Color(255, 255, 255));
         meal_recommendation2.setText("(recommendation)");
-        incomplete_note_panel.add(meal_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 470, -1));
+        incomplete_note_panel.add(meal_recommendation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 95, 500, 30));
 
-        meal_recommendation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
-        meal_recommendation.setForeground(new java.awt.Color(255, 255, 255));
-        meal_recommendation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        meal_recommendation.setText("(recommendation)");
-        incomplete_note_panel.add(meal_recommendation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 520, 40));
+        label_diet1.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        label_diet1.setForeground(new java.awt.Color(255, 255, 255));
+        label_diet1.setText("Weekly:");
+        incomplete_note_panel.add(label_diet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 75, 500, 30));
 
-        home_background.add(incomplete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 530, 100));
+        label_diet2.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        label_diet2.setForeground(new java.awt.Color(255, 255, 255));
+        label_diet2.setText("Daily:");
+        incomplete_note_panel.add(label_diet2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 30, 500, 30));
+
+        home_background.add(incomplete_note_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, 530, 130));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        motivation_diet.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        motivation_diet.setForeground(new java.awt.Color(102, 102, 102));
-        motivation_diet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        motivation_diet.setText("(message)");
-        jPanel4.add(motivation_diet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 510, 30));
+        meal_recommendation.setFont(new java.awt.Font("Cascadia Mono", 1, 10)); // NOI18N
+        meal_recommendation.setForeground(new java.awt.Color(102, 102, 102));
+        meal_recommendation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        meal_recommendation.setText("(recommendation)");
+        jPanel4.add(meal_recommendation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 510, 30));
 
-        home_background.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 520, 40));
+        home_background.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 500, 520, 40));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
@@ -943,7 +983,24 @@ public class Home extends javax.swing.JPanel {
         motivation_exercise.setText("(message)");
         jPanel3.add(motivation_exercise, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 510, 30));
 
-        home_background.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 520, 40));
+        home_background.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 520, 40));
+
+        piechart_panel.setBackground(new java.awt.Color(224, 224, 255));
+        piechart_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        weeks_cbox.setBackground(new java.awt.Color(204, 204, 204));
+        weeks_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
+        piechart_panel.add(weeks_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, -1));
+
+        pieChart1.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
+        piechart_panel.add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 310, 260));
+
+        home_background.add(piechart_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 340, 310));
+
+        jLabel1.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Total Macronutrients Consumed by this Week");
+        home_background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, 340, -1));
 
         add(home_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
     }// </editor-fold>//GEN-END:initComponents
@@ -1062,6 +1119,7 @@ public class Home extends javax.swing.JPanel {
     private Resources.components.PanelBorder incomplete_exercise_panel;
     private Resources.components.PanelBorder incomplete_meal_panel;
     private Resources.components.PanelBorder incomplete_note_panel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1077,6 +1135,8 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label_diet;
+    private javax.swing.JLabel label_diet1;
+    private javax.swing.JLabel label_diet2;
     private javax.swing.JLabel label_exercise;
     private javax.swing.JLabel meal_label1;
     private javax.swing.JLabel meal_label2;
@@ -1085,11 +1145,12 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel meal_recommendation2;
     private javax.swing.JLabel mealcompleted_label;
     private javax.swing.JLabel mealincomplete_label;
-    private javax.swing.JLabel motivation_diet;
     private javax.swing.JLabel motivation_exercise;
     private javax.swing.JLabel motivation_label;
     private Resources.components.PanelBorder motivation_panel;
     private javax.swing.JLabel name_profile;
+    private Resources.components.PieChart pieChart1;
+    private Resources.components.PanelBorder piechart_panel;
     private Resources.components.PanelBorder profile_background;
     private javax.swing.JButton profile_delete_btn;
     private javax.swing.JButton profile_edit_btn;
@@ -1098,6 +1159,7 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JButton profile_security_btn;
     private javax.swing.JLabel user_profile_icon;
     private javax.swing.JLabel username_profile;
+    private javax.swing.JComboBox<String> weeks_cbox;
     private javax.swing.JLabel weight_needs;
     private javax.swing.JLabel weight_profile;
     // End of variables declaration//GEN-END:variables

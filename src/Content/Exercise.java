@@ -56,6 +56,9 @@ public class Exercise extends javax.swing.JPanel {
         name_cbox.addItem("--Choose the exercise--");
 
         switch (selectedType) {
+            case "Rest":
+                name_cbox.addItem("None");
+                break;
             case "Cardiovascular (Aerobic) Exercise":
                 name_cbox.addItem("Running");
                 name_cbox.addItem("Cycling");
@@ -285,7 +288,7 @@ public class Exercise extends javax.swing.JPanel {
 
         type_cbox.setBackground(new java.awt.Color(204, 204, 204));
         type_cbox.setFont(new java.awt.Font("Cascadia Mono", 0, 11)); // NOI18N
-        type_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose exercise type--", "Cardiovascular (Aerobic) Exercise", "Strength (Resistance) Training", "Flexibility Exercise", "Balance Exercise", "High-Intensity Interval Training (HIIT)", "Functional Fitness Training", "Mind-Body Exercises", "Sports and Recreational Activities" }));
+        type_cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Choose exercise type--", "Cardiovascular (Aerobic) Exercise", "Strength (Resistance) Training", "Flexibility Exercise", "Balance Exercise", "High-Intensity Interval Training (HIIT)", "Functional Fitness Training", "Mind-Body Exercises", "Sports and Recreational Activities", "Rest" }));
         activity_form_panel.add(type_cbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 20));
 
         label3.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
