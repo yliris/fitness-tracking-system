@@ -28,12 +28,13 @@ public class Guide extends javax.swing.JPanel {
         panelBorder8 = new Resources.components.PanelBorder();
         jLabel170 = new javax.swing.JLabel();
         panelBorder11 = new Resources.components.PanelBorder();
-        jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel218 = new javax.swing.JLabel();
+        jLabel219 = new javax.swing.JLabel();
         panelBorder9 = new Resources.components.PanelBorder();
         jLabel172 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -278,7 +279,14 @@ public class Guide extends javax.swing.JPanel {
         panelBorder14 = new Resources.components.PanelBorder();
         jLabel173 = new javax.swing.JLabel();
         foodgain_btn = new Resources.components.PanelBorder();
-        foodloss_btn = new Resources.components.PanelBorder();
+        panelBorder2 = new Resources.components.PanelBorder();
+        jLabel216 = new javax.swing.JLabel();
+        jLabel215 = new javax.swing.JLabel();
+        jLabel214 = new javax.swing.JLabel();
+        jLabel217 = new javax.swing.JLabel();
+        jLabel222 = new javax.swing.JLabel();
+        jLabel220 = new javax.swing.JLabel();
+        jLabel221 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -348,11 +356,6 @@ public class Guide extends javax.swing.JPanel {
         panelBorder11.setBackground(new java.awt.Color(114, 134, 211));
         panelBorder11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Developers:");
-        panelBorder11.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 210, 30));
-
         jLabel14.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Mendoza, Mark Jason");
@@ -377,6 +380,16 @@ public class Guide extends javax.swing.JPanel {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Mendoza, Ralph Chrysler John");
         panelBorder11.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 145, 210, 30));
+
+        jLabel218.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel218.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel218.setText("Developers:");
+        panelBorder11.add(jLabel218, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 210, 30));
+
+        jLabel219.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel219.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel219.setText("Developers:");
+        panelBorder11.add(jLabel219, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 210, 30));
 
         guide_home_panel.add(panelBorder11, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 30, 250, 180));
 
@@ -1459,34 +1472,60 @@ public class Guide extends javax.swing.JPanel {
             }
         });
         foodgain_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(foodgain_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 270, 280, 90));
 
-        foodloss_btn.setBackground(new java.awt.Color(142, 167, 233));
-        foodloss_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBorder2.setBackground(new java.awt.Color(114, 134, 211));
+        panelBorder2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                foodloss_btnMouseClicked(evt);
+                panelBorder2MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                foodloss_btnMouseEntered(evt);
+                panelBorder2MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                foodloss_btnMouseExited(evt);
+                panelBorder2MouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                foodloss_btnMousePressed(evt);
+                panelBorder2MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                foodloss_btnMouseReleased(evt);
+                panelBorder2MouseReleased(evt);
             }
         });
-        foodloss_btn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        guide_home_panel.add(foodloss_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 400, 280, 80));
+        panelBorder2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel216.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
+        jLabel216.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel216.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel216.setText("View More");
+        panelBorder2.add(jLabel216, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 160, 30));
+
+        foodgain_btn.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 160, 50));
+
+        jLabel215.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/breakfast-icon.png"))); // NOI18N
+        foodgain_btn.add(jLabel215, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLabel214.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/foods/greek yogurt parfait.png"))); // NOI18N
+        foodgain_btn.add(jLabel214, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+
+        jLabel217.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/lunch-icon.png"))); // NOI18N
+        foodgain_btn.add(jLabel217, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        jLabel222.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/foods/lentil soup.png"))); // NOI18N
+        foodgain_btn.add(jLabel222, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+
+        jLabel220.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/dinner-icon.png"))); // NOI18N
+        foodgain_btn.add(jLabel220, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        jLabel221.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/elements/foods/avocado toast with egg.png"))); // NOI18N
+        foodgain_btn.add(jLabel221, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        guide_home_panel.add(foodgain_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 290, 290, 210));
 
         add(guide_home_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 560));
     }// </editor-fold>//GEN-END:initComponents
 
     private void foodgain_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseClicked
-        new Food().setVisible(true);
+       
     }//GEN-LAST:event_foodgain_btnMouseClicked
 
     private void foodgain_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodgain_btnMouseEntered
@@ -1505,30 +1544,29 @@ public class Guide extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_foodgain_btnMouseReleased
 
-    private void foodloss_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodloss_btnMouseClicked
+    private void panelBorder2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBorder2MouseClicked
+        new Food().setVisible(true);
+    }//GEN-LAST:event_panelBorder2MouseClicked
 
-    private void foodloss_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodloss_btnMouseEntered
+    private void panelBorder2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBorder2MouseEntered
+        panelBorder2.setBackground(new Color(114,134,211));
+    }//GEN-LAST:event_panelBorder2MouseEntered
 
-    private void foodloss_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodloss_btnMouseExited
+    private void panelBorder2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBorder2MouseExited
+        panelBorder2.setBackground(new Color(83,108,201));
+    }//GEN-LAST:event_panelBorder2MouseExited
 
-    private void foodloss_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodloss_btnMousePressed
+    private void panelBorder2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBorder2MousePressed
+        panelBorder2.setBackground(new Color(53,77,171));
+    }//GEN-LAST:event_panelBorder2MousePressed
 
-    private void foodloss_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodloss_btnMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodloss_btnMouseReleased
+    private void panelBorder2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBorder2MouseReleased
+        panelBorder2.setBackground(new Color(114,134,211));
+    }//GEN-LAST:event_panelBorder2MouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Resources.components.PanelBorder foodgain_btn;
-    private Resources.components.PanelBorder foodloss_btn;
     private Resources.components.PanelBorder guide_home_panel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1658,7 +1696,16 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel211;
     private javax.swing.JLabel jLabel212;
     private javax.swing.JLabel jLabel213;
+    private javax.swing.JLabel jLabel214;
+    private javax.swing.JLabel jLabel215;
+    private javax.swing.JLabel jLabel216;
+    private javax.swing.JLabel jLabel217;
+    private javax.swing.JLabel jLabel218;
+    private javax.swing.JLabel jLabel219;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel220;
+    private javax.swing.JLabel jLabel221;
+    private javax.swing.JLabel jLabel222;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1721,7 +1768,6 @@ public class Guide extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
@@ -1769,6 +1815,7 @@ public class Guide extends javax.swing.JPanel {
     private Resources.components.PanelBorder panelBorder17;
     private Resources.components.PanelBorder panelBorder18;
     private Resources.components.PanelBorder panelBorder19;
+    private Resources.components.PanelBorder panelBorder2;
     private Resources.components.PanelBorder panelBorder20;
     private Resources.components.PanelBorder panelBorder21;
     private Resources.components.PanelBorder panelBorder22;

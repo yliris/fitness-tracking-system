@@ -41,7 +41,7 @@ public class AchievementFrame extends javax.swing.JFrame {
 
     public void checkExerciseAchievements(int completedCount) {
         AchievementClass[] exerciseAchievements = {
-            new AchievementClass("\"First Step!\"", "You completed your first five exercises! Keep going!", 1),
+            new AchievementClass("\"First Step!\"", "You completed your first five exercises! Keep going!", 5),
             new AchievementClass("\"Building Momentum!\"", "You’ve completed 10 exercises! Keep pushing yourself!", 20),
             new AchievementClass("\"Fitness Fanatic!\"", "20 exercises done! You’re making great progress!", 40),
             new AchievementClass("\"Energized Achiever!\"", "30 exercises completed! You’re unstoppable!", 60),
@@ -81,7 +81,7 @@ public class AchievementFrame extends javax.swing.JFrame {
 
     public void checkMealAchievements(int completedCount) {
         AchievementClass[] mealAchievements = {
-            new AchievementClass("\"Fueling Up!\"", "You completed your first five meals! Keep going!", 1),
+            new AchievementClass("\"Fueling Up!\"", "You completed your first five meals! Keep going!", 5),
             new AchievementClass("\"Nourishment Master!\"", "You’ve completed 10 meals! Stay consistent!", 20),
             new AchievementClass("\"Healthy Habits!\"", "20 meals completed! Amazing dedication!", 40),
             new AchievementClass("\"Energy Enthusiast!\"", "30 meals done! You’re on the right track!", 60),
